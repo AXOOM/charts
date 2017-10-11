@@ -4,7 +4,7 @@ summary: single container for AXOOM Portal App
 description: This mixin creates a single container for running an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's manifest into the Portal.
 
 mixin_parameters:
-  - APP_NAME
+  - APP_KEY
   - APP_MANIFEST
   - IMAGE
 
@@ -25,16 +25,16 @@ mixins:
   - feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
     version: <VERSION>
     parameters:
-      SERVICE_NAME: (APP_NAME)
+      SERVICE_NAME: (APP_KEY)
       IMAGE: (IMAGE)
 
 compose:
   - version: 3.2
     services:
-      (APP_NAME):
+      (APP_KEY):
         networks:
           - traefik_public
         tags:
           traefik.enable: 'true'
           traefik.docker.network: traefik_public
-          traefik.frontend.rule: Host:(APP_NAME).${PUBLIC_DOMAIN}
+          traefik.frontend.rule: Host:(APP_KEY).${PUBLIC_DOMAIN}
