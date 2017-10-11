@@ -1,0 +1,40 @@
+feed_uri: http://assets.axoom.cloud/mixins/axoom-portal-app.xml
+name: AXOOM Portal App Mixin
+summary: single container for AXOOM Portal App
+description: This mixin creates a single container for running an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's manifest into the Portal.
+
+mixin_parameters:
+  - APP_NAME
+  - APP_MANIFEST
+  - IMAGE
+
+external_environment:
+  required:
+    - PUBLIC_DOMAIN
+  optional:
+    - ASPNETCORE_ENVIRONMENT
+
+exported_environment:
+  APP_MANIFESTS: (APP_MANIFEST)
+
+dependencies:
+  http://assets.axoom.cloud/networks/traefik-public.xml:
+  http://assets.axoom.cloud/apps/portal.xml:
+
+mixins:
+  - feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
+    version: <VERSION>
+    parameters:
+      SERVICE_NAME: (APP_NAME)
+      IMAGE: (IMAGE)
+
+compose:
+  - version: 3.2
+    services:
+      (APP_NAME):
+        networks:
+          - traefik_public
+        tags:
+          traefik.enable: 'true'
+          traefik.docker.network: traefik_public
+          traefik.frontend.rule: Host:(APP_NAME).${PUBLIC_DOMAIN}

@@ -1,0 +1,37 @@
+feed_uri: http://assets.axoom.cloud/mixins/axoom-webservice.xml
+name: AXOOM Webservice Mixin
+summary: single container for AXOOM Webservice
+description: This mixin creates a single container for running an (usually ASP .NET Core-based) AXOOM Webservice.
+
+mixin_parameters:
+  - SERVICE_NAME
+  - IMAGE
+
+external_environment:
+  required:
+    - INTERNAL_DOMAIN
+  optional:
+    - ASPNETCORE_ENVIRONMENT
+
+dependencies:
+  http://assets.axoom.cloud/networks/traefik-internal.xml:
+
+mixins:
+  - feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
+    version: <VERSION>
+    parameters:
+      SERVICE_NAME: (SERVICE_NAME)
+      IMAGE: (IMAGE)
+
+compose:
+  - version: 3.2
+    services:
+      (SERVICE_NAME):
+        environment:
+          - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT-Production}
+        networks:
+          - traefik_internal
+        labels:
+          traefik.enable: 'true'
+          traefik.docker.network: traefik_internal
+          traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN}

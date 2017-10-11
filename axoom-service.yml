@@ -1,0 +1,22 @@
+feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
+name: AXOOM Service Mixin
+summary: single container for AXOOM Service
+description: This mixin creates a single container for running an (usually .NET Core-based) AXOOM Service.
+
+mixin_parameters:
+  - SERVICE_NAME
+  - IMAGE
+
+external_environment:
+  optional:
+    - LOG_LEVEL
+
+compose:
+  - version: 3.2
+    services:
+      (SERVICE_NAME):
+        restart: always
+        image: (IMAGE)
+        environment:
+          - LOGGING__LOGTARGETS__0__FORMAT=Gelf
+          - LOGGING__LOGTARGETS__0__LEVEL=${LOG_LEVEL-Information}

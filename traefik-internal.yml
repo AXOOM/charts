@@ -1,0 +1,11 @@
+feed_uri: http://assets.axoom.cloud/networks/traefik-internal.xml
+name: Traefik Internal Network
+summary: network for exposing via Traefik to AXOOM systems only
+description: Pulls in the shared "traefik_internal" Docker virtual network. This enables exposing a service via Traefik to AXOOM systems only.
+
+compose:
+  - version: 3.2
+    networks:
+      traefik_internal:
+        external:
+          name: traefik_internal
