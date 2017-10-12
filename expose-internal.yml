@@ -1,0 +1,25 @@
+feed_uri: http://assets.axoom.cloud/mixins/expose-internal.xml
+name: Expose Internal HTTP Mixin
+summary: expose service to internal HTTP traffic
+description: This mixin exposes a single service to internal HTTP traffic for management purposes.
+
+mixin_parameters:
+  - SERVICE_NAME
+
+external_environment:
+  required:
+    - INTERNAL_DOMAIN
+
+dependencies:
+  http://assets.axoom.cloud/networks/traefik-internal.xml:
+
+compose:
+  - version: 3.2
+    services:
+      (SERVICE_NAME):
+        networks:
+          - traefik_internal
+        tags:
+          traefik.enable: 'true'
+          traefik.docker.network: traefik_internal
+          traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN}

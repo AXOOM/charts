@@ -1,0 +1,25 @@
+feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
+name: Expose Public HTTP(S) Mixin
+summary: expose service to public HTTP(S) traffic
+description: This mixin exposes a single service to public HTTP(S) traffic.
+
+mixin_parameters:
+  - SERVICE_NAME
+
+external_environment:
+  required:
+    - PUBLIC_DOMAIN
+
+dependencies:
+  http://assets.axoom.cloud/networks/traefik-public.xml:
+
+compose:
+  - version: 3.2
+    services:
+      (SERVICE_NAME):
+        networks:
+          - traefik_public
+        tags:
+          traefik.enable: 'true'
+          traefik.docker.network: traefik_public
+          traefik.frontend.rule: Host:(SERVICE_NAME).${PUBLIC_DOMAIN}

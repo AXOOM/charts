@@ -10,6 +10,7 @@ mixin_parameters:
 external_environment:
   optional:
     - LOG_LEVEL
+    - ASPNETCORE_ENVIRONMENT
 
 compose:
   - version: 3.2
@@ -20,3 +21,4 @@ compose:
         environment:
           - LOGGING__LOGTARGETS__0__FORMAT=Gelf
           - LOGGING__LOGTARGETS__0__LEVEL=${LOG_LEVEL-Information}
+          - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT-Production}
