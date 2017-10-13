@@ -4,12 +4,12 @@ summary: single container for AXOOM Portal App
 description: This mixin creates a single container for running an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's manifest into the Portal.
 
 mixin_parameters:
-  - APP_KEY
-  - APP_MANIFEST
+  - APPKEY
+  - MANIFEST
   - IMAGE
 
 exported_environment:
-  APP_MANIFESTS: (APP_MANIFEST)
+  APPS: (MANIFEST)
 
 dependencies:
   http://assets.axoom.cloud/apps/portal.xml:
@@ -18,12 +18,12 @@ mixins:
   - feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
     version: <VERSION>
     parameters:
-      SERVICE_NAME: (APP_KEY)
+      SERVICE_NAME: (APPKEY)
       IMAGE: (IMAGE)
   - feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
     version: <VERSION>
     parameters:
-      SERVICE_NAME: (APP_KEY)
+      SERVICE_NAME: (APPKEY)
 
 compose:
   - version: 3.2
