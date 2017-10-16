@@ -5,12 +5,12 @@ description: This mixin creates a single container for running an (usually ASP .
 
 mixin_parameters:
   - APPKEY
-  - MANIFEST
+  - PORTAL_APP
   - DOCKER_REGISTRY
   - VERSION
 
 exported_environment:
-  APPS: (MANIFEST)
+  PORTAL_APPS: (PORTAL_APP)
 
 dependencies:
   http://assets.axoom.cloud/apps/portal.xml:
