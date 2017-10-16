@@ -6,11 +6,15 @@ description: This mixin creates a single container for running an (usually .NET 
 mixin_parameters:
   - SERVICE_NAME
   - IMAGE
+  - IDENTITY_CLIENTS
 
 external_environment:
   optional:
     - LOG_LEVEL
     - ASPNETCORE_ENVIRONMENT
+
+exported_environment:
+  IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
 
 compose:
   - version: 3.2
