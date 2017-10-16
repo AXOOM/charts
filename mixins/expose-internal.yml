@@ -17,6 +17,8 @@ compose:
   - version: 3.2
     services:
       (SERVICE_NAME):
+        environment:
+          INTERNAL_DOMAIN: ${INTERNAL_DOMAIN}
         networks:
           - traefik_internal
         tags:
