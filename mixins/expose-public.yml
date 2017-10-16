@@ -21,5 +21,12 @@ compose:
           - traefik_public
         tags:
           traefik.enable: 'true'
+          traefik.tags: public
           traefik.docker.network: traefik_public
           traefik.frontend.rule: Host:(SERVICE_NAME).${PUBLIC_DOMAIN}
+        deploy:
+          tags:
+            traefik.enable: 'true'
+            traefik.tags: public
+            traefik.docker.network: traefik_public
+            traefik.frontend.rule: Host:(SERVICE_NAME).${PUBLIC_DOMAIN}
