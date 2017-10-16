@@ -9,6 +9,9 @@ mixin_parameters:
   - IDENTITY_CLIENTS
 
 external_environment:
+  required:
+    - PUBLIC_DOMAIN
+    - PROTOCOL
   optional:
     - LOG_LEVEL
     - ASPNETCORE_ENVIRONMENT
@@ -23,6 +26,7 @@ compose:
         restart: always
         image: (IMAGE)
         environment:
+          IDENTITY_SERVER_URI: ${PROTOCOL}://identity.${PUBLIC_DOMAIN}
           LOGGING__LOGTARGETS__0__FORMAT: Gelf
           LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
           ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT-Production}
