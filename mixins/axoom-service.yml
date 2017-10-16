@@ -6,7 +6,6 @@ description: This mixin creates a single container for running an (usually .NET 
 mixin_parameters:
   - SERVICE_NAME
   - IMAGE
-  - IDENTITY_CLIENTS
 
 external_environment:
   required:
@@ -16,9 +15,6 @@ external_environment:
     - LOG_LEVEL
     - ASPNETCORE_ENVIRONMENT
 
-exported_environment:
-  IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
-
 compose:
   - version: 3.2
     services:
@@ -26,7 +22,6 @@ compose:
         restart: always
         image: (IMAGE)
         environment:
-          IDENTITY_SERVER_URI: ${PROTOCOL}://identity.${PUBLIC_DOMAIN}
           LOGGING__LOGTARGETS__0__FORMAT: Gelf
           LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
           ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT-Production}
