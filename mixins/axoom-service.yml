@@ -23,6 +23,6 @@ compose:
         restart: always
         image: (IMAGE)
         environment:
-          - LOGGING__LOGTARGETS__0__FORMAT=Gelf
-          - LOGGING__LOGTARGETS__0__LEVEL=${LOG_LEVEL-Information}
-          - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT-Production}
+          LOGGING__LOGTARGETS__0__FORMAT: Gelf
+          LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
+          ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT-Production}
