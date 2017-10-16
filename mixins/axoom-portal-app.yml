@@ -22,6 +22,10 @@ mixins:
     parameters:
       SERVICE_NAME: (APPKEY)
       IMAGE: (DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)
+  - feed_uri: http://assets.axoom.cloud/mixins/axoom-identity-client.xml
+    version: <VERSION> # Always released with in-sync versions
+    parameters:
+      SERVICE_NAME: (APPKEY)
       IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
   - feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
     version: <VERSION> # Always released with in-sync versions
