@@ -12,6 +12,8 @@ external_environment:
   required:
     - PUBLIC_DOMAIN
     - PROTOCOL
+  optional:
+    - SUBDOMAIN_CUSTOMER_SEPARATOR
 
 exported_environment:
   IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
@@ -22,4 +24,4 @@ compose:
       (SERVICE_NAME):
         restart: always
         environment:
-          IDENTITY_SERVER_URI: ${PROTOCOL}://identity.${PUBLIC_DOMAIN}
+          IDENTITY_SERVER_URI: ${PROTOCOL}://identity${SUBDOMAIN_CUSTOMER_SEPARATOR-.}${PUBLIC_DOMAIN}

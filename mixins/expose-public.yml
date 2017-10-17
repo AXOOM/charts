@@ -9,6 +9,8 @@ mixin_parameters:
 external_environment:
   required:
     - PUBLIC_DOMAIN
+  optional:
+    - SUBDOMAIN_CUSTOMER_SEPARATOR
 
 dependencies:
   http://assets.axoom.cloud/networks/traefik-public.xml:
@@ -23,10 +25,10 @@ compose:
           traefik.enable: 'true'
           traefik.tags: public
           traefik.docker.network: traefik_public
-          traefik.frontend.rule: Host:(SERVICE_NAME).${PUBLIC_DOMAIN}
+          traefik.frontend.rule: Host:(SERVICE_NAME)${SUBDOMAIN_CUSTOMER_SEPARATOR-.}${PUBLIC_DOMAIN}
         deploy:
           tags:
             traefik.enable: 'true'
             traefik.tags: public
             traefik.docker.network: traefik_public
-            traefik.frontend.rule: Host:(SERVICE_NAME).${PUBLIC_DOMAIN}
+            traefik.frontend.rule: Host:(SERVICE_NAME)${SUBDOMAIN_CUSTOMER_SEPARATOR-.}${PUBLIC_DOMAIN}
