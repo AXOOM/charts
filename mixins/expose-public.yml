@@ -9,7 +9,7 @@ mixin_parameters:
 external_environment:
   required:
     - PUBLIC_DOMAIN
-  optional:
+    - PROTOCOL
     - SUBDOMAIN_CUSTOMER_SEPARATOR
 
 dependencies:
@@ -19,6 +19,9 @@ compose:
   - version: 3.2
     services:
       (SERVICE_NAME):
+        environment:
+          PUBLIC_URI: ${PROTOCOL}://(SERVICE_NAME).${PUBLIC_DOMAIN}
+          PORTAL_BASE_URI: ${PROTOCOL}://${PUBLIC_DOMAIN}
         networks:
           - traefik_public
         tags:
