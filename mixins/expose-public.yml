@@ -9,6 +9,7 @@ mixin_parameters:
 external_environment:
   required:
     - PUBLIC_DOMAIN
+    - PROTOCOL
 
 dependencies:
   http://assets.axoom.cloud/networks/traefik-public.xml:
@@ -18,7 +19,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          PUBLIC_DOMAIN: (SERVICE_NAME).${PUBLIC_DOMAIN}
+          PUBLIC_URI: ${PROTOCOL}://(SERVICE_NAME).${PUBLIC_DOMAIN}
         networks:
           - traefik_public
         tags:
