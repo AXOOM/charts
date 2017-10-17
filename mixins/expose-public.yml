@@ -10,6 +10,7 @@ external_environment:
   required:
     - PUBLIC_DOMAIN
     - PROTOCOL
+  optional:
     - SUBDOMAIN_CUSTOMER_SEPARATOR
 
 dependencies:
