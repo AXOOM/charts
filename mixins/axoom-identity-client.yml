@@ -1,0 +1,27 @@
+feed_uri: http://assets.axoom.cloud/mixins/axoom-identity-client.xml
+name: AXOOM Service Mixin
+summary: Adds config for clients of the Identity Server
+description: 'This mixin adds config for clients of the Identity Server: 
+Sets IDENTITY_SERVER_URI environment varialbe to the service (SERVICE_NAME) and enforces the export of IDENTITY_CLIENTS'
+
+mixin_parameters:
+  - SERVICE_NAME
+  - IDENTITY_CLIENTS
+
+external_environment:
+  required:
+    - PUBLIC_DOMAIN
+    - PROTOCOL
+  optional:
+    - SUBDOMAIN_CUSTOMER_SEPARATOR
+
+exported_environment:
+  IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
+
+compose:
+  - version: 3.2
+    services:
+      (SERVICE_NAME):
+        restart: always
+        environment:
+          IDENTITY_SERVER_URI: ${PROTOCOL}://identity${SUBDOMAIN_CUSTOMER_SEPARATOR-.}${PUBLIC_DOMAIN}
