@@ -19,7 +19,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          INTERNAL_URI: ${PROTOCOL}://(SERVICE_NAME).${INTERNAL_DOMAIN}
+          INTERNAL_URI: http://(SERVICE_NAME).${INTERNAL_DOMAIN}
         networks:
           - traefik_internal
         tags:
