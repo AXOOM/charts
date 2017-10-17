@@ -11,7 +11,7 @@ external_environment:
     - PUBLIC_DOMAIN
     - PROTOCOL
   optional:
-    - SUBDOMAIN_CUSTOMER_SEPARATOR
+    - SUBDOMAIN_SERVICE_NAME_SEPARATOR
 
 dependencies:
   http://assets.axoom.cloud/networks/traefik-public.xml:
@@ -21,7 +21,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          PUBLIC_URI: ${PROTOCOL}://(SERVICE_NAME)${SUBDOMAIN_CUSTOMER_SEPARATOR-.}${PUBLIC_DOMAIN}
+          PUBLIC_URI: ${PROTOCOL}://(SERVICE_NAME)${SUBDOMAIN_SERVICE_NAME_SEPARATOR-.}${PUBLIC_DOMAIN}
           PORTAL_BASE_URI: ${PROTOCOL}://${PUBLIC_DOMAIN}
         networks:
           - traefik_public
@@ -29,10 +29,10 @@ compose:
           traefik.enable: 'true'
           traefik.tags: public
           traefik.docker.network: traefik_public
-          traefik.frontend.rule: Host:(SERVICE_NAME)${SUBDOMAIN_CUSTOMER_SEPARATOR-.}${PUBLIC_DOMAIN}
+          traefik.frontend.rule: Host:(SERVICE_NAME)${SUBDOMAIN_SERVICE_NAME_SEPARATOR-.}${PUBLIC_DOMAIN}
         deploy:
           tags:
             traefik.enable: 'true'
             traefik.tags: public
             traefik.docker.network: traefik_public
-            traefik.frontend.rule: Host:(SERVICE_NAME)${SUBDOMAIN_CUSTOMER_SEPARATOR-.}${PUBLIC_DOMAIN}
+            traefik.frontend.rule: Host:(SERVICE_NAME)${SUBDOMAIN_SERVICE_NAME_SEPARATOR-.}${PUBLIC_DOMAIN}
