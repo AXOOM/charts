@@ -18,7 +18,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          INTERNAL_DOMAIN: ${INTERNAL_DOMAIN}
+          INTERNAL_DOMAIN: (SERVICE_NAME).${INTERNAL_DOMAIN}
         networks:
           - traefik_internal
         tags:
