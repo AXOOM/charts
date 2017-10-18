@@ -8,9 +8,6 @@ mixin_parameters:
   - IMAGE
 
 external_environment:
-  required:
-    - PUBLIC_PROTOCOL
-    - PUBLIC_DOMAIN
   optional:
     - LOG_LEVEL
     - ASPNETCORE_ENVIRONMENT
