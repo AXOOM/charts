@@ -9,8 +9,9 @@ mixin_parameters:
 
 external_environment:
   required:
-    - PUBLIC_PROTOCOL
     - PUBLIC_DOMAIN
+  optional:
+    - PUBLIC_PROTOCOL
     - PUBLIC_SUBDOMAIN_SEPARATOR
 
 exported_environment:
@@ -21,4 +22,4 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          IDENTITY_SERVER_URI: ${PUBLIC_PROTOCOL}://identity${PUBLIC_SUBDOMAIN_SEPARATOR}${PUBLIC_DOMAIN}
+          IDENTITY_SERVER_URI: ${PUBLIC_PROTOCOL-https}://identity${PUBLIC_SUBDOMAIN_SEPARATOR--}${PUBLIC_DOMAIN}

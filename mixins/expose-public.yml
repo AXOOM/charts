@@ -9,8 +9,9 @@ mixin_parameters:
 external_environment:
   required:
     - INTERNAL_DOMAIN
-    - PUBLIC_PROTOCOL
     - PUBLIC_DOMAIN
+  optional:
+    - PUBLIC_PROTOCOL
     - PUBLIC_SUBDOMAIN_SEPARATOR
 
 dependencies:
@@ -21,7 +22,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          PUBLIC_URI: ${PUBLIC_PROTOCOL}://(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR}${PUBLIC_DOMAIN}
+          PUBLIC_URI: ${PUBLIC_PROTOCOL-https}://(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR--}${PUBLIC_DOMAIN}
         networks:
           - traefik_public
         deploy:

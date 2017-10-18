@@ -12,8 +12,9 @@ mixin_parameters:
 
 external_environment:
   required:
-    - PUBLIC_PROTOCOL
     - PUBLIC_DOMAIN
+  optional:
+    - PUBLIC_PROTOCOL
 
 exported_environment:
   PORTAL_APPS: (PORTAL_APP)
@@ -42,4 +43,4 @@ compose:
     services:
       (APPKEY):
         environment:
-          PORTAL_BASE_URI: ${PUBLIC_PROTOCOL}://${PUBLIC_DOMAIN}
+          PORTAL_BASE_URI: ${PUBLIC_PROTOCOL-https}://${PUBLIC_DOMAIN}
