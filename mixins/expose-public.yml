@@ -8,6 +8,7 @@ mixin_parameters:
 
 external_environment:
   required:
+    - INTERNAL_DOMAIN
     - PUBLIC_PROTOCOL
     - PUBLIC_DOMAIN
     - PUBLIC_SUBDOMAIN_SEPARATOR
@@ -23,14 +24,9 @@ compose:
           PUBLIC_URI: ${PUBLIC_PROTOCOL}://(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR}${PUBLIC_DOMAIN}
         networks:
           - traefik_public
-        tags:
-          traefik.enable: 'true'
-          traefik.tags: public
-          traefik.docker.network: traefik_public
-          traefik.frontend.rule: Host:(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR}${PUBLIC_DOMAIN}
         deploy:
           tags:
             traefik.enable: 'true'
             traefik.tags: public
             traefik.docker.network: traefik_public
-            traefik.frontend.rule: Host:(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR}${PUBLIC_DOMAIN}
+            traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN}
