@@ -9,7 +9,6 @@ mixin_parameters:
 external_environment:
   required:
     - INTERNAL_DOMAIN
-    - PROTOCOL
 
 dependencies:
   http://assets.axoom.cloud/networks/traefik-internal.xml:

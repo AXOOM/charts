@@ -8,8 +8,8 @@ mixin_parameters:
 
 external_environment:
   required:
+    - PUBLIC_PROTOCOL
     - PUBLIC_DOMAIN
-    - PROTOCOL
   optional:
     - SUBDOMAIN_SERVICE_NAME_SEPARATOR
 
@@ -21,7 +21,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          PUBLIC_URI: ${PROTOCOL}://(SERVICE_NAME)${SUBDOMAIN_SERVICE_NAME_SEPARATOR-.}${PUBLIC_DOMAIN}
+          PUBLIC_URI: ${PUBLIC_PROTOCOL}://(SERVICE_NAME)${SUBDOMAIN_SERVICE_NAME_SEPARATOR-.}${PUBLIC_DOMAIN}
         networks:
           - traefik_public
         tags:

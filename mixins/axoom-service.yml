@@ -9,8 +9,8 @@ mixin_parameters:
 
 external_environment:
   required:
+    - PUBLIC_PROTOCOL
     - PUBLIC_DOMAIN
-    - PROTOCOL
   optional:
     - LOG_LEVEL
     - ASPNETCORE_ENVIRONMENT
