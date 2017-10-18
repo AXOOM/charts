@@ -6,7 +6,7 @@ description: This mixin creates a single container for running an (usually ASP .
 mixin_parameters:
   - APPKEY
   - PORTAL_APP
-  - IDENTITY_CLIENTS
+  - IDENTITY_CLIENT
   - DOCKER_REGISTRY
   - VERSION
 
@@ -26,7 +26,7 @@ mixins:
     version: <VERSION> # Always released with in-sync versions
     parameters:
       SERVICE_NAME: (APPKEY)
-      IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
+      IDENTITY_CLIENT: (IDENTITY_CLIENT)
   - feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
     version: <VERSION> # Always released with in-sync versions
     parameters:

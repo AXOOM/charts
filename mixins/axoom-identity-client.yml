@@ -5,7 +5,7 @@ description: This mixin adds config for clients of the Identity Server: Sets IDE
 
 mixin_parameters:
   - SERVICE_NAME
-  - IDENTITY_CLIENTS
+  - IDENTITY_CLIENT
 
 external_environment:
   required:
@@ -15,7 +15,7 @@ external_environment:
     - SUBDOMAIN_SERVICE_NAME_SEPARATOR
 
 exported_environment:
-  IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
+  IDENTITY_CLIENTS: (IDENTITY_CLIENT)
 
 compose:
   - version: '3.2'
