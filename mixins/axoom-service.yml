@@ -19,7 +19,6 @@ compose:
   - version: '3.2'
     services:
       (SERVICE_NAME):
-        restart: always
         image: (IMAGE)
         environment:
           LOGGING__LOGTARGETS__0__FORMAT: Gelf
