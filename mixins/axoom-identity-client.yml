@@ -18,7 +18,7 @@ exported_environment:
   IDENTITY_CLIENTS: (IDENTITY_CLIENTS)
 
 compose:
-  - version: 3.2
+  - version: '3.2'
     services:
       (SERVICE_NAME):
         restart: always

@@ -15,7 +15,7 @@ dependencies:
   http://assets.axoom.cloud/networks/traefik-internal.xml:
 
 compose:
-  - version: 3.2
+  - version: '3.2'
     services:
       (SERVICE_NAME):
         environment:

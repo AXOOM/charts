@@ -4,7 +4,7 @@ summary: network for exposing via Traefik to the open internet
 description: Pulls in the shared "traefik_public" Docker virtual network. This enables exposing a service via Traefik to the open internet.
 
 compose:
-  - version: 3.2
+  - version: '3.2'
     networks:
       traefik_public:
         external: true
