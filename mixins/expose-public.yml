@@ -22,7 +22,6 @@ compose:
       (SERVICE_NAME):
         environment:
           PUBLIC_URI: ${PROTOCOL}://(SERVICE_NAME)${SUBDOMAIN_SERVICE_NAME_SEPARATOR-.}${PUBLIC_DOMAIN}
-          PORTAL_BASE_URI: ${PROTOCOL}://${PUBLIC_DOMAIN}
         networks:
           - traefik_public
         tags:

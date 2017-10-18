@@ -10,6 +10,11 @@ mixin_parameters:
   - DOCKER_REGISTRY
   - VERSION
 
+external_environment:
+  required:
+    - PUBLIC_DOMAIN
+    - PROTOCOL
+
 exported_environment:
   PORTAL_APPS: (PORTAL_APP)
 
@@ -34,3 +39,7 @@ mixins:
 
 compose:
   - version: '3.2'
+    services:
+      (APPKEY):
+        environment:
+          PORTAL_BASE_URI: ${PROTOCOL}://${PUBLIC_DOMAIN}
