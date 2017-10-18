@@ -21,11 +21,6 @@ compose:
           INTERNAL_URI: http://(SERVICE_NAME).${INTERNAL_DOMAIN}
         networks:
           - traefik_internal
-        tags:
-          traefik.enable: 'true'
-          traefik.tags: internal
-          traefik.docker.network: traefik_internal
-          traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN} # central nginx will translate this to the public domain name
         deploy:
           tags:
             traefik.enable: 'true'
