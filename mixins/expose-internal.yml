@@ -22,7 +22,7 @@ compose:
         networks:
           - traefik_internal
         deploy:
-          tags:
+          labels:
             traefik.enable: 'true'
             traefik.tags: internal
             traefik.docker.network: traefik_internal
