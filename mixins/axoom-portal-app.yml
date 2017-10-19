@@ -11,37 +11,20 @@ mixin_parameters:
   - DOCKER_REGISTRY
   - VERSION
 
-external_environment:
-  required:
-    - PUBLIC_DOMAIN
-  optional:
-    - PUBLIC_PROTOCOL
-
-exported_environment:
-  PORTAL_APPS: (PORTAL_APP)
-
-dependencies:
-  http://assets.axoom.cloud/services/portal.xml:
-
 mixins:
-  - feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
+  - feed_uri: http://assets.axoom.cloud/mixins/axoom-portal-service.xml
     version: <VERSION> # Always released with in-sync versions
     parameters:
       SERVICE_NAME: (APPKEY)
-      IMAGE: (DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)
+      PORTAL_APP: (PORTAL_APP)
   - feed_uri: http://assets.axoom.cloud/mixins/axoom-identity-client.xml
     version: <VERSION> # Always released with in-sync versions
     parameters:
       SERVICE_NAME: (APPKEY)
       IDENTITY_CLIENT: (IDENTITY_CLIENT)
-  - feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
-    version: <VERSION> # Always released with in-sync versions
-    parameters:
-      SERVICE_NAME: (APPKEY)
 
 compose:
   - version: '3.2'
     services:
       (APPKEY):
-        environment:
-          PORTAL_BASE_URI: ${PUBLIC_PROTOCOL-https}://${PUBLIC_DOMAIN}
+        image: (DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)
