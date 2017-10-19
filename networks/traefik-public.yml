@@ -2,6 +2,7 @@ feed_uri: http://assets.axoom.cloud/networks/traefik-public.xml
 name: Traefik Public Network
 summary: network for exposing via Traefik to the open internet
 description: Pulls in the shared "traefik_public" Docker virtual network. This enables exposing a service via Traefik to the open internet.
+homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
 
 compose:
   - version: '3.2'

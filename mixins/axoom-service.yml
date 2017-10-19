@@ -2,6 +2,7 @@ feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
 name: AXOOM Service Mixin
 summary: single container for AXOOM Service
 description: This mixin creates a single container for running an (usually .NET Core-based) AXOOM Service.
+homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
 
 mixin_parameters:
   - SERVICE_NAME
