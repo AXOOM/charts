@@ -1,0 +1,10 @@
+feed_uri: http://assets.axoom.cloud/networks/ssh-jump.xml
+name: SSH Network
+summary: network for exposing via SSH Jump Host
+description: Pulls in the shared "ssh_jump" Docker virtual network. This enables exposing a service via SSH Jump Host.
+
+compose:
+  - version: '3.2'
+    networks:
+      ssh_jump:
+        external: true
