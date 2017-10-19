@@ -8,6 +8,8 @@ homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseA
 mixin_parameters:
   - SERVICE_NAME
   - PORTAL_APP
+  - VERSION
+  - DOCKER_REGISTRY
 
 external_environment:
   required:

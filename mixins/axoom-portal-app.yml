@@ -17,6 +17,8 @@ mixins:
     parameters:
       SERVICE_NAME: (APPKEY)
       PORTAL_APP: (PORTAL_APP)
+      DOCKER_REGISTRY: (DOCKER_REGISTRY)
+      VERSION: (VERSION)
   - feed_uri: http://assets.axoom.cloud/mixins/axoom-identity-client.xml
     version: <VERSION> # Always released with in-sync versions
     parameters:
