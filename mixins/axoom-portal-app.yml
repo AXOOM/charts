@@ -21,7 +21,7 @@ exported_environment:
   PORTAL_APPS: (PORTAL_APP)
 
 dependencies:
-  http://assets.axoom.cloud/apps/portal.xml:
+  http://assets.axoom.cloud/services/portal.xml:
 
 mixins:
   - feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
