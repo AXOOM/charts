@@ -37,6 +37,6 @@ mixins:
 compose:
   - version: '3.2'
     services:
-      (APPKEY):
+      (SERVICE_NAME):
         environment:
           PORTAL_BASE_URI: ${PUBLIC_PROTOCOL-https}://${PUBLIC_DOMAIN}
