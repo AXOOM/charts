@@ -1,0 +1,42 @@
+feed_uri: http://assets.axoom.cloud/mixins/axoom-portal-service.xml
+name: AXOOM Portal Component Mixin
+summary: single container for a AXOOM Portal service (usually app backend)
+description: "This mixin creates a single container for running an (usually ASP .NET Core-based) AXOOM Portal service. 
+Injects the service's (app-) manifest into the Portal and exposes the service publicly under the given name"
+homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
+
+mixin_parameters:
+  - SERVICE_NAME
+  - PORTAL_APP
+  - VERSION
+  - DOCKER_REGISTRY
+
+external_environment:
+  required:
+    - PUBLIC_DOMAIN
+  optional:
+    - PUBLIC_PROTOCOL
+
+exported_environment:
+  PORTAL_APPS: (PORTAL_APP)
+
+dependencies:
+  http://assets.axoom.cloud/services/portal.xml:
+
+mixins:
+  - feed_uri: http://assets.axoom.cloud/mixins/axoom-service.xml
+    version: <VERSION> # Always released with in-sync versions
+    parameters:
+      SERVICE_NAME: (SERVICE_NAME)
+      IMAGE: (DOCKER_REGISTRY)/service/(SERVICE_NAME):(VERSION)
+  - feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
+    version: <VERSION> # Always released with in-sync versions
+    parameters:
+      SERVICE_NAME: (SERVICE_NAME)
+
+compose:
+  - version: '3.2'
+    services:
+      (SERVICE_NAME):
+        environment:
+          PORTAL_BASE_URI: ${PUBLIC_PROTOCOL-https}://${PUBLIC_DOMAIN}

@@ -22,13 +22,17 @@ things together in a predictable way.
     - For all containers that expose a service on standard for internal purpose, 
     like monitoring.
 - http://assets.axoom.cloud/mixins/axoom-service.xml
-    - For everything that is started from a docker image. Set some default 
+    - For everything that is started from a docker image. Sets some default 
     environment for .NET Core runtime.
+- http://assets.axoom.cloud/mixins/axoom-portal-service.xml
+    - For services running in the portal (typically app backends). 
+    - includes (and configures)
+        - http://assets.axoom.cloud/mixins/expose-public.xml
+        - http://assets.axoom.cloud/mixins/axoom-service.xml
 - http://assets.axoom.cloud/mixins/axoom-identity-client.xml
     - Every service that is (or defines) a client of the idenity server should use this.
 - http://assets.axoom.cloud/mixins/axoom-portal-app.xml
     - For all portal apps. 
     - includes (and configures)
-        - http://assets.axoom.cloud/mixins/axoom-service.xml
+        - http://assets.axoom.cloud/mixins/axoom-portal-service.xml
         - http://assets.axoom.cloud/mixins/axoom-identity-client.xml
-        - http://assets.axoom.cloud/mixins/expose-public.xml
