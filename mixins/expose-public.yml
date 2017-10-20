@@ -32,5 +32,5 @@ compose:
             traefik.enable: 'true'
             traefik.tags: public
             traefik.docker.network: traefik_public
-            traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN}
+            traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN} # central nginx will translate this to the public domain name
             traefik.port: '(PORT)'
