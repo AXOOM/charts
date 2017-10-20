@@ -6,6 +6,7 @@ homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseA
 
 mixin_parameters:
   - SERVICE_NAME
+  - PORT
 
 external_environment:
   required:
@@ -28,3 +29,4 @@ compose:
             traefik.tags: internal
             traefik.docker.network: traefik_internal
             traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN} # central nginx will translate this to the public domain name
+            traefik.port: '(PORT)'
