@@ -28,7 +28,7 @@ mixins:
     version: <VERSION> # Always released with in-sync versions
     parameters:
       SERVICE_NAME: (SERVICE_NAME)
-      IMAGE: (DOCKER_REGISTRY)/service/(SERVICE_NAME):(VERSION)
+      IMAGE: (DOCKER_REGISTRY)/services/(SERVICE_NAME):(VERSION)
   - feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
     version: <VERSION> # Always released with in-sync versions
     parameters:
