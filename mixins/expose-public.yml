@@ -1,7 +1,7 @@
 feed_uri: http://assets.axoom.cloud/mixins/expose-public.xml
 name: Expose Public HTTP(S) Mixin
 summary: expose service to public HTTP(S) traffic
-description: This mixin exposes a single service to public HTTP(S) traffic.
+description: This mixin exposes a service to public HTTP(S) traffic.
 homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
 
 mixin_parameters:

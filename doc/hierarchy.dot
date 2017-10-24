@@ -1,0 +1,36 @@
+digraph {
+	graph [fontname=Arial]
+    node [shape=box]
+    rankdir = LR;
+
+    subgraph cluster_templates {
+        label = "dotnet new Templates";
+
+        axxom_service_t [label="axoom-service"];
+        axoom_webservice_t [label="axoom-webservice"];
+        axoom_portal_app_t [label="axoom-portal-app"];
+    }
+
+    subgraph cluster_mixins {
+        label = "Mixins";
+
+        expose_ssh_jump [label="expose-ssh-jump"];
+        expose_internal [label="expose-internal"];
+        expose_public [label="expose-public"];
+        axoom_service [label="axoom-service"];
+        axoom_portal_app [label="axoom-portal-app"];
+    }
+
+    subgraph cluster_services {
+        label = "Services";
+
+        portal [label="portal"];
+        identity [label="identity"];
+    }
+
+    {axxom_service_t axoom_webservice_t} -> axoom_service;
+    axoom_webservice_t -> expose_internal;
+    axoom_portal_app -> expose_public;
+    axoom_portal_app_t -> axoom_portal_app;
+    axoom_portal_app -> portal -> identity;
+}

@@ -1,7 +1,7 @@
 feed_uri: http://assets.axoom.cloud/mixins/expose-ssh-jump.xml
-name: Expose SSH Mixin
+name: Expose SSH Jump Mixin
 summary: expose service via SSH Jump Host
-description: This mixin exposes a single service to traffic tunneled via an SSH Jump Host for management purposes.
+description: This mixin exposes a service to traffic tunneled via an SSH Jump Host for management purposes.
 
 mixin_parameters:
   - SERVICE_NAME

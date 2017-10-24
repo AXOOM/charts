@@ -1,7 +1,7 @@
 feed_uri: http://assets.axoom.cloud/mixins/expose-internal.xml
 name: Expose Internal HTTP Mixin
-summary: expose service to internal HTTP traffic
-description: This mixin exposes a single service to internal HTTP traffic for management purposes.
+summary: expose service to internal (management) HTTP traffic
+description: This mixin exposes a service to internal HTTP traffic for management purposes. Applies HTTP Basic Auth protection.
 homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
 
 mixin_parameters:
