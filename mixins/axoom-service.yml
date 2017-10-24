@@ -6,7 +6,8 @@ homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseA
 
 mixin_parameters:
   - SERVICE_NAME
-  - IMAGE
+  - DOCKER_REGISTRY
+  - VERSION
 
 external_environment:
   optional:
@@ -17,7 +18,7 @@ compose:
   - version: '3.2'
     services:
       (SERVICE_NAME):
-        image: (IMAGE)
+        image: (DOCKER_REGISTRY)/services/(SERVICE_NAME):(VERSION)
         environment:
           LOGGING__LOGTARGETS__0__FORMAT: Gelf
           LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
