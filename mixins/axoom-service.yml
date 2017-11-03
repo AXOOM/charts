@@ -23,3 +23,7 @@ compose:
           LOGGING__LOGTARGETS__0__FORMAT: Gelf
           LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
           ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT-Production}
+        deploy:
+          placement:
+            constraints:
+              - node.labels.worker == 1

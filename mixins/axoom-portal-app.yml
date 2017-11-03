@@ -41,4 +41,8 @@ compose:
           LOGGING__LOGTARGETS__0__FORMAT: Gelf
           LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
           PORTAL_BASE_URI: ${PUBLIC_PROTOCOL-https}://${PUBLIC_DOMAIN}
-          IDENTITY_SERVER_URI: ${PUBLIC_PROTOCOL-https}://identity${PUBLIC_SUBDOMAIN_SEPARATOR--}${PUBLIC_DOMAIN} 
+          IDENTITY_SERVER_URI: ${PUBLIC_PROTOCOL-https}://identity${PUBLIC_SUBDOMAIN_SEPARATOR--}${PUBLIC_DOMAIN}
+        deploy:
+          placement:
+            constraints:
+              - node.labels.worker == 1
