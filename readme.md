@@ -14,6 +14,7 @@ This mixin creates a container for running an (usually .NET Core-based) AXOOM Se
 **Feed URI**: http://assets.axoom.cloud/mixins/axoom-service.xml
 
 **Parameters:**
+
 | Name | Description|
 | -- | -- |
 | `SERVICE_NAME` | The name for the Docker service. |
@@ -40,6 +41,7 @@ This mixin creates a container for running an (usually ASP .NET Core-based) AXOO
 **Feed URI**: http://assets.axoom.cloud/mixins/axoom-portal-app.xml
 
 **Parameters:**
+
 | Name | Description|
 | -- | -- |
 | `APPKEY` | The name for the Docker service and subdomain. |
@@ -71,6 +73,7 @@ This mixin exposes a service to public HTTP(S) traffic.
 **Feed URI**: http://assets.axoom.cloud/mixins/expose-public.xml
 
 **Parameters:**
+
 | Name | Description|
 | -- | -- |
 | `SERVICE_NAME` | The name for the Docker service and subdomain. |
@@ -94,6 +97,7 @@ This mixin exposes a service to internal HTTP traffic for management purposes. A
 **Feed URI**: http://assets.axoom.cloud/mixins/expose-internal.xml
 
 **Parameters:**
+
 | Name | Description|
 | -- | -- |
 | `SERVICE_NAME` | The name for the Docker service and subdomain. |
@@ -117,6 +121,7 @@ This mixin exposes a service to traffic tunneled via an SSH Jump Host for manage
 **Feed URI**: http://assets.axoom.cloud/mixins/expose-ssh-jump.xml
 
 **Parameters:**
+
 | Name | Description|
 | -- | -- |
 | `SERVICE_NAME` | The name for the Docker service. |
