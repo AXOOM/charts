@@ -14,9 +14,8 @@ mixin_parameters:
 external_environment:
   required:
     - PUBLIC_DOMAIN
-  optional:
-    - PUBLIC_PROTOCOL
-    - PUBLIC_SUBDOMAIN_SEPARATOR
+    - PUBLIC_PROTOCOL # Can not be marked as optional because the variable can be used in <app.json> and <client.json> of apps, and the variable replacement there does not support default handling
+    - PUBLIC_SUBDOMAIN_SEPARATOR # Can not be marked as optional because the variable can be used in <app.json> and <client.json> of apps, and the variable replacement there does not support default handling
   
 exported_environment:
   PORTAL_APPS: (PORTAL_APP)
@@ -40,8 +39,8 @@ compose:
         environment:
           LOGGING__LOGTARGETS__0__FORMAT: Gelf
           LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
-          PORTAL_BASE_URI: ${PUBLIC_PROTOCOL-https}://${PUBLIC_DOMAIN}
-          IDENTITY_SERVER_URI: ${PUBLIC_PROTOCOL-https}://identity${PUBLIC_SUBDOMAIN_SEPARATOR--}${PUBLIC_DOMAIN}
+          PORTAL_BASE_URI: ${PUBLIC_PROTOCOL}://${PUBLIC_DOMAIN}
+          IDENTITY_SERVER_URI: ${PUBLIC_PROTOCOL}://identity${PUBLIC_SUBDOMAIN_SEPARATOR}${PUBLIC_DOMAIN}
         deploy:
           placement:
             constraints:
