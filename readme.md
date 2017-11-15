@@ -7,9 +7,11 @@ structure, make sure you don't forget about required settings and - maybe most
 importantly - allow us to follow *convention over configuration* by bringing 
 things together in a predictable way.
 
+![Hierarchy](doc/hierarchy.png)
+
 ## AXOOM Service Mixin
 
-This mixin creates a container for running an (usually .NET Core-based) AXOOM Service.
+This mixin runs an (usually .NET Core-based) AXOOM Service.
 
 **Feed URI**: http://assets.axoom.cloud/mixins/axoom-service.xml
 
@@ -21,7 +23,7 @@ This mixin creates a container for running an (usually .NET Core-based) AXOOM Se
 | `DOCKER_REGISTRY` | The host name of the Docker Registry holding the image. |
 | `VERSION` | The version number of the service. |
 
-**Docker Image:** `{DOCKER_REGISTRY}/services/{SERVICE_NAME}:{VERSION}`
+**Docker Image:** `(DOCKER_REGISTRY)/services/(SERVICE_NAME):(VERSION)`
 
 **Usage sample:**
 
@@ -36,7 +38,7 @@ mixins:
 
 ## AXOOM Portal App Mixin
 
-This mixin creates a container for running an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's metadata into the Portal and Identity Server using environment variables.
+This mixin runs an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's metadata into the Portal and Identity Server using environment variables.
 
 **Feed URI**: http://assets.axoom.cloud/mixins/axoom-portal-app.xml
 
@@ -50,7 +52,7 @@ This mixin creates a container for running an (usually ASP .NET Core-based) AXOO
 | `PORTAL_APP` | A JSON document describing the App's presence in the Portal. |
 | `IDENTITY_CLIENT` | A JSON document describing the App's client in the Identity Server. |
 
-**Docker Image:** `{DOCKER_REGISTRY}/apps/{APPKEY}:{VERSION}`
+**Docker Image:** `(DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)`
 
 **Usage sample:**
 
@@ -134,6 +136,3 @@ mixins:
     parameters:
       SERVICE_NAME: myservice
 ```
-
-
-![Hierarchy](doc/hierarchy.png)

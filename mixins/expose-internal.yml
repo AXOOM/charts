@@ -24,7 +24,7 @@ compose:
         networks:
           - traefik_internal
         deploy:
-          endpoint_mode: dnsrr
+          endpoint_mode: dnsrr # Required to support large number of containers in 'traefik_internal' network
           labels:
             traefik.enable: 'true'
             traefik.tags: internal

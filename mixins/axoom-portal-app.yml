@@ -1,7 +1,7 @@
 feed_uri: http://assets.axoom.cloud/mixins/axoom-portal-app.xml
 name: AXOOM Portal App Mixin
-summary: container for AXOOM Portal App
-description: This mixin creates a container for running an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's metadata into the Portal and Identity Server using environment variables.
+summary: runs an AXOOM Portal App
+description: This mixin runs an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's metadata into the Portal and Identity Server using environment variables.
 homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
 
 mixin_parameters:

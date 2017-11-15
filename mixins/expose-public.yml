@@ -28,7 +28,7 @@ compose:
         networks:
           - traefik_public
         deploy:
-          endpoint_mode: dnsrr
+          endpoint_mode: dnsrr # Required to support large number of containers in 'traefik_public' network
           labels:
             traefik.enable: 'true'
             traefik.tags: public
