@@ -5,7 +5,7 @@ description: Pulls in the shared "traefik_public" Docker virtual network. This e
 homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
 
 compose:
-  - version: '3.2'
+  - version: '3.3'
     networks:
       traefik_public:
         external: true

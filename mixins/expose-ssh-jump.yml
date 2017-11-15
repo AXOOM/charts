@@ -10,7 +10,7 @@ dependencies:
   http://assets.axoom.cloud/networks/ssh-jump.xml:
 
 compose:
-  - version: '3.2'
+  - version: '3.3'
     services:
       (SERVICE_NAME):
         networks:

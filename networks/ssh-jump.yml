@@ -4,7 +4,7 @@ summary: network for exposing via SSH Jump Host
 description: Pulls in the shared "ssh_jump" Docker virtual network. This enables exposing a service via SSH Jump Host.
 
 compose:
-  - version: '3.2'
+  - version: '3.3'
     networks:
       ssh_jump:
         external: true

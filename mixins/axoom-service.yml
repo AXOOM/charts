@@ -15,7 +15,7 @@ external_environment:
     - ASPNETCORE_ENVIRONMENT
 
 compose:
-  - version: '3.2'
+  - version: '3.3'
     services:
       (SERVICE_NAME):
         image: (DOCKER_REGISTRY)/services/(SERVICE_NAME):(VERSION)
