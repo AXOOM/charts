@@ -4,33 +4,58 @@ digraph {
     rankdir = LR;
 
     subgraph cluster_templates {
-        label = "dotnet new Templates";
+        label="'dotnet new' templates";
+        style=dotted;
 
-        axxom_service_t [label="axoom-service"];
-        axoom_webservice_t [label="axoom-webservice"];
-        axoom_portal_app_t [label="axoom-portal-app"];
+        axxom_service_t [label="axoom-service", style=dotted];
+        axoom_webservice_t [label="axoom-webservice", style=dotted];
+        axoom_portal_app_t [label="axoom-portal-app", style=dotted];
     }
 
-    subgraph cluster_mixins {
-        label = "Mixins";
+    subgraph cluster_assets {
+        label="assets.axoom.cloud";
 
-        expose_ssh_jump [label="expose-ssh-jump"];
-        expose_internal [label="expose-internal"];
-        expose_public [label="expose-public"];
-        axoom_service [label="axoom-service"];
-        axoom_portal_app [label="axoom-portal-app"];
+        subgraph cluster_mixins {
+            label="mixins";
+
+            postgres [label="postgres.xml", style=dotted];
+
+            backup_service [label="backup-service.xml"];
+            expose_ssh_jump [label="expose-ssh-jump.xml"];
+            expose_internal [label="expose-internal.xml"];
+            expose_public [label="expose-public.xml"];
+            axoom_service [label="axoom-service.xml"];
+            axoom_portal_app [label="axoom-portal-app.xml"];
+        }
+
+        subgraph cluster_networks {
+            label="networks";
+
+            backup [label="backup.xml"];
+            ssh_jump [label="ssh-jump.xml"];
+            traefik_internal [label="traefik-internal.xml"];
+            traefik_public [label="traefik-public.xml"];
+
+        }
+
+        subgraph cluster_services {
+            label="services";
+            style=dotted;
+
+            portal [label="portal.xml", style=dotted];
+            identity [label="identity.xml", style=dotted];
+        }
     }
 
-    subgraph cluster_services {
-        label = "Services";
-
-        portal [label="portal"];
-        identity [label="identity"];
-    }
-
-    {axxom_service_t axoom_webservice_t} -> axoom_service;
-    axoom_webservice_t -> expose_internal;
-    axoom_portal_app -> expose_public;
-    axoom_portal_app_t -> axoom_portal_app;
-    axoom_portal_app -> portal -> identity;
+    expose_internal -> traefik_internal;
+    axoom_portal_app -> expose_public -> traefik_public;
+    axoom_portal_app -> portal;
+    backup_service -> backup;
+    expose_ssh_jump -> ssh_jump;
+    
+    {axxom_service_t axoom_webservice_t} -> axoom_service [style=dotted];
+    axoom_webservice_t -> expose_internal [style=dotted];
+    axoom_portal_app_t -> axoom_portal_app [style=dotted];
+    portal -> identity [style=dotted];
+    postgres -> {backup_service expose_ssh_jump} [style=dotted];
 }

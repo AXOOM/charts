@@ -1,0 +1,31 @@
+feed_uri: http://assets.axoom.cloud/mixins/backup-service.xml
+name: Backup Service Mixin
+summary: runs a backup service
+description: This mixin runs a backup service reponsible for backing up another service. It gets triggered by the central backup system.
+homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
+
+mixin_parameters:
+  - SERVICE_NAME
+  - DOCKER_REGISTRY
+  - VERSION
+  - TARGET_NAME
+  - TARGET_NETWORK
+
+dependencies:
+  http://assets.axoom.cloud/networks/backup.xml:
+
+compose:
+  - version: '3.3'
+    services:
+      (TARGET_NAME)_backup:
+        image: (DOCKER_REGISTRY)/backup-services/(SERVICE_NAME):(VERSION)
+        networks:
+          - (TARGET_NETWORK)
+          - backup
+        deploy:
+          placement:
+            constraints:
+              - node.labels.worker == 1
+          labels:
+            com.axoom.backuptarget: (TARGET_NAME)
+          endpoint_mode: dnsrr # Required to support large number of containers in 'backup' network
