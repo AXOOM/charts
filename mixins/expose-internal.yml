@@ -24,6 +24,7 @@ compose:
         networks:
           - traefik_internal
         deploy:
+          endpoint_mode: dnsrr
           labels:
             traefik.enable: 'true'
             traefik.tags: internal

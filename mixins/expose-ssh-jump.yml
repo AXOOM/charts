@@ -13,5 +13,7 @@ compose:
   - version: '3.3'
     services:
       (SERVICE_NAME):
+        deploy:
+          endpoint_mode: dnsrr
         networks:
           - ssh_jump
