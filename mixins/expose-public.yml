@@ -24,7 +24,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          PUBLIC_URI: ${PUBLIC_PROTOCOL-https}://(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR--}${PUBLIC_DOMAIN}
+          PUBLIC_URI: ${PUBLIC_PROTOCOL:-https}://(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR:--}${PUBLIC_DOMAIN}
         networks:
           - traefik_public
         deploy:
