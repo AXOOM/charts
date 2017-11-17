@@ -160,7 +160,7 @@ This mixin runs a backup service reponsible for backing up another service. It g
 
 ```yml
 mixins:
-  - feed_uri: http://assets.axoom.cloud/mixins/backup-target.xml
+  - feed_uri: http://assets.axoom.cloud/mixins/backup-service.xml
     parameters:
       SERVICE_NAME: postgres
       DOCKER_REGISTRY: <DOCKER_REGISTRY>
