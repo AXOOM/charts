@@ -8,8 +8,9 @@ mixin_parameters:
   - SERVICE_NAME
   - DOCKER_REGISTRY
   - VERSION
-  - TARGET_NAME
   - TARGET_NETWORK
+  - TARGET_NAME
+  - TARGET_PASSWORD
 
 dependencies:
   http://assets.axoom.cloud/networks/backup.xml:
@@ -19,6 +20,9 @@ compose:
     services:
       (TARGET_NAME)_backup:
         image: (DOCKER_REGISTRY)/backup-services/(SERVICE_NAME):(VERSION)
+        environment:
+          TARGET_NAME: (TARGET_NAME)
+          TARGET_PASSWORD: (TARGET_PASSWORD)
         networks:
           - (TARGET_NETWORK)
           - backup
