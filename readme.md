@@ -94,7 +94,7 @@ mixins:
 
 ## Expose Internal HTTP Mixin
 
-This mixin exposes a service to internal HTTP traffic for management purposes. Applies HTTP Basic Auth protection.
+This mixin exposes a service to internal HTTP traffic for management purposes.
 
 **Feed URI**: http://assets.axoom.cloud/mixins/expose-internal.xml
 
