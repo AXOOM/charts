@@ -10,7 +10,7 @@ mixin_parameters:
   - VERSION
   - TARGET_NETWORK
   - TARGET_NAME
-  - TARGET_PASSWORD
+  - TARGET_PARAMETERS
 
 dependencies:
   http://assets.axoom.cloud/networks/backup.xml:
@@ -20,9 +20,12 @@ compose:
     services:
       (TARGET_NAME)_backup:
         image: (DOCKER_REGISTRY)/backup-services/(SERVICE_NAME):(VERSION)
-        environment:
-          TARGET_NAME: (TARGET_NAME)
-          TARGET_PASSWORD: (TARGET_PASSWORD)
+        configs:
+          - source: backup-targets-authkeys
+            target: /root/.ssh/authorized_keys
+            uid: '0'
+            gid: '0'
+            mode: 0600
         networks:
           - (TARGET_NETWORK)
           - backup
@@ -31,5 +34,8 @@ compose:
             constraints:
               - node.labels.worker == 1
           labels:
-            com.axoom.backuptarget: (TARGET_NAME)
+            com.axoom.backuptarget: (TARGET_NAME) (TARGET_PARAMETERS)
           endpoint_mode: dnsrr # Required to support large number of containers in 'backup' network
+    configs:
+      backup-targets-authkeys:
+        external: true
