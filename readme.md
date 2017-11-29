@@ -136,37 +136,3 @@ mixins:
     parameters:
       SERVICE_NAME: myservice
 ```
-
-
-## Backup Service Mixin
-
-This mixin runs a backup service reponsible for backing up another service. It gets triggered by the [central backup system](https://tfs.inside-axoom.org/tfs/axoom/axoom/Analytics/_git/Axoom.Platform.Stacks.Backup?_a=readme&fullScreen=true).
-
-**Feed URI**: http://assets.axoom.cloud/mixins/backup-service.xml
-
-**Parameters:**
-
-| Name | Description|
-| -- | -- |
-| `SERVICE_NAME` | The generic name of the service to be backed up (e.g., a database product). |
-| `DOCKER_REGISTRY` | The host name of the Docker Registry holding the image of the backup service. |
-| `VERSION` | The version number of the backup service. |
-| `TARGET_NETWORK` | The network used to contact the service. |
-| `TARGET_NAME` | The name of the specific service instance to be backed up (e.g., an instance database for a specific app). Used as a service name prefix and passed to the backup serivce as a command-line argument on invocation. |
-| `TARGET_PARAMETERS` | Additional parameters required to connect to the service (e.g., a database password). Passed to the backup serivce as a command-line argument on invocation. |
-
-**Docker Image:** `(DOCKER_REGISTRY)/backup-services/(SERVICE_NAME):(VERSION)`
-
-**Usage sample:**
-
-```yml
-mixins:
-  - feed_uri: http://assets.axoom.cloud/mixins/backup-service.xml
-    parameters:
-      SERVICE_NAME: postgres
-      DOCKER_REGISTRY: <DOCKER_REGISTRY>
-      VERSION: <VERSION>
-      TARGET_NETWORK: myapp
-      TARGET_NAME: myapp_postgres
-      TARGET_PARAMETERS: ${MYAPP_POSTGRES_PASSWORD}
-```
