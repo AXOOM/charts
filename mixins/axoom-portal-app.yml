@@ -31,8 +31,9 @@ compose:
       (APPKEY):
         image: (DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)
         environment:
-          LOGGING__LOGTARGETS__0__FORMAT: Gelf
-          LOGGING__LOGTARGETS__0__LEVEL: ${LOG_LEVEL-Information}
+          LOGGING__FORMAT: Gelf
+          LOGGING__LOGLEVEL__DEFAULT: ${LOG_LEVEL-Information}
+          ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT-Production}
           PORTAL_BASE_URI: ${PORTAL_BASE_URI}
           IDENTITY_SERVER_URI: ${IDENTITY_SERVER_URI}
         deploy:
