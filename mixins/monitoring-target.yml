@@ -1,0 +1,21 @@
+feed_uri: http://assets.axoom.cloud/mixins/monitoring-target.xml
+name: Monitoring Target Mixin
+summary: marks service for Prometheus monitoring
+description: This mixin marks a service or exporter for Prometheus monitoring.
+homepage: https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?_a=readme&fullScreen=true
+
+mixin_parameters:
+  - SERVICE_NAME
+
+dependencies:
+  http://assets.axoom.cloud/networks/monitoring.xml:
+
+compose:
+  - version: '3.3'
+    services:
+      (SERVICE_NAME):
+        networks:
+          - monitoring
+        deploy:
+          endpoint_mode: dnsrr # Required to support large number of containers in 'monitoring' network
+        # TODO: Labels

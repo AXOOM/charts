@@ -19,7 +19,7 @@ This mixin runs an (usually .NET Core-based) AXOOM Service.
 
 | Name | Description|
 | -- | -- |
-| `SERVICE_NAME` | The name for the Docker service. |
+| `SERVICE_NAME` | The name of the Docker service. |
 | `DOCKER_REGISTRY` | The host name of the Docker Registry holding the image. |
 | `VERSION` | The version number of the service. |
 
@@ -46,7 +46,7 @@ This mixin runs an (usually ASP .NET Core-based) AXOOM Portal App. Injects the A
 
 | Name | Description|
 | -- | -- |
-| `APPKEY` | The name for the Docker service and subdomain. |
+| `APPKEY` | The name of the Docker service and subdomain. |
 | `DOCKER_REGISTRY` | The host name of the Docker Registry holding the image. |
 | `VERSION` | The version number of the service. |
 | `PORTAL_APP` | A JSON document describing the App's presence in the Portal. |
@@ -78,7 +78,7 @@ This mixin exposes a service to public HTTP(S) traffic.
 
 | Name | Description|
 | -- | -- |
-| `SERVICE_NAME` | The name for the Docker service and subdomain. |
+| `SERVICE_NAME` | The name of the Docker service and subdomain. |
 | `PORT` | The port number the service (inside the container) is listening on. |
 
 **Usage sample:**
@@ -102,7 +102,7 @@ This mixin exposes a service to internal HTTP traffic for management purposes.
 
 | Name | Description|
 | -- | -- |
-| `SERVICE_NAME` | The name for the Docker service and subdomain. |
+| `SERVICE_NAME` | The name of the Docker service and subdomain. |
 | `PORT` | The port number the service (inside the container) is listening on. |
 
 **Usage sample:**
@@ -126,13 +126,35 @@ This mixin exposes a service to traffic tunneled via an SSH Jump Host for manage
 
 | Name | Description|
 | -- | -- |
-| `SERVICE_NAME` | The name for the Docker service. |
+| `SERVICE_NAME` | The name of the Docker service. |
 
 **Usage sample:**
 
 ```yml
 mixins:
   - feed_uri: http://assets.axoom.cloud/mixins/expose-ssh-jump.xml
+    parameters:
+      SERVICE_NAME: myservice
+```
+
+
+## Monitoring Target Mixin
+
+This mixin marks a service or exporter for Prometheus monitoring.
+
+**Feed URI**: http://assets.axoom.cloud/mixins/monitoring-target.xml
+
+**Parameters:**
+
+| Name | Description|
+| -- | -- |
+| `SERVICE_NAME` | The name of the Docker service. |
+
+**Usage sample:**
+
+```yml
+mixins:
+  - feed_uri: http://assets.axoom.cloud/mixins/monitoring-target.xml
     parameters:
       SERVICE_NAME: myservice
 ```
