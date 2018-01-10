@@ -10,6 +10,12 @@ mixin_parameters:
   - VERSION
   - PORTAL_APP
   - IDENTITY_CLIENT
+
+external_environment:
+  optional:
+    - LOG_LEVEL
+    - ASPNETCORE_ENVIRONMENT
+    - WORKER_ROLE
   
 exported_environment:
   PORTAL_APPS: (PORTAL_APP)
@@ -39,4 +45,4 @@ compose:
         deploy:
           placement:
             constraints:
-              - node.labels.worker == 1
+              - node.role == ${WORKER_ROLE:-worker}

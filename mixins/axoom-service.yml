@@ -13,6 +13,7 @@ external_environment:
   optional:
     - LOG_LEVEL
     - ASPNETCORE_ENVIRONMENT
+    - WORKER_ROLE
 
 compose:
   - version: '3.3'
@@ -26,4 +27,4 @@ compose:
         deploy:
           placement:
             constraints:
-              - node.labels.worker == 1
+              - node.role == ${WORKER_ROLE:-worker}
