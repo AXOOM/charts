@@ -9,23 +9,26 @@ things together in a predictable way.
 
 ![Hierarchy](doc/hierarchy.png)
 
+
 ## AXOOM Service Mixin
 
 This mixin runs an (usually .NET Core-based) AXOOM Service.
 
-**Feed URI**: http://assets.axoom.cloud/mixins/axoom-service.xml
+### Feed URI
 
-**Parameters:**
+http://assets.axoom.cloud/mixins/axoom-service.xml
 
-| Name | Description|
-| -- | -- |
-| `SERVICE_NAME` | The name of the Docker service. |
+### Parameters
+
+| Name              | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| `SERVICE_NAME`    | The name of the Docker service.                         |
 | `DOCKER_REGISTRY` | The host name of the Docker Registry holding the image. |
-| `VERSION` | The version number of the service. |
+| `VERSION`         | The version number of the service.                      |
 
-**Docker Image:** `(DOCKER_REGISTRY)/services/(SERVICE_NAME):(VERSION)`
+Expected Docker image name: `(DOCKER_REGISTRY)/services/(SERVICE_NAME):(VERSION)`
 
-**Usage sample:**
+### Usage sample
 
 ```yml
 mixins:
@@ -36,25 +39,28 @@ mixins:
       VERSION: <VERSION>
 ```
 
+
 ## AXOOM Portal App Mixin
 
 This mixin runs an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's metadata into the Portal and Identity Server using environment variables.
 
-**Feed URI**: http://assets.axoom.cloud/mixins/axoom-portal-app.xml
+### Feed URI
 
-**Parameters:**
+http://assets.axoom.cloud/mixins/axoom-portal-app.xml
 
-| Name | Description|
-| -- | -- |
-| `APPKEY` | The name of the Docker service and subdomain. |
-| `DOCKER_REGISTRY` | The host name of the Docker Registry holding the image. |
-| `VERSION` | The version number of the service. |
-| `PORTAL_APP` | A JSON document describing the App's presence in the Portal. |
+### Parameters
+
+| Name              | Description                                                         |
+| ----------------- | ------------------------------------------------------------------- |
+| `APPKEY`          | The name of the Docker service and subdomain.                       |
+| `DOCKER_REGISTRY` | The host name of the Docker Registry holding the image.             |
+| `VERSION`         | The version number of the service.                                  |
+| `PORTAL_APP`      | A JSON document describing the App's presence in the Portal.        |
 | `IDENTITY_CLIENT` | A JSON document describing the App's client in the Identity Server. |
 
-**Docker Image:** `(DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)`
+Expected Docker image name: `(DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)`
 
-**Usage sample:**
+### Usage sample
 
 ```yml
 mixins:
@@ -72,16 +78,18 @@ mixins:
 
 This mixin exposes a service to public HTTP(S) traffic.
 
-**Feed URI**: http://assets.axoom.cloud/mixins/expose-public.xml
+### Feed URI
 
-**Parameters:**
+http://assets.axoom.cloud/mixins/expose-public.xml
 
-| Name | Description|
-| -- | -- |
-| `SERVICE_NAME` | The name of the Docker service and subdomain. |
-| `PORT` | The port number the service (inside the container) is listening on. |
+### Parameters
 
-**Usage sample:**
+| Name           | Description                                                         |
+| -------------- | ------------------------------------------------------------------- |
+| `SERVICE_NAME` | The name of the Docker service and subdomain.                       |
+| `PORT`         | The port number the service (inside the container) is listening on. |
+
+### Usage sample
 
 ```yml
 mixins:
@@ -96,16 +104,18 @@ mixins:
 
 This mixin exposes a service to internal HTTP traffic for management purposes.
 
-**Feed URI**: http://assets.axoom.cloud/mixins/expose-internal.xml
+### Feed URI
 
-**Parameters:**
+http://assets.axoom.cloud/mixins/expose-internal.xml
 
-| Name | Description|
-| -- | -- |
-| `SERVICE_NAME` | The name of the Docker service and subdomain. |
-| `PORT` | The port number the service (inside the container) is listening on. |
+### Parameters
 
-**Usage sample:**
+| Name           | Description                                                         |
+| -------------- | ------------------------------------------------------------------- |
+| `SERVICE_NAME` | The name of the Docker service and subdomain.                       |
+| `PORT`         | The port number the service (inside the container) is listening on. |
+
+### Usage sample
 
 ```yml
 mixins:
@@ -120,15 +130,17 @@ mixins:
 
 This mixin exposes a service to traffic tunneled via an SSH Jump Host for management purposes.
 
-**Feed URI**: http://assets.axoom.cloud/mixins/expose-ssh-jump.xml
+### Feed URI
 
-**Parameters:**
+http://assets.axoom.cloud/mixins/expose-ssh-jump.xml
 
-| Name | Description|
-| -- | -- |
+### Parameters
+
+| Name           | Description                     |
+| -------------- | ------------------------------- |
 | `SERVICE_NAME` | The name of the Docker service. |
 
-**Usage sample:**
+### Usage sample
 
 ```yml
 mixins:
@@ -142,15 +154,17 @@ mixins:
 
 This mixin marks a service or exporter for Prometheus monitoring.
 
-**Feed URI**: http://assets.axoom.cloud/mixins/monitoring-target.xml
+### Feed URI
 
-**Parameters:**
+http://assets.axoom.cloud/mixins/monitoring-target.xml
 
-| Name | Description|
-| -- | -- |
+### Parameters
+
+| Name           | Description                     |
+| -------------- | ------------------------------- |
 | `SERVICE_NAME` | The name of the Docker service. |
 
-**Usage sample:**
+### Usage sample
 
 ```yml
 mixins:
