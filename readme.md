@@ -70,15 +70,16 @@ Expected Docker image name: `(DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)`
 
 ### External environment
 
-| Name                         | Default       | Description                                                                                                                |
-| ---------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `INTERNAL_DOMAIN`            |               | The internal DNS name the entire stack is exposed under.                                                                   |
-| `PUBLIC_DOMAIN`              |               | The public DNS name the entire stack is exposed under (via a reverse proxy).                                               |
-| `PUBLIC_PROTOCOL`            | `https`       | The protocol the entire stack is exposed under (via a reverse proxy).                                                      |
-| `PUBLIC_SUBDOMAIN_SEPARATOR` | `-`           | The separator character used to prepend service named to `PUBLIC_DOMAIN`.                                                  |
-| `LOG_LEVEL`                  | `Information` | The [.NET Core Log Level](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#log-level). |
-| `ASPNETCORE_ENVIRONMENT`     | `Production`  | Set to `Development` to enable Swagger documentation, exception pages, etc.                                                |
-| `WORKER_ROLE`                | `worker`      | Node Role for wokloads. Set to `manager` for local testing.                                                                |
+| Name                           | Default       | Description                                                                                                                |
+| ------------------------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `PUBLIC_DOMAIN`                |               | The public DNS name the entire stack is exposed under (via a reverse proxy).                                               |
+| `PUBLIC_PROTOCOL`              | `https`       | The protocol the entire stack is exposed under (via a reverse proxy).                                                      |
+| `PUBLIC_SUBDOMAIN_SEPARATOR`   | `-`           | The separator character used to prepend service names to `PUBLIC_DOMAIN`.                                                  |
+| `INTERNAL_DOMAIN`              |               | The internal DNS name the entire stack is exposed under.                                                                   |
+| `INTERNAL_SUBDOMAIN_SEPARATOR` | `.`           | The separator character used to prepend service names to `INTERNAL_DOMAIN`.                                                |
+| `LOG_LEVEL`                    | `Information` | The [.NET Core Log Level](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#log-level). |
+| `ASPNETCORE_ENVIRONMENT`       | `Production`  | Set to `Development` to enable Swagger documentation, exception pages, etc.                                                |
+| `WORKER_ROLE`                  | `worker`      | Node Role for wokloads. Set to `manager` for local testing.                                                                |
 
 ### Usage sample
 
@@ -111,12 +112,13 @@ http://assets.axoom.cloud/mixins/expose-public.xml
 
 ### External environment
 
-| Name                         | Default | Description                                                                  |
-| ---------------------------- | ------- | ---------------------------------------------------------------------------- |
-| `INTERNAL_DOMAIN`            |         | The internal DNS name the entire stack is exposed under.                     |
-| `PUBLIC_DOMAIN`              |         | The public DNS name the entire stack is exposed under (via a reverse proxy). |
-| `PUBLIC_PROTOCOL`            | `https` | The protocol the entire stack is exposed under (via a reverse proxy).        |
-| `PUBLIC_SUBDOMAIN_SEPARATOR` | `-`     | The separator character used to prepend service named to `PUBLIC_DOMAIN`.    |
+| Name                           | Default | Description                                                                  |
+| ------------------------------ | ------- | ---------------------------------------------------------------------------- |
+| `PUBLIC_DOMAIN`                |         | The public DNS name the entire stack is exposed under (via a reverse proxy). |
+| `PUBLIC_PROTOCOL`              | `https` | The protocol the entire stack is exposed under (via a reverse proxy).        |
+| `PUBLIC_SUBDOMAIN_SEPARATOR`   | `-`     | The separator character used to prepend service names to `PUBLIC_DOMAIN`.    |
+| `INTERNAL_DOMAIN`              |         | The internal DNS name the entire stack is exposed under.                     |
+| `INTERNAL_SUBDOMAIN_SEPARATOR` | `.`     | The separator character used to prepend service names to `INTERNAL_DOMAIN`.  |
 
 ### Usage sample
 

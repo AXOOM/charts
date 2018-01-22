@@ -11,6 +11,8 @@ mixin_parameters:
 external_environment:
   required:
     - INTERNAL_DOMAIN
+  optional:
+    - INTERNAL_SUBDOMAIN_SEPARATOR
 
 dependencies:
   http://assets.axoom.cloud/networks/traefik-internal.xml:
@@ -20,7 +22,7 @@ compose:
     services:
       (SERVICE_NAME):
         environment:
-          INTERNAL_URI: http://(SERVICE_NAME).${INTERNAL_DOMAIN}
+          INTERNAL_URI: http://(SERVICE_NAME)${INTERNAL_SUBDOMAIN_SEPARATOR:-.}${INTERNAL_DOMAIN}
         networks:
           - traefik_internal
         deploy:
@@ -29,5 +31,5 @@ compose:
             traefik.enable: 'true'
             traefik.tags: internal
             traefik.docker.network: traefik_internal
-            traefik.frontend.rule: Host:(SERVICE_NAME).${INTERNAL_DOMAIN}
+            traefik.frontend.rule: Host:(SERVICE_NAME)${INTERNAL_SUBDOMAIN_SEPARATOR:-.}${INTERNAL_DOMAIN}
             traefik.port: '(PORT)'
