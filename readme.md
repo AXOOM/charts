@@ -185,27 +185,3 @@ mixins:
     parameters:
       SERVICE_NAME: myservice
 ```
-
-
-## Monitoring Target Mixin
-
-This mixin marks a service or exporter for Prometheus monitoring.
-
-### Feed URI
-
-http://assets.axoom.cloud/mixins/monitoring-target.xml
-
-### Parameters
-
-| Name           | Description                     |
-| -------------- | ------------------------------- |
-| `SERVICE_NAME` | The name of the Docker service. |
-
-### Usage sample
-
-```yml
-mixins:
-  - feed_uri: http://assets.axoom.cloud/mixins/monitoring-target.xml
-    parameters:
-      SERVICE_NAME: myservice
-```
