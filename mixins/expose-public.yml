@@ -11,10 +11,8 @@ mixin_parameters:
 external_environment:
   required:
     - PUBLIC_DOMAIN
-    - INTERNAL_DOMAIN
   optional:
     - PUBLIC_PROTOCOL
-    - INTERNAL_SUBDOMAIN_SEPARATOR
 
 dependencies:
   http://assets.axoom.cloud/networks/traefik-public.xml:
@@ -33,5 +31,5 @@ compose:
             traefik.enable: 'true'
             traefik.tags: public
             traefik.docker.network: traefik_public
-            traefik.frontend.rule: Host:(SERVICE_NAME)${PUBLIC_SUBDOMAIN_SEPARATOR:--}${PUBLIC_DOMAIN},(SERVICE_NAME)${INTERNAL_SUBDOMAIN_SEPARATOR:-.}${INTERNAL_DOMAIN}
+            traefik.frontend.rule: Host:(SERVICE_NAME)-${PUBLIC_DOMAIN}
             traefik.port: '(PORT)'
