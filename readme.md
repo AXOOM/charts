@@ -74,7 +74,6 @@ Expected Docker image name: `(DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)`
 | ------------------------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `PUBLIC_DOMAIN`                |               | The public DNS name the entire stack is exposed under (via a reverse proxy).                                               |
 | `PUBLIC_PROTOCOL`              | `https`       | The protocol the entire stack is exposed under (via a reverse proxy).                                                      |
-| `PUBLIC_SUBDOMAIN_SEPARATOR`   | `-`           | The separator character used to prepend service names to `PUBLIC_DOMAIN`.                                                  |
 | `INTERNAL_DOMAIN`              |               | The internal DNS name the entire stack is exposed under.                                                                   |
 | `INTERNAL_SUBDOMAIN_SEPARATOR` | `.`           | The separator character used to prepend service names to `INTERNAL_DOMAIN`.                                                |
 | `LOG_LEVEL`                    | `Information` | The [.NET Core Log Level](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#log-level). |
@@ -116,7 +115,6 @@ http://assets.axoom.cloud/mixins/expose-public.xml
 | ------------------------------ | ------- | ---------------------------------------------------------------------------- |
 | `PUBLIC_DOMAIN`                |         | The public DNS name the entire stack is exposed under (via a reverse proxy). |
 | `PUBLIC_PROTOCOL`              | `https` | The protocol the entire stack is exposed under (via a reverse proxy).        |
-| `PUBLIC_SUBDOMAIN_SEPARATOR`   | `-`     | The separator character used to prepend service names to `PUBLIC_DOMAIN`.    |
 | `INTERNAL_DOMAIN`              |         | The internal DNS name the entire stack is exposed under.                     |
 | `INTERNAL_SUBDOMAIN_SEPARATOR` | `.`     | The separator character used to prepend service names to `INTERNAL_DOMAIN`.  |
 
