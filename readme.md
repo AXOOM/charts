@@ -72,9 +72,9 @@ Expected Docker image name: `(DOCKER_REGISTRY)/apps/(APPKEY):(VERSION)`
 
 | Name                           | Default       | Description                                                                                                                |
 | ------------------------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `PUBLIC_DOMAIN`                |               | The public DNS name the entire stack is exposed under (via a reverse proxy).                                               |
+| `PUBLIC_DOMAIN`                | (required)    | The public DNS name the entire stack is exposed under (via a reverse proxy).                                               |
 | `PUBLIC_PROTOCOL`              | `https`       | The protocol the entire stack is exposed under (via a reverse proxy).                                                      |
-| `INTERNAL_DOMAIN`              |               | The internal DNS name the entire stack is exposed under.                                                                   |
+| `INTERNAL_DOMAIN`              | (required)    | The internal DNS name the entire stack is exposed under.                                                                   |
 | `INTERNAL_SUBDOMAIN_SEPARATOR` | `.`           | The separator character used to prepend service names to `INTERNAL_DOMAIN`.                                                |
 | `LOG_LEVEL`                    | `Information` | The [.NET Core Log Level](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#log-level). |
 | `ASPNETCORE_ENVIRONMENT`       | `Production`  | Set to `Development` to enable Swagger documentation, exception pages, etc.                                                |
@@ -111,12 +111,12 @@ http://assets.axoom.cloud/mixins/expose-public.xml
 
 ### External environment
 
-| Name                           | Default | Description                                                                  |
-| ------------------------------ | ------- | ---------------------------------------------------------------------------- |
-| `PUBLIC_DOMAIN`                |         | The public DNS name the entire stack is exposed under (via a reverse proxy). |
-| `PUBLIC_PROTOCOL`              | `https` | The protocol the entire stack is exposed under (via a reverse proxy).        |
-| `INTERNAL_DOMAIN`              |         | The internal DNS name the entire stack is exposed under.                     |
-| `INTERNAL_SUBDOMAIN_SEPARATOR` | `.`     | The separator character used to prepend service names to `INTERNAL_DOMAIN`.  |
+| Name                           | Default    | Description                                                                  |
+| ------------------------------ | ---------- | ---------------------------------------------------------------------------- |
+| `PUBLIC_DOMAIN`                | (required) | The public DNS name the entire stack is exposed under (via a reverse proxy). |
+| `PUBLIC_PROTOCOL`              | `https`    | The protocol the entire stack is exposed under (via a reverse proxy).        |
+| `INTERNAL_DOMAIN`              | (required) | The internal DNS name the entire stack is exposed under.                     |
+| `INTERNAL_SUBDOMAIN_SEPARATOR` | `.`        | The separator character used to prepend service names to `INTERNAL_DOMAIN`.  |
 
 ### Usage sample
 
@@ -146,9 +146,9 @@ http://assets.axoom.cloud/mixins/expose-internal.xml
 
 ### External environment
 
-| Name              | Default | Description                                              |
-| ----------------- | ------- | -------------------------------------------------------- |
-| `INTERNAL_DOMAIN` |         | The internal DNS name the entire stack is exposed under. |
+| Name              | Default    | Description                                              |
+| ----------------- | ---------- | -------------------------------------------------------- |
+| `INTERNAL_DOMAIN` | (required) | The internal DNS name the entire stack is exposed under. |
 
 ### Usage sample
 
