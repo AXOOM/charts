@@ -46,3 +46,7 @@ compose:
           placement:
             constraints:
               - node.role == ${WORKER_ROLE:-worker}
+          resources:
+            limits:
+              cpus: '1'
+              memory: 1G
