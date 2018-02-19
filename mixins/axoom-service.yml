@@ -10,6 +10,8 @@ mixin_parameters:
   - VERSION
 
 external_environment:
+  required:
+    - PUBLIC_DOMAIN
   optional:
     - LOG_LEVEL
     - ASPNETCORE_ENVIRONMENT
@@ -25,10 +27,12 @@ compose:
           LOGGING__LOGLEVEL__DEFAULT: ${LOG_LEVEL-Information}
           ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT-Production}
         deploy:
+          labels:
+            axoom.instance.publicdomain: $PUBLIC_DOMAIN # Used as human-readable instance name
           placement:
             constraints:
               - node.role == ${WORKER_ROLE:-worker}
           resources:
             limits:
-              cpus: '1'
               memory: 1G
+              cpus: '1'

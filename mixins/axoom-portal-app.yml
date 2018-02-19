@@ -43,6 +43,8 @@ compose:
           PORTAL_BASE_URI: ${PORTAL_BASE_URI}
           IDENTITY_SERVER_URI: ${IDENTITY_SERVER_URI}
         deploy:
+          labels:
+            axoom.instance.publicdomain: $PUBLIC_DOMAIN # Used as human-readable instance name
           placement:
             constraints:
               - node.role == ${WORKER_ROLE:-worker}

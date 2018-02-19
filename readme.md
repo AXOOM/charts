@@ -32,6 +32,7 @@ Expected Docker image name: `(DOCKER_REGISTRY)/services/(SERVICE_NAME):(VERSION)
 
 | Name                     | Default       | Description                                                                                                                |
 | ------------------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `PUBLIC_DOMAIN`          | (required)    | The public DNS name the entire stack is exposed under. Used as human-readable instance name.                               |
 | `LOG_LEVEL`              | `Information` | The [.NET Core Log Level](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#log-level). |
 | `ASPNETCORE_ENVIRONMENT` | `Production`  | Set to `Development` to enable Swagger documentation, exception pages, etc.                                                |
 | `WORKER_ROLE`            | `worker`      | Node Role for wokloads. Set to `manager` for local testing.                                                                |
