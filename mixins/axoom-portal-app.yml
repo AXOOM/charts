@@ -45,6 +45,10 @@ compose:
         deploy:
           labels:
             axoom.instance.publicdomain: $PUBLIC_DOMAIN # Used as human-readable instance name
+            # Not using Expose Metrics Mixin, because Monitoring is also possible via the 'traefik_public' network instead of 'monitoring'
+            axoom.monitoring.enable: 'true'
+            axoom.monitoring.port: '5000'
+            axoom.monitoring.job: '(APPKEY)'
           placement:
             constraints:
               - node.role == ${WORKER_ROLE:-worker}
