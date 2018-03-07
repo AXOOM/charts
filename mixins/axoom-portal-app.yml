@@ -49,6 +49,7 @@ compose:
             axoom.monitoring.enable: 'true'
             axoom.monitoring.port: '5000'
             axoom.monitoring.job: '(APPKEY)'
+            axoom.monitoring.network: traefik_public
           placement:
             constraints:
               - node.role == ${WORKER_ROLE:-worker}
