@@ -51,7 +51,11 @@ mixins:
 
 ## AXOOM Portal App Mixin
 
-This mixin runs an (usually ASP .NET Core-based) AXOOM Portal App. Injects the App's metadata into the Portal and Identity Server using environment variables.
+This mixin runs an (usually ASP .NET Core-based) AXOOM Portal App. The App's metadata is injected into the Portal and Identity Server.
+
+The URIs of the Portal and the Identity Server are made available to the app using the `PORTAL_BASE_URI` and `IDENTITY_SERVER_URI` environment variables.
+
+All Portal Apps are expected to expose their public HTTP interface on port `80` and Prometheus metrics on port `5000`.
 
 ### Feed URI
 
