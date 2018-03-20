@@ -34,7 +34,7 @@ compose:
             traefik.frontend.rule: Host:(SERVICE_NAME)-${PUBLIC_DOMAIN}
             traefik.port: '(PORT)'
             traefik.frontend.headers.forceSTSHeader: 'true'
-            traefik.frontend.headers.STSSeconds: 315360000
+            traefik.frontend.headers.STSSeconds: '315360000'
             traefik.frontend.headers.STSPreload: 'true'
             traefik.frontend.headers.STSIncludeSubdomains: 'true'
             traefik.frontend.headers.browserXSSFilter: 'true'
