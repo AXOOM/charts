@@ -39,4 +39,4 @@ compose:
             traefik.frontend.headers.STSIncludeSubdomains: 'true'
             traefik.frontend.headers.browserXSSFilter: 'true'
             traefik.frontend.headers.contentTypeNosniff: 'true'
-            traefik.frontend.headers.customFrameOptionsValue: 'DENY'
+            traefik.frontend.headers.contentSecurityPolicy: "frame-ancestors 'none'"

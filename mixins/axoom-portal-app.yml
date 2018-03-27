@@ -51,7 +51,7 @@ compose:
             axoom.monitoring.job: '(APPKEY)'
             axoom.monitoring.network: traefik_public
             # Overwrite general DENY rule from expose-public mixin
-            traefik.frontend.headers.customFrameOptionsValue: 'ALLOW-FROM ${PORTAL_BASE_URI}'
+            traefik.frontend.headers.contentSecurityPolicy: "frame-ancestors 'self' ${PORTAL_BASE_URI}"
           placement:
             constraints:
               - node.role == ${WORKER_ROLE:-worker}
