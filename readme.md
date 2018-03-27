@@ -96,6 +96,14 @@ mixins:
       IDENTITY_CLIENT: <IDENTITY_CLIENT>
 ```
 
+### Security Headers
+
+In this mixin we set the following HTTP Security Header:
+
+```text
+X-Frame-Options: ALLOW-FROM ${PORTAL_BASE_URI}
+```
+
 
 ## Expose Public HTTP(S) Mixin
 
@@ -127,6 +135,17 @@ mixins:
     parameters:
       SERVICE_NAME: myservice
       PORT: 80
+```
+
+### Security Headers
+
+In this mixin we set the following HTTP Security Headers:
+
+```text
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload;
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff;
+X-Frame-Options: DENY
 ```
 
 
