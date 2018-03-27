@@ -203,3 +203,14 @@ mixins:
     parameters:
       SERVICE_NAME: myservice
 ```
+
+
+## Development
+
+To build and register the resulting feeds as local overrides:
+
+    ./build.ps1 -InstallLocal
+
+To remove the registered overrides:
+
+    ./build.ps1
