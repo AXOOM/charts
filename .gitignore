@@ -1,2 +1,5 @@
 *.xml
 *.zip
+
+/charts/**/requirements.lock
+/charts/**/charts/*

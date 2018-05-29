@@ -1,0 +1,24 @@
+{{- if .Values.monitoring.enabled }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    {{ template "default-labels" . }}
+    monitoring: {{ .Values.monitoring.class }}
+
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: monitoring
+      protocol: TCP
+      port: 5000
+      targetPort: monitoring
+
+  selector:
+    app: {{ .Values.name }}
+    release: {{ .Release.Name }}
+
+{{- end }}

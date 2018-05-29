@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    {{ template "default-labels" . }}
+
+    {{- if .Values.monitoring.enabled }}
+    monitoring: {{ .Values.monitoring.class }}
+    {{- end }}
+
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: ingress
+      protocol: TCP
+      port: 80
+      targetPort: ingress
+
+    {{- if .Values.monitoring.enabled }}
+    - name: monitoring
+      protocol: TCP
+      port: 5000
+      targetPort: monitoring
+    {{- end }}
+
+  selector:
+    app: {{ .Values.name }}
+    release: {{ .Release.Name }}

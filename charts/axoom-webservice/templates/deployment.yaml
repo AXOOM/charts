@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    {{ template "default-labels" . }}
+
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+      release: {{ .Release.Name }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+        release: {{ .Release.Name }}
+
+    spec:
+      replicas: {{ .Values.replicas }}
+
+      {{- if .Values.image.authenticated }}
+      imagePullSecrets:
+      - name: '{{ .Values.image.registry }}'
+      {{- end }}
+
+      containers:
+        - name: {{ .Values.name }}
+
+          image: '{{ .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - name: ingress
+              protocol: TCP
+              port: 80
+              containerPort: {{ .Values.ingress.port }}
+
+            {{- if .Values.monitoring.enabled }}
+            - name: monitoring
+              protocol: TCP
+              port: 5000
+              containerPort: {{ .Values.monitoring.port }}
+            {{- end }}
+
+          {{- if .Values.livenessProbe }}
+          livenessProbe:
+{{ toYaml .Values.livenessProbe | indent 12 }}
+          {{- end }}
+
+          {{- if .Values.readinessProbe }}
+          readinessProbe:
+{{ toYaml .Values.readinessProbe | indent 12 }}
+          {{- end }}
+
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+          env:
+            {{- range $key, $val := .Values.env }}
+            - name: {{ $key | quote }}
+              value: {{ $val | quote }}
+            {{- end }}

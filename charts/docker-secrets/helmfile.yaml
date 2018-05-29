@@ -1,0 +1,17 @@
+releases:
+  - name: '{{ requiredEnv "TENANT_ID" }}-docker-secrets'
+    namespace: '{{ requiredEnv "TENANT_ID" }}'
+    chart: ./
+
+    values:
+      - global:
+          tenant:
+            id: '{{ requiredEnv "TENANT_ID" }}'
+
+        registries:
+          - registry: 'docker.axoom.cloud'
+            username: 'axoom'
+            password: {{ requiredEnv "DOCKER_REGISTRY_PASSWORD" | quote }}
+          - registry: 'docker-ci.axoom.cloud'
+            username: 'axoom'
+            password: {{ requiredEnv "DOCKER_REGISTRY_PASSWORD" | quote }}
