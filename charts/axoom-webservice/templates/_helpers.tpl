@@ -1,6 +1,3 @@
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
 {{- define "axoom-default-labels" -}}
     app: '{{ required "Set name" .Values.name }}'
     release: '{{ .Release.Name }}'

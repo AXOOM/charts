@@ -70,7 +70,7 @@ For configuration that varies between instances add something like this to your 
 | `name`                 | __required__         | The name of the service                                                         |
 | `image.registry`       | `docker.axoom.cloud` | The docker registry                                                             |
 | `image.authenticated`  | `true`               | Uses docker registry credentials (for configured the registry) if set to `true` |
-| `image.repository`     | __required__         | The docker repository (exluding the registry)                                   |
+| `image.repository`     | __required__         | The docker repository (excluding the registry)                                  |
 | `image.tag`            | __required__         | The docker tag                                                                  |
 | `image.pullPolicy`     | `IfNotPresent`       | The policy telling when shall be pulled from the docker registry                |
 | `replicas`             | `1`                  | The amount of replicas                                                          |

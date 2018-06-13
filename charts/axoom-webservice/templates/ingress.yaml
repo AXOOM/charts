@@ -9,9 +9,9 @@ metadata:
 
 spec:
   rules:
-  - host: "{{ required "Set ingress.domain" .Values.ingress.domain }}"
-    http:
-      paths:
-      - backend:
-          serviceName: {{ .Values.name }}
-          servicePort: ingress
+    - host: '{{ required "Set ingress.domain" .Values.ingress.domain }}'
+      http:
+        paths:
+          - backend:
+              serviceName: {{ .Values.name }}
+              servicePort: ingress
