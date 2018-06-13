@@ -11,7 +11,7 @@ You can usually delete the entire `templates` directory when using this chart. P
 ```yaml
 dependencies:
   - name: axoom-service
-    version: 0.1.0
+    version: 0.9
     repository: '@axoom-base'
     alias: app
 ```

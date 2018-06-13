@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.name }}
   labels:
-    {{ template "default-labels" . }}
+    {{ template "axoom-default-labels" . }}
 
 spec:
   selector:
