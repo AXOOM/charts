@@ -1,7 +1,5 @@
 # AXOOM Webservice Helm Chart
 
-[Source code](https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets?path=%2Fcharts%2Faxoom-webservice)
-
 This Helm chart serves as a template for running a service that is exposed via an ingress.  
 If you don't need an ingress, use `axoom-service` instead.
 
