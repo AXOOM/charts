@@ -31,17 +31,29 @@ spec:
           image: '{{ .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
-          {{- if .Values.monitoring.enabled }}
           ports:
+            {{- if .Values.ingress.enabled }}
+            - name: ingress
+              protocol: TCP
+              port: 80
+              containerPort: {{ .Values.ingress.port }}
+            {{- end }}
+
+            {{- if .Values.monitoring.enabled }}
             - name: monitoring
               protocol: TCP
               port: 5000
               containerPort: {{ .Values.monitoring.port }}
-          {{- end }}
+            {{- end }}
 
           {{- if .Values.livenessProbe }}
           livenessProbe:
 {{ toYaml .Values.livenessProbe | indent 12 }}
+          {{- end }}
+
+          {{- if .Values.readinessProbe }}
+          readinessProbe:
+{{ toYaml .Values.readinessProbe | indent 12 }}
           {{- end }}
 
           resources:

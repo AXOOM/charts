@@ -1,24 +1,29 @@
-{{- if .Values.monitoring.enabled }}
-
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.name }}
   labels:
-    {{ template "axoom-default-labels" . }}
+    {{ template "axoom.default-labels" . }}
     monitoring: {{ .Values.monitoring.class }}
 
 spec:
   type: ClusterIP
 
   ports:
+    {{- if .Values.ingress.enabled }}
+    - name: ingress
+      protocol: TCP
+      port: 80
+      targetPort: ingress
+    {{- end }}
+
+    {{- if .Values.monitoring.enabled }}
     - name: monitoring
       protocol: TCP
       port: 5000
       targetPort: monitoring
+    {{- end }}
 
   selector:
     app: {{ .Values.name }}
     release: {{ .Release.Name }}
-
-{{- end }}

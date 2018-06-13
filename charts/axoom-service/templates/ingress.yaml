@@ -1,0 +1,21 @@
+{{- if .Values.ingress.enabled }}
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    {{ template "axoom.default-labels" . }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
+
+spec:
+  rules:
+    - host: '{{ required "Set ingress.domain" .Values.ingress.domain }}'
+      http:
+        paths:
+          - backend:
+              serviceName: {{ .Values.name }}
+              servicePort: ingress
+
+{{- end }}

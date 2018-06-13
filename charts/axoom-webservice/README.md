@@ -1,5 +1,7 @@
 # AXOOM Webservice Helm Chart
 
+**DEPRECATED** Please use `axoom-service` instead!
+
 This Helm chart serves as a template for running a service that is exposed via an ingress.  
 If you don't need an ingress, use `axoom-service` instead.
 

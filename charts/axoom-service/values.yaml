@@ -14,17 +14,28 @@ image:
 
 replicas: 1
 
+ingress:
+  enabled: false
+  class: traefik-public
+  domain: # e.g, harald.myaxoom.eu
+  port: 80
+
 monitoring:
   enabled: true
   class: default
   port: 5000
 
 # livenessProbe:
-#   initialDelaySeconds: 10
-#   exec:
-#     command:
-#     - cat
-#     - /tmp/healthy
+#   initialDelaySeconds: 10 # Allow for long startup
+#   httpGet:
+#     port: ingress
+#     path: /
+
+# readinessProbe:
+#   initialDelaySeconds: 2 # Accept traffic quickly
+#   httpGet:
+#     port: ingress
+#     path: /
 
 resources:
   requests:
