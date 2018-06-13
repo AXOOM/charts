@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ .Values.name }}
   labels:
-    {{ template "axoom-default-labels" . }}
+    {{ template "axoom.default-labels" . }} 
 
     {{- if .Values.monitoring.enabled }}
     monitoring: {{ .Values.monitoring.class }}
