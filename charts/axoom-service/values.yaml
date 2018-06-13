@@ -22,8 +22,8 @@ ingress:
 
 monitoring:
   enabled: true
-  class: default
   port: 5000
+  interval: 30s
 
 # livenessProbe:
 #   initialDelaySeconds: 10 # Allow for long startup

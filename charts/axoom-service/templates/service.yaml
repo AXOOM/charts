@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.name }}
   labels:
     {{ template "axoom.default-labels" . }}
-    monitoring: {{ .Values.monitoring.class }}
 
 spec:
   type: ClusterIP
