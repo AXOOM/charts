@@ -4,6 +4,7 @@ global:
     name: # required (e.g, harald)
 
 name: # required (e.g., axoom-myapp)
+serviceAccountName: # defaults to 'default'
 
 image:
   registry: docker.axoom.cloud
