@@ -19,8 +19,8 @@ spec:
 
     spec:
       replicas: {{ .Values.replicas }}
-      serviceAccountName: {{ .Values.serviceAccountName | default 'default'}}
-      
+      serviceAccountName: {{ .Values.serviceAccountName | default "default" }}
+
       {{- if .Values.image.authenticated }}
       imagePullSecrets:
       - name: '{{ .Values.image.registry }}'
