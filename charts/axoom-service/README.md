@@ -77,7 +77,6 @@ releases:
 | `ingress.port`         | `80`                 | The container port ingress traffic is forwarded to                  |
 | `monitoring.enabled`   | `true`               | Enables Prometheus monitoring                                       |
 | `monitoring.port`      | `5000`               | The port which is scraped for monitoring data                       |
-| `monitoring.interval`  | `30s`                | The interval in which Prometheus will scrape the endpoint           |
 | `livenessProbe`        |                      | Probe that causes the service to be restarted when failing          |
 | `readinessProbe`       |                      | Probe that prevents the service from receiving traffic when failing |
 | `resources`            | Limits to 128M mem   | The resources requests and limits for the service                   |
