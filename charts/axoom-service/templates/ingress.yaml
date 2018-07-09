@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled }}
+{{- if and .Values.ingress.enabled (not (eq .Values.ingress.class "cluster")) }}
 
 apiVersion: extensions/v1beta1
 kind: Ingress

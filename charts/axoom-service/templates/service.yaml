@@ -1,3 +1,5 @@
+{{- if or .Values.ingress.enabled .Values.monitoring.enabled }}
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -27,3 +29,5 @@ spec:
   selector:
     app: {{ .Values.name }}
     release: {{ .Release.Name }}
+
+{{- end }}
