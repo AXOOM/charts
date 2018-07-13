@@ -60,7 +60,7 @@ releases:
 ## Values
 
 | Value                  | Default              | Description                                                                                                       |
-|------------------------|----------------------|-------------------------------------------------------------------------------------------------------------------|
+| ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `global.tenant.id`     | __required__         | The tenant's id (used for labeling)                                                                               |
 | `global.tenant.domain` | __required__         | The tenant's domain name (used for labeling)                                                                      |
 | `name`                 | __required__         | The name of the service                                                                                           |
@@ -75,6 +75,7 @@ releases:
 | `ingress.port`         | `80`                 | The container port ingress traffic is forwarded to                                                                |
 | `ingress.class`        | `traefik-public`     | `traefik-public` for public internet, `traefik-internal` for AXOOM network, `cluster` for Kubernetes cluster only |
 | `ingress.domain`       |                      | The domain name under which the service is exposed (only for `traefik-public` and `traefik-internal`)             |
+| `ingress.annotations`  |                      | Additional annotations besides the ingress class to be added to the ingress. Put as `key: value` pairs            |
 | `monitoring.enabled`   | `true`               | Enables Prometheus monitoring                                                                                     |
 | `monitoring.port`      | `5000`               | The port which is scraped for monitoring data                                                                     |
 | `livenessProbe`        |                      | Probe that causes the service to be restarted when failing                                                        |

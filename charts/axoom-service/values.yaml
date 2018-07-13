@@ -20,6 +20,8 @@ ingress:
   class: traefik-public
   domain: # e.g, harald.myaxoom.eu
   port: 80
+  # annotations: # additional annotations besides ingress class
+    # key: value
 
 monitoring:
   enabled: true

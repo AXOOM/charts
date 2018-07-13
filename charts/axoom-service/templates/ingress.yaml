@@ -7,6 +7,9 @@ metadata:
   labels:
     {{ template "axoom.default-labels" . }}
   annotations:
+  {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
 
 spec:
