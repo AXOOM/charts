@@ -10,6 +10,9 @@ metadata:
   {{- range $key, $value := .Values.ingress.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
+  {{- if .Values.ingress.externalDnsTarget }}
+    external-dns.alpha.kubernetes.io/target: {{ .Values.ingress.externalDnsTarget }}
+  {{- end }}
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
 
 spec:
