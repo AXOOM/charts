@@ -14,14 +14,12 @@ spec:
   ports:
     {{- if .Values.ingress.enabled }}
     - name: ingress
-      protocol: TCP
       port: 80
       targetPort: ingress
     {{- end }}
 
     {{- if .Values.monitoring.enabled }}
     - name: monitoring
-      protocol: TCP
       port: 5000
       targetPort: monitoring
     {{- end }}
