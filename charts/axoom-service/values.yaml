@@ -19,6 +19,7 @@ ingress:
   enabled: false
   class: traefik-public
   domain: # e.g, harald.myaxoom.eu
+  # externalDnsTarget: cluster-name.myaxoom.eu # whatever is configured in external-dns
   port: 80
   # annotations: # additional annotations besides ingress class
     # key: value
