@@ -59,27 +59,31 @@ releases:
 
 ## Values
 
-| Value                       | Default              | Description                                                                                                       |
-| --------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `global.tenant.id`          | __required__         | The tenant's id (used for labeling)                                                                               |
-| `global.tenant.domain`      | __required__         | The tenant's domain name (used for labeling)                                                                      |
-| `name`                      | __required__         | The name of the service                                                                                           |
-| `serviceAccountName`        | `default`            | The service account to use                                                                                        |
-| `image.registry`            | `docker.axoom.cloud` | The Docker registry containing the image of the service                                                           |
-| `image.authenticated`       | `true`               | Controls whether to use credentials for pulling the image                                                         |
-| `image.repository`          | __required__         | The Docker Repository containing the image (excluding the Registry)                                               |
-| `image.tag`                 | __required__         | The Docker Tag of the image to use                                                                                |
-| `image.pullPolicy`          | `IfNotPresent`       | Set to `Always` to try to pull new versions of the image                                                          |
-| `replicas`                  | `1`                  | The number of instances of the service to run                                                                     |
-| `ingress.enabled`           | `false`              | Enables HTTP ingress into the service                                                                             |
-| `ingress.port`              | `80`                 | The container port ingress traffic is forwarded to                                                                |
-| `ingress.class`             | `traefik-public`     | `traefik-public` for public internet, `traefik-internal` for AXOOM network, `cluster` for Kubernetes cluster only |
-| `ingress.domain`            |                      | The domain name under which the service is exposed (only for `traefik-public` and `traefik-internal`)             |
-| `ingress.annotations`       |                      | Additional annotations besides the ingress class to be added to the ingress. Put as `key: value` pairs            |
-| `ingress.externalDnsTarget` |                      | Domain name for the external-dns target (explicitly setting `external-dns.alpha.kubernetes.io/target` annotation) |
-| `monitoring.enabled`        | `true`               | Enables Prometheus monitoring                                                                                     |
-| `monitoring.port`           | `5000`               | The port which is scraped for monitoring data                                                                     |
-| `livenessProbe`             |                      | Probe that causes the service to be restarted when failing                                                        |
-| `readinessProbe`            |                      | Probe that prevents the service from receiving traffic when failing                                               |
-| `resources`                 | Limits to 128M mem   | The resources requests and limits for the service                                                                 |
-| `env`                       | `{}`                 | The environment variables passed to the service                                                                   |
+| Value                       | Default                 | Description                                                                                                       |
+|-----------------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------|
+| `global.tenant.id`          | __required__            | The tenant's id (used for labeling)                                                                               |
+| `global.tenant.domain`      | __required__            | The tenant's domain name (used for labeling)                                                                      |
+| `name`                      | __required__            | The name of the service                                                                                           |
+| `serviceAccountName`        | `default`               | The service account to use                                                                                        |
+| `image.registry`            | `docker.axoom.cloud`    | The Docker registry containing the image of the service                                                           |
+| `image.authenticated`       | `true`                  | Controls whether to use credentials for pulling the image                                                         |
+| `image.repository`          | __required__            | The Docker Repository containing the image (excluding the Registry)                                               |
+| `image.tag`                 | __required__            | The Docker Tag of the image to use                                                                                |
+| `image.pullPolicy`          | `IfNotPresent`          | Set to `Always` to try to pull new versions of the image                                                          |
+| `replicas`                  | `1`                     | The number of instances of the service to run                                                                     |
+| `persistence.enabled`       | `false`                 | Enables persistent storage for the service                                                                        |
+| `persistence.storageClass`  | `standard`              | The type of disk to use for storage (`standard` or `ssd`)                                                         |
+| `persistence.size`          | `1G`                    | The size of the persistent volume to create for the service                                                       |
+| `persistence.mountPath`     | __required if enabled__ | The mount path for the storage inside the container                                                               |
+| `ingress.enabled`           | `false`                 | Enables HTTP ingress into the service                                                                             |
+| `ingress.port`              | `80`                    | The container port ingress traffic is forwarded to                                                                |
+| `ingress.class`             | `traefik-public`        | `traefik-public` for public internet, `traefik-internal` for AXOOM network, `cluster` for Kubernetes cluster only |
+| `ingress.domain`            |                         | The domain name under which the service is exposed (only for `traefik-public` and `traefik-internal`)             |
+| `ingress.annotations`       |                         | Additional annotations besides the ingress class to be added to the ingress. Put as `key: value` pairs            |
+| `ingress.externalDnsTarget` |                         | Domain name for the external-dns target (explicitly setting `external-dns.alpha.kubernetes.io/target` annotation) |
+| `monitoring.enabled`        | `true`                  | Enables Prometheus monitoring                                                                                     |
+| `monitoring.port`           | `5000`                  | The port which is scraped for monitoring data                                                                     |
+| `livenessProbe`             |                         | Probe that causes the service to be restarted when failing                                                        |
+| `readinessProbe`            |                         | Probe that prevents the service from receiving traffic when failing                                               |
+| `resources`                 | Limits to 128M mem      | The resources requests and limits for the service                                                                 |
+| `env`                       | `{}`                    | The environment variables passed to the service                                                                   |

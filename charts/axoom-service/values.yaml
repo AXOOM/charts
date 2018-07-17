@@ -15,6 +15,12 @@ image:
 
 replicas: 1
 
+persistence:
+  enabled: false
+  storageClass: standard
+  size: 1G
+  mountPath: # required if enabled
+
 ingress:
   enabled: false
   class: traefik-public

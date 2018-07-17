@@ -21,6 +21,13 @@ spec:
       replicas: {{ .Values.replicas }}
       serviceAccountName: {{ .Values.serviceAccountName | default "default" }}
 
+      {{- if and .Values.persistence.enabled }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.name }}
+      {{- end }}
+
       {{- if .Values.image.authenticated }}
       imagePullSecrets:
         - name: '{{ .Values.image.registry }}'
@@ -31,6 +38,12 @@ spec:
 
           image: '{{ .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          {{- if and .Values.persistence.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: {{ required "Set persistence.mountPath" .Values.persistence.mountPath }}
+          {{- end }}
 
           ports:
             {{- if .Values.ingress.enabled }}
