@@ -16,8 +16,10 @@ releases:
             username: 'axoom'
             password: {{ requiredEnv "DOCKER_REGISTRY_PASSWORD" | quote }}
 
-        opaques:
-          {{- if env "GCS_BACKUP_KEYFILE" }}
-          - name: gcs-backup-account
-            value: {{ env "GCS_BACKUP_KEYFILE" | quote }}
+        buckets:
+          {{- if env "GCS_BACKUP_BUCKETNAME" }}
+          - name: gcs-backup
+            project: {{ env "GCP_BACKUP_PROJECT" | default "axoom-platform-backups" }}
+            bucketname: {{ requiredEnv "GCS_BACKUP_BUCKETNAME" | quote }}
+            value: {{ requiredEnv "GCS_BACKUP_KEYFILE" | quote }}
           {{- end }}
