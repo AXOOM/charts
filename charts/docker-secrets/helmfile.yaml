@@ -21,7 +21,3 @@ releases:
           - name: gcs-backup-account
             value: {{ env "GCS_BACKUP_KEYFILE" | quote }}
           {{- end }}
-          {{- if env "GCS_ELASTIC_BACKUP_KEYFILE" }}
-          - name: gcs-elastic-backup-account
-            value: {{ env "GCS_ELASTIC_BACKUP_KEYFILE" | quote }}
-          {{- end }}
