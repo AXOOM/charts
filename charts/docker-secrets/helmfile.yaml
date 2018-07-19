@@ -9,9 +9,19 @@ releases:
             id: '{{ requiredEnv "TENANT_ID" }}'
 
         registries:
-          - registry: 'docker.axoom.cloud'
+          - domain: 'docker.axoom.cloud'
             username: 'axoom'
             password: {{ requiredEnv "DOCKER_REGISTRY_PASSWORD" | quote }}
-          - registry: 'docker-ci.axoom.cloud'
+          - domain: 'docker-ci.axoom.cloud'
             username: 'axoom'
             password: {{ requiredEnv "DOCKER_REGISTRY_PASSWORD" | quote }}
+
+        opaques:
+          {{- if env "GCS_BACKUP_KEYFILE" }}
+          - name: gcs-backup-account
+            value: {{ env "GCS_BACKUP_KEYFILE" | quote }}
+          {{- end }}
+          {{- if env "GCS_ELASTIC_BACKUP_KEYFILE" }}
+          - name: gcs-elastic-backup-account
+            value: {{ env "GCS_ELASTIC_BACKUP_KEYFILE" | quote }}
+          {{- end }}
