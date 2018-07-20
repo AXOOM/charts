@@ -19,7 +19,7 @@ releases:
         buckets:
           {{- if env "GCS_BACKUP_BUCKETNAME" }}
           - name: gcs-backup
-            project: {{ env "GCP_BACKUP_PROJECT" | default "axoom-platform-backups" }}
+            project: {{ env "GCS_BACKUP_PROJECT" | default "axoom-platform-backups" }}
             bucketname: {{ requiredEnv "GCS_BACKUP_BUCKETNAME" | quote }}
             value: {{ requiredEnv "GCS_BACKUP_KEYFILE" | quote }}
           {{- end }}

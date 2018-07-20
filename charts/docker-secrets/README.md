@@ -8,6 +8,6 @@ Use [Quberneeds](https://github.com/AXOOM/Quberneeds) to deploy this chart with 
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | `TENANT_ID`                | The Kubernetes namespace to deploy to.                                                                                               |
 | `DOCKER_REGISTRY_PASSWORD` | The password used to log in to the Docker Registries. **[Password Store](https://password.inside-axoom.org/index.php/pwd/view/789)** |
-| `GCP_BACKUP_PROJECT`       | Project ID where the bucket is located. Default value is `axoom-platform-backups`.                                                   |
+| `GCS_BACKUP_PROJECT`       | Project ID where the bucket is located. Default value is `axoom-platform-backups`.                                                   |
 | `GCS_BACKUP_BUCKETNAME`    | Name of the bucket to store the backups in. Can be unset only if `GCS_BACKUP_KEYFILE` is also unset.                                 |
 | `GCS_BACKUP_KEYFILE`       | Content of backup service account JSON key file. Can be unset only if `GCS_BACKUP_BUCKETNAME` is also unset.                         |
