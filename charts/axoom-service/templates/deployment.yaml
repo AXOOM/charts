@@ -11,6 +11,13 @@ spec:
       app: {{ .Values.name }}
       release: {{ .Release.Name }}
 
+  {{- if .Values.persistence.enabled }}
+  # Containers with volumes cannot perform rolling updates
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+  {{- end }}
+
   template:
     metadata:
       labels:
