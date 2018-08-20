@@ -7,7 +7,7 @@ You can usually delete the entire `templates` directory when using this chart. P
 ```yaml
 dependencies:
   - name: axoom-service
-    version: 1.6.0
+    version: 2.0.0
     repository: '@axoom-base'
     alias: app
 ```
@@ -19,9 +19,9 @@ app:
   name: myservice
 
   image:
-    registry: docker.axoom.cloud # This is automatically replaced with docker-ci.axoom.cloud for pre-release builds by TFS
+    registry: docker.axoom.cloud # replaced with docker-ci.axoom.cloud for pre-release builds by build server
     repository: services/myvendor-myservice
-    tag: latest # This is automatically replaced with a specific version by TFS
+    tag: latest # replaced with specific version number by build server
 
   # resources:
   #   ...
