@@ -1,5 +1,5 @@
 {{- if gt .Values.replicas 0.0 }}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.name }}
@@ -27,7 +27,10 @@ spec:
 
     spec:
       replicas: {{ .Values.replicas }}
-      serviceAccountName: {{ .Values.serviceAccountName | default "default" }}
+
+      {{- if or .Values.rbac.roles .Values.rbac.clusterRoles }}
+      serviceAccountName: {{ .Values.name }}
+      {{- end }}
 
       {{- if .Values.persistence.enabled }}
       volumes:

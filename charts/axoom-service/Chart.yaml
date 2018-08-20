@@ -1,5 +1,6 @@
 apiVersion: v1
 name: axoom-service
+version: 0 # replaced with auto-generated version number by build server
 description: runs a service (with monitoring, ingress, etc.)
 sources:
   - https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.BaseAssets
