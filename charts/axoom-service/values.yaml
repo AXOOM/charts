@@ -4,7 +4,6 @@ global:
     name: # required (e.g, harald)
 
 name: # required (e.g., axoom-myapp)
-serviceAccountName: # defaults to 'default'
 
 image:
   registry: docker.axoom.cloud
@@ -14,6 +13,10 @@ image:
   pullPolicy: IfNotPresent
 
 replicas: 1
+
+rbac:
+  roles: []
+  clusterRoles: []
 
 persistence:
   enabled: false

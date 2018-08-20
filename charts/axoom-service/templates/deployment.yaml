@@ -27,7 +27,10 @@ spec:
 
     spec:
       replicas: {{ .Values.replicas }}
-      serviceAccountName: {{ .Values.serviceAccountName | default "default" }}
+
+      {{- if or .Values.rbac.roles .Values.rbac.clusterRoles }}
+      serviceAccountName: {{ .Values.name }}
+      {{- end }}
 
       {{- if .Values.persistence.enabled }}
       volumes:
