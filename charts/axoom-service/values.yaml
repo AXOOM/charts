@@ -24,6 +24,11 @@ persistence:
   size: 1G
   mountPath: # required if enabled
 
+secrets:
+  enabled: false
+  mountPath: # required if enabled
+  files: {}
+
 ingress:
   enabled: false
   class: traefik-public

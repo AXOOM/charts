@@ -32,12 +32,17 @@ spec:
       serviceAccountName: {{ .Values.name }}
       {{- end }}
 
-      {{- if .Values.persistence.enabled }}
       volumes:
-        - name: data
+        {{- if or .Values.persistence.enabled }}
+        - name: persistence
           persistentVolumeClaim:
             claimName: {{ .Values.name }}
-      {{- end }}
+        {{- end }}
+        {{- if or .Values.secrets.enabled }}
+        - name: secrets
+          secret:
+            secretName: {{ .Values.name }}
+        {{- end }}
 
       {{- if .Values.image.authenticated }}
       imagePullSecrets:
@@ -50,11 +55,15 @@ spec:
           image: '{{ .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
-          {{- if .Values.persistence.enabled }}
           volumeMounts:
-            - name: data
+            {{- if .Values.persistence.enabled }}
+            - name: persistence
               mountPath: {{ required "Set persistence.mountPath" .Values.persistence.mountPath }}
-          {{- end }}
+            {{- end }}
+            {{- if .Values.secrets.enabled }}
+            - name: secrets
+              mountPath: {{ required "Set secrets.mountPath" .Values.secrets.mountPath }}
+            {{- end }}
 
           ports:
             {{- if .Values.ingress.enabled }}

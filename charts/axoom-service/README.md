@@ -76,6 +76,9 @@ releases:
 | `persistence.storageClass`  | `standard`              | The type of disk to use for storage (`standard` or `ssd`)                                                                |
 | `persistence.size`          | `1G`                    | The size of the persistent volume to create for the service                                                              |
 | `persistence.mountPath`     | __required if enabled__ | The mount path for the storage inside the container                                                                      |
+| `secrets.enabled`           | `false`                 | Enables mounting of secret values into the service's container                                                           |
+| `secrets.mountPath`         | __required if enabled__ | The mount path for the secrets inside the container                                                                      |
+| `secrets.values`            | `{}`                    | A dictionary mapping file names to file contents for secrets                                                             |
 | `ingress.enabled`           | `false`                 | Enables HTTP ingress into the service                                                                                    |
 | `ingress.port`              | `80`                    | The container port ingress traffic is forwarded to                                                                       |
 | `ingress.class`             | `traefik-public`        | `traefik-public` for public internet, `traefik-internal` for AXOOM network, `cluster` for Kubernetes cluster only        |
