@@ -60,7 +60,7 @@ releases:
 ## Values
 
 | Value                       | Default                 | Description                                                                                                              |
-|-----------------------------|-------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| --------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `global.tenant.id`          | __required__            | The tenant's id (used for labeling)                                                                                      |
 | `global.tenant.domain`      | __required__            | The tenant's domain name (used for labeling)                                                                             |
 | `name`                      | __required__            | The name of the service                                                                                                  |
@@ -78,7 +78,7 @@ releases:
 | `persistence.mountPath`     | __required if enabled__ | The mount path for the storage inside the container                                                                      |
 | `secrets.enabled`           | `false`                 | Enables mounting of secret values into the service's container                                                           |
 | `secrets.mountPath`         | __required if enabled__ | The mount path for the secrets inside the container                                                                      |
-| `secrets.values`            | `{}`                    | A dictionary mapping file names to file contents for secrets                                                             |
+| `secrets.values`            | `{}`                    | A dictionary mapping file names to file contents for secrets with base64 encoded values                                  |
 | `ingress.enabled`           | `false`                 | Enables HTTP ingress into the service                                                                                    |
 | `ingress.port`              | `80`                    | The container port ingress traffic is forwarded to                                                                       |
 | `ingress.class`             | `traefik-public`        | `traefik-public` for public internet, `traefik-internal` for AXOOM network, `cluster` for Kubernetes cluster only        |
