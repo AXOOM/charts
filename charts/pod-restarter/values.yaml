@@ -1,0 +1,2 @@
+app: # required
+schedule: 0 3 * * * # every day at 03:00

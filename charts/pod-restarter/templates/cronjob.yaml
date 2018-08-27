@@ -1,0 +1,32 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: '{{ required "Set app" .Values.app }}-restarter'
+  labels:
+    app: '{{ .Values.app }}'
+    release: '{{ .Release.Name }}'
+    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+    heritage: '{{ .Release.Service }}'
+
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: '{{ .Values.app }}-restarter'
+          labels:
+            app: '{{ .Values.app }}-restarter'
+            release: '{{ .Release.Name }}'
+
+        spec:
+          restartPolicy: Never
+          serviceAccountName: '{{ .Values.app }}-restarter'
+          containers:
+            - name: '{{ .Values.app }}-restarter'
+              image: lachlanevenson/k8s-kubectl:v1.10.7
+              command:
+                - /bin/sh
+                - -c
+                - 'kubectl delete -n {{ .Release.Namespace | quote }} $(kubectl get pod -o name -n {{ .Release.Namespace | quote }} -l app={{ .Values.app | quote }})'
