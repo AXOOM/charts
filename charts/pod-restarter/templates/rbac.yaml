@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: '{{ required "Set app" .Values.app }}-restarter'
+  labels:
+    app: '{{ .Values.app }}-restarter'
+    release: '{{ .Release.Name }}'
+    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+    heritage: '{{ .Release.Service }}'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: '{{ .Values.app }}-restarter'
+  labels:
+    app: '{{ .Values.app }}-restarter'
+    release: '{{ .Release.Name }}'
+    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+    heritage: '{{ .Release.Service }}'
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["pods"]
+    verbs: ["get", "list", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: '{{ .Values.app }}-restarter'
+  labels:
+    app: '{{ .Values.app }}-restarter'
+    release: '{{ .Release.Name }}'
+    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+    heritage: '{{ .Release.Service }}'
+subjects:
+  - kind: ServiceAccount
+    name: '{{ .Values.app }}-restarter'
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: '{{ .Values.app }}-restarter'
