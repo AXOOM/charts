@@ -7,6 +7,8 @@ metadata:
     {{ template "axoom.default-labels" . }}
 
 spec:
+  replicas: {{ .Values.replicas }}
+
   selector:
     matchLabels:
       app: {{ .Values.name }}
@@ -26,8 +28,6 @@ spec:
         release: {{ .Release.Name }}
 
     spec:
-      replicas: {{ .Values.replicas }}
-
       {{- if or .Values.rbac.roles .Values.rbac.clusterRoles }}
       serviceAccountName: {{ .Values.name }}
       {{- end }}
