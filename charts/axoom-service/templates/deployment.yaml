@@ -26,6 +26,8 @@ spec:
       labels:
         app: {{ .Values.name }}
         release: {{ .Release.Name }}
+        tenantId: '{{ .Values.global.tenant.id }}'
+        tenantDomain: '{{ .Values.global.tenant.domain }}'
 
     spec:
       {{- if or .Values.rbac.roles .Values.rbac.clusterRoles }}
