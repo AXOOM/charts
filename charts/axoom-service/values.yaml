@@ -63,3 +63,7 @@ resources:
     memory: 128M
 
 env: {}
+
+dns:
+  policy: ClusterFirst
+  config:

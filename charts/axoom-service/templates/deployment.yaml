@@ -50,7 +50,9 @@ spec:
       imagePullSecrets:
         - name: '{{ .Values.image.registry }}'
       {{- end }}
-
+      dnsPolicy: {{ .Values.dns.policy }}
+      dnsConfig:
+{{ toYaml .Values.dns.config | indent 8 }}
       containers:
         - name: {{ .Values.name }}
 
