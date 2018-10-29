@@ -56,8 +56,10 @@ spec:
         - name: '{{ .Values.image.registry }}'
       {{- end }}
       dnsPolicy: {{ .Values.dns.policy }}
+      {{- if .Values.dns.config }}
       dnsConfig:
 {{ toYaml .Values.dns.config | indent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Values.name }}
 
