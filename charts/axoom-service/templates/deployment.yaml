@@ -34,6 +34,11 @@ spec:
       serviceAccountName: {{ .Values.name }}
       {{- end }}
 
+      {{- if .Values.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 8 }}
+      {{- end }}
+
       volumes:
         {{- if or .Values.persistence.enabled }}
         - name: persistence

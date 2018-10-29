@@ -29,6 +29,8 @@ secrets:
   mountPath: # required if enabled
   files: {}
 
+hostAliases: []
+
 ingress:
   enabled: false
   class: traefik-public
