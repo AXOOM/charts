@@ -37,15 +37,6 @@ spec:
         {{- end }}
 
     spec:
-      {{- if or .Values.rbac.roles .Values.rbac.clusterRoles }}
-      serviceAccountName: {{ .Values.name }}
-      {{- end }}
-
-      {{- if .Values.hostAliases }}
-      hostAliases:
-{{ toYaml .Values.hostAliases | indent 8 }}
-      {{- end }}
-
       volumes:
         {{- if or .Values.persistence.enabled }}
         - name: persistence
@@ -67,14 +58,25 @@ spec:
       imagePullSecrets:
         - name: '{{ .Values.image.registry }}'
       {{- end }}
+
+      {{- if or .Values.rbac.roles .Values.rbac.clusterRoles }}
+      serviceAccountName: {{ .Values.name }}
+      {{- end }}
+
       dnsPolicy: {{ .Values.dns.policy }}
       {{- if .Values.dns.config }}
+
       dnsConfig:
 {{ toYaml .Values.dns.config | indent 8 }}
       {{- end }}
+
+      {{- if .Values.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 8 }}
+      {{- end }}
+
       containers:
         - name: {{ .Values.name }}
-
           image: '{{ .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
@@ -100,7 +102,6 @@ spec:
             - name: ingress
               containerPort: {{ .Values.ingress.port }}
             {{- end }}
-
             {{- if .Values.monitoring.enabled }}
             - name: monitoring
               containerPort: {{ .Values.monitoring.port }}
