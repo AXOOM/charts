@@ -52,10 +52,15 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .Values.name }}
         {{- end }}
-        {{- if or .Values.secrets.enabled }}
-        - name: secrets
+        {{- range .Values.secrets }}
+        - name: {{ .name }}
           secret:
-            secretName: {{ .Values.name }}
+            secretName: {{ .name }}
+        {{- end }}
+        {{- range .Values.providedSecrets }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .name }}
         {{- end }}
 
       {{- if .Values.image.authenticated }}
@@ -78,9 +83,16 @@ spec:
             - name: persistence
               mountPath: {{ required "Set persistence.mountPath" .Values.persistence.mountPath }}
             {{- end }}
-            {{- if .Values.secrets.enabled }}
-            - name: secrets
+            {{- range .Values.secrets }}
+            - name: {{ .name }}
               mountPath: {{ required "Set secrets.mountPath" .Values.secrets.mountPath }}
+            {{- end }}
+            {{- range .Values.providedSecrets }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              {{- if .subPath }}
+              subPath: {{ .subPath }}
+              {{- end }}
             {{- end }}
 
           ports:
