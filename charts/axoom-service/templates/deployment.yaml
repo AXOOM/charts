@@ -4,15 +4,14 @@ kind: Deployment
 metadata:
   name: {{ .Values.name }}
   labels:
-    {{ template "axoom.default-labels" . }}
+{{ include "axoom.default-labels" . | indent 4 }}
 
 spec:
   replicas: {{ .Values.replicas }}
 
   selector:
     matchLabels:
-      app: {{ .Values.name }}
-      release: {{ .Release.Name }}
+{{ include "axoom.selector-labels" . | indent 6 }}
 
   strategy:
     {{- if .Values.persistence.enabled }}
@@ -25,16 +24,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.name }}
-        release: {{ .Release.Name }}
-
-        {{- if .Values.global.tenant.id }}
-        tenantId: '{{ .Values.global.tenant.id }}'
-        {{- end }}
-
-        {{- if .Values.global.tenant.domain }}
-        tenantDomain: '{{ .Values.global.tenant.domain }}'
-        {{- end }}
+{{ include "axoom.default-labels" . | indent 8 }}
 
     spec:
       volumes:
