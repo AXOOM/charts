@@ -67,7 +67,7 @@ spec:
 
       containers:
         - name: {{ .Values.name }}
-          image: '{{ .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
+          image: '{{ required "Set image.registry" .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           volumeMounts:
