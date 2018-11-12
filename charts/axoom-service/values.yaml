@@ -6,7 +6,7 @@ global:
 name: # required (e.g., axoom-myapp)
 
 image:
-  registry: docker.axoom.cloud
+  registry: # required
   authenticated: true
   repository: # required (e.g., apps/axoom-myapp)
   tag: # required (e.g., 1.0.0)

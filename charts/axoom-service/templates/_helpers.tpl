@@ -1,14 +1,23 @@
-{{- define "axoom.default-labels" -}}
-    app: '{{ required "Set name" .Values.name }}'
-    release: '{{ .Release.Name }}'
-    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
-    heritage: '{{ .Release.Service }}'
+{{ define "axoom.selector-labels" -}}
+app: '{{ required "Set name" .Values.name }}'
+release: '{{ .Release.Name }}'
+{{- end }}
 
-    {{- if .Values.global.tenant.id }}
-    tenantId: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
-    {{- end }}
 
-    {{- if .Values.global.tenant.domain }}
-    tenantDomain: '{{ required "Set global.tenant.domain" .Values.global.tenant.domain }}'
-    {{- end }}
+{{ define "axoom.default-labels" -}}
+{{ include "axoom.selector-labels" . }}
+app.kubernetes.io/name: '{{ required "Set name" .Values.name }}'
+app.kubernetes.io/instance: '{{ .Release.Name }}'
+app.kubernetes.io/managed-by: '{{ .Release.Service }}'
+helm.sh/chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+
+{{- if .Values.global.tenant.id -}}
+tenantId: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
+axoom.com/customer: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
 {{- end -}}
+
+{{- if .Values.global.tenant.domain -}}
+tenantDomain: '{{ required "Set global.tenant.domain" .Values.global.tenant.domain }}'
+{{- end }}
+
+{{- end }}

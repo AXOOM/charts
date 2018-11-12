@@ -5,7 +5,7 @@ kind: Ingress
 metadata:
   name: {{ .Values.name }}
   labels:
-    {{ template "axoom.default-labels" . }}
+{{ include "axoom.default-labels" . | indent 4 }}
   annotations:
   {{- range $key, $value := .Values.ingress.annotations }}
     {{ $key }}: {{ $value | quote }}

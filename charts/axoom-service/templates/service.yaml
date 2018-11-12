@@ -5,7 +5,7 @@ kind: Service
 metadata:
   name: {{ .Values.name }}
   labels:
-    {{ template "axoom.default-labels" . }}
+{{ include "axoom.default-labels" . | indent 4 }}
     monitoring: {{ .Values.monitoring.class }}
 
 spec:
@@ -25,7 +25,6 @@ spec:
     {{- end }}
 
   selector:
-    app: {{ .Values.name }}
-    release: {{ .Release.Name }}
+{{ include "axoom.selector-labels" . | indent 4 }}
 
 {{- end }}
