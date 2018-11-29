@@ -77,7 +77,7 @@ spec:
             {{- end }}
             {{- range .Values.secrets }}
             - name: {{ .name }}
-              mountPath: {{ required "Set secrets.mountPath" .Values.secrets.mountPath }}
+              mountPath: {{ required "Set secrets.mountPath" .mountPath }}
             {{- end }}
             {{- range .Values.providedSecrets }}
             - name: {{ .name }}
