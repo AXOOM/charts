@@ -11,12 +11,12 @@ app.kubernetes.io/instance: '{{ .Release.Name }}'
 app.kubernetes.io/managed-by: '{{ .Release.Service }}'
 helm.sh/chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
 
-{{- if .Values.global.tenant.id -}}
+{{- if .Values.global.tenant.id }}
 tenantId: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
 axoom.com/customer: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
-{{- end -}}
+{{- end }}
 
-{{- if .Values.global.tenant.domain -}}
+{{- if .Values.global.tenant.domain }}
 tenantDomain: '{{ required "Set global.tenant.domain" .Values.global.tenant.domain }}'
 {{- end }}
 
