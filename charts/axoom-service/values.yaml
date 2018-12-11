@@ -30,6 +30,8 @@ providedSecrets: []
 
 hostAliases: []
 
+sidecars: []
+
 ingress:
   enabled: false
   class: traefik-public
