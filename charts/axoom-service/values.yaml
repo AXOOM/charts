@@ -67,6 +67,8 @@ resources:
 
 env: {}
 
+envFromField: {}
+
 dns:
   policy: ClusterFirst
   config:
