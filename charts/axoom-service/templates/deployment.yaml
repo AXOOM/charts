@@ -115,6 +115,12 @@ spec:
             - name: {{ $key | quote }}
               value: {{ $val | quote }}
             {{- end }}
+            {{- range $key, $val := .Values.envFromField }}
+            - name: {{ $key | quote }}
+              valueFrom:
+                fieldRef:
+                  fieldPath: {{ $val }}
+            {{- end }}
 
         {{- if .Values.sidecars }}
 {{ toYaml .Values.sidecars | indent 8 }}
