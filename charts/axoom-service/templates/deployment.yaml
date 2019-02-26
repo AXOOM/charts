@@ -65,6 +65,21 @@ spec:
 {{ toYaml .Values.hostAliases | indent 8 }}
       {{- end }}
 
+      affinity:
+        podAntiAffinity:
+          {{- if .Values.podAntiAffinity }}
+{{ toYaml .Values.podAntiAffinity | indent 10 }}
+          {{- else }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: 'app.kubernetes.io/instance'
+                    operator: In
+                    values:
+                    - {{ .Release.Name }}
+              topologyKey: 'kubernetes.io/hostname'
+          {{- end }}
+
       containers:
         - name: {{ .Values.name }}
           image: '{{ required "Set image.registry" .Values.image.registry }}/{{ required "Set image.repository" .Values.image.repository }}:{{ required "Set image.tag" .Values.image.tag }}'
