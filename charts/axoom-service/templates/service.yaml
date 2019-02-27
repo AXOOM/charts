@@ -9,7 +9,8 @@ metadata:
     monitoring: {{ .Values.monitoring.class }}
 
 spec:
-  type: ClusterIP
+  selector:
+{{ include "axoom.selector-labels" . | indent 4 }}
 
   ports:
     {{- if .Values.ingress.enabled }}
@@ -23,8 +24,5 @@ spec:
       port: 5000
       targetPort: monitoring
     {{- end }}
-
-  selector:
-{{ include "axoom.selector-labels" . | indent 4 }}
 
 {{- end }}
