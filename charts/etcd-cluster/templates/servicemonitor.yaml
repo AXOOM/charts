@@ -1,0 +1,15 @@
+{{- if or .Values.prometheus.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.name }}
+  labels:
+{{ include "etcd.default-labels" . | indent 4 }}
+
+spec:
+  selector:
+    matchLabels:
+{{ include "etcd.selector-labels" . | indent 6 }}
+  endpoints:
+    - port: client
+{{- end }}

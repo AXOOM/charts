@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.name }}
+  labels:
+{{ include "etcd.default-labels" . | indent 4 }}
+
+spec:
+  replicas: {{ .Values.replicas }}
+  serviceName: {{ .Values.name }}
+  podManagementPolicy: Parallel
+
+  selector:
+    matchLabels:
+{{ include "etcd.selector-labels" . | indent 6 }}
+
+  template:
+    metadata:
+      labels:
+{{ include "etcd.selector-labels" . | indent 8 }}
+
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: '{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          volumeMounts:
+            - name: data
+              mountPath: /var/run/etcd
+
+          ports:
+            - containerPort: 2379
+              name: client
+            - containerPort: 2380
+              name: peer
+
+          livenessProbe:
+            initialDelaySeconds: 10
+            tcpSocket:
+              port: client
+    
+          readinessProbe:
+            initialDelaySeconds: 2
+            tcpSocket:
+              port: client
+
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+          command:
+            - "/bin/sh"
+            - "-ecx"
+            - |
+              IP=$(hostname -i)
+
+              PEERS=""
+              for i in $(seq 0 $(({{ .Values.replicas }} - 1))); do
+                  PEERS="${PEERS}${PEERS:+,}{{ .Values.name }}-${i}=http://{{ .Values.name }}-${i}.{{ .Values.name }}.{{ .Release.Namespace }}.svc.cluster.local:2380"
+              done
+
+              # start etcd. If cluster is already initialized the `--initial-*` options will be ignored.
+              exec etcd --name ${HOSTNAME} \
+                --listen-peer-urls http://${IP}:2380 \
+                --listen-client-urls http://${IP}:2379,http://127.0.0.1:2379 \
+                --advertise-client-urls http://${HOSTNAME}.{{ .Values.name }}.{{ .Release.Namespace }}.svc.cluster.local:2379 \
+                --initial-advertise-peer-urls http://${HOSTNAME}.{{ .Values.name }}.{{ .Release.Namespace }}.svc.cluster.local:2380 \
+                --initial-cluster-token etcd-cluster-1 \
+                --initial-cluster ${PEERS} \
+                --initial-cluster-state new \
+                --data-dir /var/run/etcd/default.etcd
+
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+{{ include "etcd.selector-labels" . | indent 20 }}
+              topologyKey: kubernetes.io/hostname # do not schedule pods on nodes with the same hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100 # highest weight for this optional condition
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+{{ include "etcd.selector-labels" . | indent 20 }}
+                topologyKey: failure-domain.beta.kubernetes.io/zone # try not to schedule pods in the same zone
+
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        storageClassName: '{{ .Values.persistence.storageClass }}'
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: '{{ .Values.persistence.size }}'

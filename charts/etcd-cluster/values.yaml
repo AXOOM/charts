@@ -1,0 +1,30 @@
+name: etcd
+
+image:
+  registry: quay.io
+  repository: coreos/etcd
+  tag: v3.3.12
+  pullPolicy: IfNotPresent
+
+replicas: 5
+
+persistence:
+  storageClass: ssd
+  size: 2G
+
+resources:
+  requests:
+    # cpu: 0
+    memory: 256Mi
+  limits:
+    # cpu: 1
+    memory: 256Mi
+
+networkPolicy:
+  enabled: true
+
+prometheus:
+  enabled: true
+  namespaceSelector:
+    matchLabels:
+      role: monitoring
