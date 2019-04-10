@@ -34,18 +34,18 @@ spec:
             summary: {{ .Values.name }} HTTP 5xx responses occurred
             description: {{ .Values.name }} HTTP 5xx responses occurred in the last minute
 
-        - alert: HighHttp4xxRate
+        - alert: HighHttp4xxRatio
           expr: >
-            sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRate.sampleInterval }}])) /
-            sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRate.referenceInterval }}])) >
-            {{ .Values.alerting.http4xxRate.thresholdFactor }}
+            (sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRatio.sampleInterval }}])) / sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.http4xxRatio.sampleInterval }}]))) /
+            (sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRatio.referenceInterval }}])) / sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.http4xxRatio.referenceInterval }}]))) >
+            {{ .Values.alerting.http4xxRatio.thresholdFactor }}
           labels:
             component: {{ .Values.name }}
             severity: ticket
 {{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
           annotations:
-            summary: {{ .Values.name }} HTTP 4xx response rate is high
-            description: Number of {{ .Values.name }} HTTP 4xx responses in the last {{ .Values.alerting.http4xxRate.sampleInterval }} is higher than in the last {{ .Values.alerting.http4xxRate.referenceInterval }}
+            summary: Ratio of {{ .Values.name }} HTTP 4xx responses is high
+            description: Ratio of {{ .Values.name }} HTTP responses with 4xx status codes in the last {{ .Values.alerting.http4xxRatio.sampleInterval }} is higher than in the last {{ .Values.alerting.http4xxRatio.referenceInterval }}
 
         - alert: SlowResponseTime
           expr: >

@@ -48,7 +48,7 @@ monitoring:
 alerting:
   enabled: true
   labels: {}
-  http4xxRate:
+  http4xxRatio:
     sampleInterval: 5m
     referenceInterval: 1d
     thresholdFactor: 1.5
