@@ -1,0 +1,64 @@
+{{- if .Values.alerting.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ .Values.name }}
+  labels:
+{{ include "axoom.default-labels" . | indent 4 }}
+    prometheus: cluster
+    role: alert-rules
+
+spec:
+  groups:
+    - name: {{ .Values.name }}.rules
+      rules:
+        - alert: ReplicasUnavailable
+          expr: kube_deployment_status_replicas_unavailable{deployment="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"} > 0
+          for: 5m
+          labels:
+            severity: page
+            component: {{ .Values.name }}
+{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+          annotations:
+            summary: {{ .Values.name }} pods are unavailable
+            description: Some of the {{ .Values.name }} pods were unavailable for the last 5 minutes
+
+{{- if and .Values.ingress.enabled (not (eq .Values.ingress.class "cluster")) }}
+        - alert: Http5xxOccurred
+          expr: sum(increase(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"5.."}[1m])) > 0
+          labels:
+            component: {{ .Values.name }}
+            severity: page
+{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+          annotations:
+            summary: {{ .Values.name }} HTTP 5xx responses occurred
+            description: {{ .Values.name }} HTTP 5xx responses occurred in the last minute
+
+        - alert: HighHttp4xxRate
+          expr: >
+            sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRate.sampleInterval }}])) /
+            sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRate.referenceInterval }}])) >
+            {{ .Values.alerting.http4xxRate.thresholdFactor }}
+          labels:
+            component: {{ .Values.name }}
+            severity: ticket
+{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+          annotations:
+            summary: {{ .Values.name }} HTTP 4xx response rate is high
+            description: Number of {{ .Values.name }} HTTP 4xx responses in the last {{ .Values.alerting.http4xxRate.sampleInterval }} is higher than in the last {{ .Values.alerting.http4xxRate.referenceInterval }}
+
+        - alert: SlowResponseTime
+          expr: >
+            (sum(increase(traefik_backend_request_duration_seconds_sum{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.sampleInterval }}])) / sum(increase(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.sampleInterval }}]))) /
+            (sum(increase(traefik_backend_request_duration_seconds_sum{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.referenceInterval }}])) / sum(increase(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.referenceInterval }}]))) >
+            {{ .Values.alerting.responseTime.thresholdFactor }}
+          labels:
+            component: {{ .Values.name }}
+            severity: ticket
+{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+          annotations:
+            summary: Slow {{ .Values.name }} HTTP repsonses
+            description: {{ .Values.name }} HTTP responses in the last {{ .Values.alerting.responseTime.sampleInterval }} were slower than in the last {{ .Values.alerting.responseTime.referenceInterval }}
+{{- end }}
+
+{{- end }}

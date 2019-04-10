@@ -23,6 +23,10 @@ app:
     repository: services/myvendor-myservice
     tag: latest # replaced with specific version number by build server
 
+    alerting:
+      labels:
+        team: myteam
+
   # resources:
   #   ...
 
@@ -59,45 +63,53 @@ releases:
 
 ## Values
 
-| Value                          | Default                                               | Description                                                                                                               |
-|--------------------------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| `global.tenant.id`             |                                                       | The tenant's id (used for labeling)                                                                                       |
-| `global.tenant.domain`         |                                                       | The tenant's domain name (used for labeling)                                                                              |
-| `name`                         | __required__                                          | The name of the service                                                                                                   |
-| `image.registry`               | __required__                                          | The Docker registry containing the image of the service                                                                   |
-| `image.authenticated`          | `true`                                                | Controls whether to use credentials for pulling the image                                                                 |
-| `image.repository`             | __required__                                          | The Docker Repository containing the image (excluding the Registry)                                                       |
-| `image.tag`                    | __required__                                          | The Docker Tag of the image to use                                                                                        |
-| `image.pullPolicy`             | `IfNotPresent`                                        | Set to `Always` to try to pull new versions of the image                                                                  |
-| `replicas`                     | `1`                                                   | The number of instances of the service to run                                                                             |
-| `updateStrategy`               | `RollingUpdate` (`Recreate` if `persistence.enabled`) | Controls whether all existing instances of the service must be shut down before new versions may be started.              |
-| `rbac.roles`                   | `[]`                                                  | The names of [namespaced Roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) the service shall have.    |
-| `rbac.clusterRoles`            | `[]`                                                  | The names of [cluster-wide Roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) the service shall have.  |
-| `persistence.enabled`          | `false`                                               | Enables persistent storage for the service                                                                                |
-| `persistence.storageClass`     | `standard`                                            | The type of disk to use for storage (`standard` or `ssd`)                                                                 |
-| `persistence.size`             | `1G`                                                  | The size of the persistent volume to create for the service                                                               |
-| `persistence.mountPath`        | __required if enabled__                               | The mount path for the storage inside the container                                                                       |
-| `secrets[0].name`              | __required if used__                                  | The name of the Kubernetes secret to create                                                                               |
-| `secrets[0].mountPath`         | __required if used__                                  | The mount path for the secret inside the container                                                                        |
-| `secrets[0].files`             | `{}`                                                  | A dictionary mapping file names to file contents for secrets with base64 encoded values                                   |
-| `providedSecrets[0].name`      | __required if used__                                  | The name of an existing Kubernetes secret                                                                                 |
-| `providedSecrets[0].mountPath` | __required if used__                                  | The mount path for the secret inside the container                                                                        |
-| `providedSecrets[0].subPath`   |                                                       | The path of a single file in the secret relative to the given `mountPath`                                                 |
-| `hostAliases`                  | `[]`                                                  | [HostAliases](https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/)    |
-| `sidecars`                     | `[]`                                                  | Additional sidecar containers to be added to the pod.                                                                     |
-| `ingress.enabled`              | `false`                                               | Enables HTTP ingress into the service                                                                                     |
-| `ingress.port`                 | `80`                                                  | The container port ingress traffic is forwarded to                                                                        |
-| `ingress.class`                | `traefik-public`                                      | `traefik-public` for public internet, `traefik-internal` for AXOOM network, `cluster` for Kubernetes cluster only         |
-| `ingress.domain`               |                                                       | The domain name under which the service is exposed (only for `traefik-public` and `traefik-internal`)                     |
-| `ingress.annotations`          |                                                       | Additional annotations besides the ingress class to be added to the ingress. Put as `key: value` pairs                    |
-| `ingress.externalDnsTarget`    |                                                       | Domain name for the external-dns target (explicitly setting `external-dns.alpha.kubernetes.io/target` annotation)         |
-| `monitoring.enabled`           | `true`                                                | Enables Prometheus monitoring                                                                                             |
-| `monitoring.port`              | `5000`                                                | The port which is scraped for monitoring data                                                                             |
-| `livenessProbe`                |                                                       | Probe that causes the service to be restarted when failing                                                                |
-| `readinessProbe`               |                                                       | Probe that prevents the service from receiving traffic when failing                                                       |
-| `resources`                    | Limits to 128M mem                                    | The resources requests and limits for the service                                                                         |
-| `env`                          | `{}`                                                  | The environment variables passed to the service                                                                           |
-| `envFromField`                 | `{}`                                                  | Environment variables from fields. Key is the name of the env var and value is the fieldPath (e.g. `metadata.namespace`). |
-| `dns.policy`                   | `ClusterFirst`                                        | [DNS resolution policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy)        |
-| `dns.config`                   | `{}`                                                  | [DNS Config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-config)                   |
-| `podAntiAffinity`              | based on `app.kubernetes.io/instance` label           | [Anti-Affinity](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)                                       |
+| Value                                     | Default                                               | Description                                                                                                               |
+|-------------------------------------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| `global.tenant.id`                        |                                                       | The tenant's id (used for labeling)                                                                                       |
+| `global.tenant.domain`                    |                                                       | The tenant's domain name (used for labeling)                                                                              |
+| `name`                                    | __required__                                          | The name of the service                                                                                                   |
+| `image.registry`                          | __required__                                          | The Docker registry containing the image of the service                                                                   |
+| `image.authenticated`                     | `true`                                                | Controls whether to use credentials for pulling the image                                                                 |
+| `image.repository`                        | __required__                                          | The Docker Repository containing the image (excluding the Registry)                                                       |
+| `image.tag`                               | __required__                                          | The Docker Tag of the image to use                                                                                        |
+| `image.pullPolicy`                        | `IfNotPresent`                                        | Set to `Always` to try to pull new versions of the image                                                                  |
+| `replicas`                                | `1`                                                   | The number of instances of the service to run                                                                             |
+| `updateStrategy`                          | `RollingUpdate` (`Recreate` if `persistence.enabled`) | Controls whether all existing instances of the service must be shut down before new versions may be started.              |
+| `rbac.roles`                              | `[]`                                                  | The names of [namespaced Roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) the service shall have.    |
+| `rbac.clusterRoles`                       | `[]`                                                  | The names of [cluster-wide Roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) the service shall have.  |
+| `persistence.enabled`                     | `false`                                               | Enables persistent storage for the service                                                                                |
+| `persistence.storageClass`                | `standard`                                            | The type of disk to use for storage (`standard` or `ssd`)                                                                 |
+| `persistence.size`                        | `1G`                                                  | The size of the persistent volume to create for the service                                                               |
+| `persistence.mountPath`                   | __required if enabled__                               | The mount path for the storage inside the container                                                                       |
+| `secrets[0].name`                         | __required if used__                                  | The name of the Kubernetes secret to create                                                                               |
+| `secrets[0].mountPath`                    | __required if used__                                  | The mount path for the secret inside the container                                                                        |
+| `secrets[0].files`                        | `{}`                                                  | A dictionary mapping file names to file contents for secrets with base64 encoded values                                   |
+| `providedSecrets[0].name`                 | __required if used__                                  | The name of an existing Kubernetes secret                                                                                 |
+| `providedSecrets[0].mountPath`            | __required if used__                                  | The mount path for the secret inside the container                                                                        |
+| `providedSecrets[0].subPath`              |                                                       | The path of a single file in the secret relative to the given `mountPath`                                                 |
+| `hostAliases`                             | `[]`                                                  | [HostAliases](https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/)    |
+| `sidecars`                                | `[]`                                                  | Additional sidecar containers to be added to the pod.                                                                     |
+| `ingress.enabled`                         | `false`                                               | Enables HTTP ingress into the service                                                                                     |
+| `ingress.port`                            | `80`                                                  | The container port ingress traffic is forwarded to                                                                        |
+| `ingress.class`                           | `traefik-public`                                      | `traefik-public` for public internet, `traefik-internal` for AXOOM network, `cluster` for Kubernetes cluster only         |
+| `ingress.domain`                          |                                                       | The domain name under which the service is exposed (only for `traefik-public` and `traefik-internal`)                     |
+| `ingress.annotations`                     |                                                       | Additional annotations besides the ingress class to be added to the ingress. Put as `key: value` pairs                    |
+| `ingress.externalDnsTarget`               |                                                       | Domain name for the external-dns target (explicitly setting `external-dns.alpha.kubernetes.io/target` annotation)         |
+| `monitoring.enabled`                      | `true`                                                | Enables Prometheus monitoring                                                                                             |
+| `monitoring.port`                         | `5000`                                                | The port which is scraped for monitoring data                                                                             |
+| `alerting.enabled`                        | `true`                                                | Enables Prometheus alerting                                                                                               |
+| `alerting.labels`                         | `{}`                                                  | Additional labels to apply to all alert rules                                                                             |
+| `alerting.http4xxRate.sampleInterval`     | `5m`                                                  | The time interval in which to count HTTP 4xx responses for the current state                                              |
+| `alerting.http4xxRate.referenceInterval`  | `1d`                                                  | The time interval in which to count HTTP 4xx responses as a reference for the normal state                                |
+| `alerting.http4xxRate.thresholdFactor`    | `1.5`                                                 | The maximum ratio between the current state and the normal state of HTTP 4xx responses to allow before alerting           |
+| `alerting.responseTime.sampleInterval`    | `1h`                                                  | The time interval in which to measure average HTTP response times for the current state                                   |
+| `alerting.responseTime.referenceInterval` | `1d`                                                  | The time interval in which to measure average HTTP response times for the normal state                                    |
+| `alerting.responseTime.thresholdFactor`   | `1.5`                                                 | The maximum ratio between the current state and the normal state of HTTP response times to allow before alerting          |
+| `livenessProbe`                           |                                                       | Probe that causes the service to be restarted when failing                                                                |
+| `readinessProbe`                          |                                                       | Probe that prevents the service from receiving traffic when failing                                                       |
+| `resources`                               | Limits to 128M mem                                    | The resources requests and limits for the service                                                                         |
+| `env`                                     | `{}`                                                  | The environment variables passed to the service                                                                           |
+| `envFromField`                            | `{}`                                                  | Environment variables from fields. Key is the name of the env var and value is the fieldPath (e.g. `metadata.namespace`). |
+| `dns.policy`                              | `ClusterFirst`                                        | [DNS resolution policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy)        |
+| `dns.config`                              | `{}`                                                  | [DNS Config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-config)                   |
+| `podAntiAffinity`                         | based on `app.kubernetes.io/instance` label           | [Anti-Affinity](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)                                       |
