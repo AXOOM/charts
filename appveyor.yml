@@ -1,0 +1,37 @@
+branches:
+  except:
+    - gh-pages
+
+image: Visual Studio 2017
+
+cache:
+  - '%LOCALAPPDATA%\0install.net'
+  - '%APPDATA%\0install.net'
+
+before_build:
+  - gitversion /l console /output buildserver
+
+# Package Helm charts
+build_script:
+  - ps: .\package.ps1 $env:GitVersion_SemVer
+artifacts:
+  - path: '*.tgz'
+
+# Build and publish Helm chart index
+after_build:
+  - git checkout gh-pages
+  - ps: 0install run --batch http://repo.roscidus.com/kubernetes/helm repo index . --merge index.yaml --url https://github.com/AXOOM/charts/releases/download/$env:GitVersion_SemVer/
+  - ps: Add-Content ~\.git-credentials "https://${env:GITHUB_ACCESS_TOKEN}:x-oauth-basic@github.com`n"
+  - git config user.name "CI User"
+  - git config user.email "info@axoom.com"
+  - git config credential.helper store
+  - git add index.yaml
+  - git commit -m "Update Helm chart index"
+  - if "%APPVEYOR_REPO_TAG%"=="true" git push origin gh-pages
+
+# Publish Helm charts
+deploy:
+  - provider: Environment
+    name: GitHub Releases
+    on:
+      APPVEYOR_REPO_TAG: true

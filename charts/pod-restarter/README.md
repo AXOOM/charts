@@ -2,13 +2,17 @@
 
 This Helm chart deploys a Kubernetes Cronjob that periodically deletes Pods with a specific app label. The Pods should then be recreated/restarted automatically by the Deployment or StatefulSet that created them.
 
+To be able to use this Charts you must first run:
+
+    helm repo add axoom-github https://axoom.github.io/charts/
+
 Pull it in to your Chart as dependency by adding this to your `requirements.yaml`:
 
 ```yaml
 dependencies:
   - name: pod-restarter
-    version: 2.2.0
-    repository: '@axoom-base'
+    version: 1.2.3 #TODO: Replace with current version
+    repository: '@axoom-github'
 ```
 
 You can then add configuration to your `values.yaml` like this:

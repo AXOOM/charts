@@ -2,13 +2,17 @@
 
 This Helm chart serves as a template for running a service. It handles monitoring, ingress, etc..
 
+To be able to use this Charts you must first run:
+
+    helm repo add axoom-github https://axoom.github.io/charts/
+
 You can usually delete your entire `templates` directory when using this chart. Pull it in to your Chart as a dependency by adding this to your `requirements.yaml`:
 
 ```yaml
 dependencies:
   - name: axoom-service
-    version: 3.2.0
-    repository: '@axoom-base'
+    version: 1.2.3 #TODO: Replace with current version
+    repository: '@axoom-github'
     alias: app
 ```
 
