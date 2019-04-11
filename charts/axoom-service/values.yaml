@@ -46,7 +46,7 @@ monitoring:
   port: 5000
 
 alerting:
-  enabled: true
+  enabled: false
   labels: {}
   http4xxRatio:
     sampleInterval: 5m

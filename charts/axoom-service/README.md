@@ -24,6 +24,7 @@ app:
     tag: latest # replaced with specific version number by build server
 
     alerting:
+      enabled: true
       labels:
         team: myteam
 
@@ -97,8 +98,8 @@ releases:
 | `ingress.externalDnsTarget`               |                                                       | Domain name for the external-dns target (explicitly setting `external-dns.alpha.kubernetes.io/target` annotation)         |
 | `monitoring.enabled`                      | `true`                                                | Enables Prometheus monitoring                                                                                             |
 | `monitoring.port`                         | `5000`                                                | The port which is scraped for monitoring data                                                                             |
-| `alerting.enabled`                        | `true`                                                | Enables Prometheus alerting                                                                                               |
-| `alerting.labels`                         | `{}`                                                  | Additional labels to apply to all alert rules                                                                             |
+| `alerting.enabled`                        | `false`                                               | Enables default alert rules (unavailable pods, HTTP 5xx, higher ratio of HTTP 4xx, higher average response times)         |
+| `alerting.labels`                         | `{}`                                                  | Additional labels to apply to default alert rules                                                                         |
 | `alerting.http4xxRatio.sampleInterval`    | `5m`                                                  | The time interval in which to measure ratio of HTTP 4xx responses for the current state                                   |
 | `alerting.http4xxRatio.referenceInterval` | `1d`                                                  | The time interval in which to measure ratio of HTTP 4xx responses as a reference for the normal state                     |
 | `alerting.http4xxRatio.thresholdFactor`   | `1.5`                                                 | The maximum factor between the current state and the normal state of HTTP 4xx response ratio to allow before alerting     |
