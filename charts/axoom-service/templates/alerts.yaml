@@ -16,12 +16,28 @@ spec:
           expr: kube_deployment_status_replicas_unavailable{deployment="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"} > 0
           for: 5m
           labels:
-            severity: page
             component: {{ .Values.name }}
+            severity: page
 {{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
           annotations:
             summary: {{ .Values.name }} pods are unavailable
             description: Some of the {{ .Values.name }} pods were unavailable for the last 5 minutes
+
+    - name: {{ .Values.name }}.rules
+      rules:
+        - alert: HighMemoryUsage
+          expr: >
+            max(container_memory_working_set_bytes{container_name="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"}) /
+            min(kube_pod_container_resource_limits_memory_bytes{container="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"}) >
+            {{ .Values.alerting.memoryUsage.thresholdFactor }}
+          for: 5m
+          labels:
+            component: {{ .Values.name }}
+            severity: ticket
+{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+          annotations:
+            summary: {{ .Values.name }} memory usage is high
+            description: {{ .Values.name }} is using more than {{ .Values.alerting.memoryUsage.thresholdFactor }} of its available memory
 
 {{- if and .Values.ingress.enabled (not (eq .Values.ingress.class "cluster")) }}
         - alert: Http5xxOccurred

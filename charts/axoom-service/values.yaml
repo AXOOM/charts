@@ -48,6 +48,8 @@ monitoring:
 alerting:
   enabled: false
   labels: {}
+  memoryUsage:
+    thresholdFactor: 0.9
   http4xxRatio:
     sampleInterval: 5m
     referenceInterval: 1d
