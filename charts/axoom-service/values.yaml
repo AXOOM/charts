@@ -45,6 +45,20 @@ monitoring:
   class: default
   port: 5000
 
+alerting:
+  enabled: false
+  labels: {}
+  memoryUsage:
+    thresholdFactor: 0.9
+  http4xxRatio:
+    sampleInterval: 5m
+    referenceInterval: 1d
+    thresholdFactor: 1.5
+  responseTime:
+    sampleInterval: 1h
+    referenceInterval: 1d
+    thresholdFactor: 1.5
+
 # livenessProbe:
 #   initialDelaySeconds: 10 # Allow for long startup
 #   httpGet:
