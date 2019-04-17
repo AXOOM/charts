@@ -23,8 +23,6 @@ spec:
             summary: {{ .Values.name }} pods are unavailable
             description: Some of the {{ .Values.name }} pods were unavailable for the last 5 minutes
 
-    - name: {{ .Values.name }}.rules
-      rules:
         - alert: HighMemoryUsage
           expr: >
             max(container_memory_working_set_bytes{container_name="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"}) /
