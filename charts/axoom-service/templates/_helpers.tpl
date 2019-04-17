@@ -7,6 +7,7 @@ release: '{{ .Release.Name }}'
 {{ define "axoom.default-labels" -}}
 {{ include "axoom.selector-labels" . }}
 app.kubernetes.io/name: '{{ required "Set name" .Values.name }}'
+app.kubernetes.io/version: '{{ .Chart.Version }}'
 app.kubernetes.io/instance: '{{ .Release.Name }}'
 app.kubernetes.io/managed-by: '{{ .Release.Service }}'
 helm.sh/chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
