@@ -1,7 +1,7 @@
 # AXOOM Helm Charts
 
 This contains the sources for the following [Helm](https://helm.sh/) Charts:
-- [AXOOM Service Helm Chart](charts/axoom-service/)
+- [Generic Service Helm Chart](charts/generic-service/)
 - [Pod Restarter Helm Chart](charts/pod-restarter/)
 
 To be able to use these Charts you must first run:

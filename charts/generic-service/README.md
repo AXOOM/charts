@@ -1,4 +1,4 @@
-# AXOOM Service Helm Chart
+# Generic Service Helm Chart
 
 This Helm chart serves as a template for running a service. It handles monitoring, ingress, etc..
 
@@ -10,7 +10,7 @@ You can usually delete your entire `templates` directory when using this chart. 
 
 ```yaml
 dependencies:
-  - name: axoom-service
+  - name: generic-service
     version: 1.2.3 #TODO: Replace with current version
     repository: '@axoom-github'
     alias: app
