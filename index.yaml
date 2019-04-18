@@ -1,0 +1,34 @@
+apiVersion: v1
+entries:
+  etcd-cluster:
+  - apiVersion: v1
+    created: 2019-04-18T15:08:37.6133358Z
+    description: stateful etcd cluster
+    digest: e10bb5909c0c7810055fc9fa136cb6bcf8bd7368c16788f161cb20d606a988f2
+    name: etcd-cluster
+    sources:
+    - https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.Kubernetes.EtcdCluster
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.0.0/etcd-cluster-4.0.0.tgz
+    version: 4.0.0
+  generic-service:
+  - apiVersion: v1
+    created: 2019-04-18T15:08:37.6143666Z
+    description: runs a service (with monitoring, ingress, etc.)
+    digest: 275ea52e53574e7fa692d8e38333d06fa3e6d8cd7aa331db07659e11ea51d283
+    home: https://github.com/AXOOM/charts/tree/master/charts/generic-service
+    name: generic-service
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.0.0/generic-service-4.0.0.tgz
+    version: 4.0.0
+  pod-restarter:
+  - apiVersion: v1
+    created: 2019-04-18T15:08:37.615335Z
+    description: A cronjob deleting pods
+    digest: 9001dd8fd9d2afa1392742e3d644a87b2828dc41a28786c1fe0681264cde8018
+    home: https://github.com/AXOOM/charts/tree/master/charts/pod-restarter
+    name: pod-restarter
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.0.0/pod-restarter-4.0.0.tgz
+    version: 4.0.0
+generated: 2019-04-18T15:08:37.6123344Z
