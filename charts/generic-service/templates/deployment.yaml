@@ -137,6 +137,14 @@ spec:
                   fieldPath: {{ $val }}
             {{- end }}
 
+          # Delay shutdown to give ingress controller time to reroute traffic
+          {{- if .Values.ingress.enabled }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sleep", "5"]
+          {{- end }}
+
         {{- if .Values.sidecars }}
 {{ toYaml .Values.sidecars | indent 8 }}
         {{- end }}
