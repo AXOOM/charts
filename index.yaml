@@ -2,7 +2,17 @@ apiVersion: v1
 entries:
   etcd-cluster:
   - apiVersion: v1
-    created: 2019-05-15T15:45:59.8404337Z
+    created: "2019-05-24T14:54:19.6593819Z"
+    description: stateful etcd cluster
+    digest: e63699033fd55bec59237dbc906561cd6633c0761297629a3964029fd36e6334
+    name: etcd-cluster
+    sources:
+    - https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.Kubernetes.EtcdCluster
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.1.0/etcd-cluster-4.1.0.tgz
+    version: 4.1.0
+  - apiVersion: v1
+    created: "2019-05-15T15:45:59.8404337Z"
     description: stateful etcd cluster
     digest: 91973e4bf36855283d2677134a20d4770b5d144807713c9b66e6b074be7b1a98
     name: etcd-cluster
@@ -12,7 +22,7 @@ entries:
     - https://github.com/AXOOM/charts/releases/download/4.0.1/etcd-cluster-4.0.1.tgz
     version: 4.0.1
   - apiVersion: v1
-    created: 2019-04-18T15:08:37.6133358Z
+    created: "2019-04-18T15:08:37.6133358Z"
     description: stateful etcd cluster
     digest: e10bb5909c0c7810055fc9fa136cb6bcf8bd7368c16788f161cb20d606a988f2
     name: etcd-cluster
@@ -23,7 +33,16 @@ entries:
     version: 4.0.0
   generic-service:
   - apiVersion: v1
-    created: 2019-05-15T15:45:59.841434Z
+    created: "2019-05-24T14:54:19.6593819Z"
+    description: runs a service (with monitoring, ingress, etc.)
+    digest: fb6b82381eee3d8c9159e393774f41ecb3df3bf9f9d6f154621e1db0c5c2d162
+    home: https://github.com/AXOOM/charts/tree/master/charts/generic-service
+    name: generic-service
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.1.0/generic-service-4.1.0.tgz
+    version: 4.1.0
+  - apiVersion: v1
+    created: "2019-05-15T15:45:59.841434Z"
     description: runs a service (with monitoring, ingress, etc.)
     digest: ebf12e88159dbc24194af3aa8ef88d58e462b30c84c77ded8dddc9fc02fea74b
     home: https://github.com/AXOOM/charts/tree/master/charts/generic-service
@@ -32,7 +51,7 @@ entries:
     - https://github.com/AXOOM/charts/releases/download/4.0.1/generic-service-4.0.1.tgz
     version: 4.0.1
   - apiVersion: v1
-    created: 2019-04-18T15:08:37.6143666Z
+    created: "2019-04-18T15:08:37.6143666Z"
     description: runs a service (with monitoring, ingress, etc.)
     digest: 275ea52e53574e7fa692d8e38333d06fa3e6d8cd7aa331db07659e11ea51d283
     home: https://github.com/AXOOM/charts/tree/master/charts/generic-service
@@ -42,7 +61,16 @@ entries:
     version: 4.0.0
   pod-restarter:
   - apiVersion: v1
-    created: 2019-05-15T15:45:59.841434Z
+    created: "2019-05-24T14:54:19.6593819Z"
+    description: A cronjob deleting pods
+    digest: 241be1f2bcc3205e82e15422d52fc8c5cd221ec22da40e71645b29ca45540875
+    home: https://github.com/AXOOM/charts/tree/master/charts/pod-restarter
+    name: pod-restarter
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.1.0/pod-restarter-4.1.0.tgz
+    version: 4.1.0
+  - apiVersion: v1
+    created: "2019-05-15T15:45:59.841434Z"
     description: A cronjob deleting pods
     digest: 4242f78ee15af9df1ae576ca72aa98e81083e156f0ac6ed4a7547b95f32155b4
     home: https://github.com/AXOOM/charts/tree/master/charts/pod-restarter
@@ -51,7 +79,7 @@ entries:
     - https://github.com/AXOOM/charts/releases/download/4.0.1/pod-restarter-4.0.1.tgz
     version: 4.0.1
   - apiVersion: v1
-    created: 2019-04-18T15:08:37.615335Z
+    created: "2019-04-18T15:08:37.615335Z"
     description: A cronjob deleting pods
     digest: 9001dd8fd9d2afa1392742e3d644a87b2828dc41a28786c1fe0681264cde8018
     home: https://github.com/AXOOM/charts/tree/master/charts/pod-restarter
@@ -59,4 +87,4 @@ entries:
     urls:
     - https://github.com/AXOOM/charts/releases/download/4.0.0/pod-restarter-4.0.0.tgz
     version: 4.0.0
-generated: 2019-05-15T15:45:59.8394332Z
+generated: "2019-05-24T14:54:19.6583812Z"
