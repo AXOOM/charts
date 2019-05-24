@@ -39,6 +39,7 @@ ingress:
   externalDnsTarget: # optional, whatever is configured in external-dns
   port: 80
   annotations: {} # additional annotations besides ingress class and optional external-dns
+  extendedRules: [] # additional rules besides the one specified by the enabled ingress
 
 monitoring:
   enabled: true

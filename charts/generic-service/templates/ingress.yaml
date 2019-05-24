@@ -23,5 +23,6 @@ spec:
           - backend:
               serviceName: {{ .Values.name }}
               servicePort: ingress
+{{ if .Values.ingress.extendedRules }}{{ toYaml .Values.ingress.extendedRules | indent 4 }}{{ end }}
 
 {{- end }}
