@@ -1,0 +1,8 @@
+releases:
+  - name: '{{ env "RELEASE" | default (print (requiredEnv "TENANT_ID") "-" (requiredEnv "REGISTRY_DOMAIN") "-image-pull-secret") }}'
+    namespace: '{{ requiredEnv "TENANT_ID" }}'
+    chart: ./
+    values:
+      - domain: {{ requiredEnv "REGISTRY_DOMAIN" | quote }}
+        username: {{ requiredEnv "REGISTRY_USERNAME" | quote }}
+        password: {{ requiredEnv "REGISTRY_PASSWORD" | quote }}
