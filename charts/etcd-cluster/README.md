@@ -22,7 +22,7 @@ You can then install it like this:
 | `image.tag`                    | `v3.3.12`                           |                                                                                                            |
 | `image.pullPolicy`             | `IfNotPresent`                      |                                                                                                            |
 | `replicas`                     | `5`                                 | The number of replicas. Do not change this after first deployment!                                         |
-| `persistence.storageClass`     | `ssd`                               | The type of storage to use.                                                                                |
+| `persistence.storageClass`     | cluster default                     | The type of storage to use.                                                                                |
 | `persistence.size`             | `2G`                                | The disk size per node.                                                                                    |
 | `resources`                    | 256Mi mem                           | The resource requests and limits for the nodes.                                                            |
 | `networkPolicy.enabled`        | `true`                              |                                                                                                            |

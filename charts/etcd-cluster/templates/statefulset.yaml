@@ -39,7 +39,7 @@ spec:
             initialDelaySeconds: 10
             tcpSocket:
               port: client
-    
+
           readinessProbe:
             initialDelaySeconds: 2
             tcpSocket:
@@ -89,7 +89,9 @@ spec:
     - metadata:
         name: data
       spec:
+{{- if .Values.persistence.storageClass }}
         storageClassName: '{{ .Values.persistence.storageClass }}'
+{{- end }}
         accessModes:
           - ReadWriteOnce
         resources:
