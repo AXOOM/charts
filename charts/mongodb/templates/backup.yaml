@@ -1,0 +1,45 @@
+{{- if .Values.backup.enabled }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: '{{ required "Set service.fullnameOverride" .Values.service.fullnameOverride }}-backup'
+  labels:
+    app: '{{ .Values.service.nameOverride }}-backup'
+    release: '{{ .Release.Name }}'
+    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+    heritage: '{{ .Release.Service }}'
+
+spec:
+  schedule: {{ .Values.backup.schedule | quote }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: '{{ .Values.service.fullnameOverride }}-backup'
+          labels:
+            app: '{{ .Values.service.nameOverride }}-backup'
+            release: '{{ .Release.Name }}'
+
+        spec:
+          restartPolicy: Never
+
+          {{- if .Values.backup.imagePullSecret }}
+          imagePullSecrets:
+            - name: '{{ .Values.backup.imagePullSecret }}'
+          {{- end }}
+
+          containers:
+          - name: backup
+            image: '{{ required "Set backup.image" .Values.backup.image }}'
+            imagePullPolicy: '{{ .Values.backup.imagePullPolicy }}'
+            env:
+            - name: MONGO_HOST
+              value: '{{ .Values.service.fullnameOverride }}'
+            - name: BACKUP_NAME
+              value: '{{ .Release.Name }}'
+            {{- range $key, $val := .Values.backup.env }}
+            - name: {{ $key | quote }}
+              value: {{ $val | quote }}
+            {{- end }}
+{{- end }}

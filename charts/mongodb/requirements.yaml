@@ -1,0 +1,5 @@
+dependencies:
+  - name: mongodb-replicaset
+    version: 3.9.5
+    repository: '@stable'
+    alias: service

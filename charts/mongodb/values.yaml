@@ -1,0 +1,28 @@
+service:
+  nameOverride: mongodb
+  fullnameOverride: # required
+  replicas: 1
+  persistentVolume:
+    size: 1G
+  configmap:
+    storage:
+      mmapv1:
+        smallFiles: true
+  resources:
+    requests:
+      memory: 64M
+    limits:
+      memory: 512M
+  metrics:
+    enabled: true
+
+network:
+  ingressFromApps: [] # required
+
+backup:
+  enabled: false
+  schedule: "0 0 * * *"
+  env: {}
+  image: # required if backup enabled
+  imagePullPolicy: IfNotPresent
+  imagePullSecret: # optional

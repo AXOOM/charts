@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: '{{ required "Set service.fullnameOverride" .Values.service.fullnameOverride }}'
+  labels:
+    app: '{{ .Values.service.nameOverride }}'
+    release: '{{ .Release.Name }}'
+    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+    heritage: '{{ .Release.Service }}'
+
+spec:
+  podSelector:
+    matchLabels:
+      release: '{{ .Release.Name }}'
+      app: '{{ .Values.service.nameOverride }}'
+  ingress:
+    - from:
+        {{- $root := . -}}
+        {{- range .Values.network.ingressFromApps }}
+        - podSelector:
+            matchLabels:
+              release: '{{ $root.Release.Name }}'
+              app: {{ . | quote }}
+        {{- end }}
+        # Allow replica instances and sidecars to communicate amongst each other
+        - podSelector:
+            matchLabels:
+              release: '{{ .Release.Name }}'
+              app: '{{ .Values.service.nameOverride }}'
+
+        # Allow access from backup job
+        - podSelector:
+            matchLabels:
+              release: '{{ .Release.Name }}'
+              app: '{{ .Values.service.nameOverride }}-backup'
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ .Values.service.nameOverride }}-backup'
+
+{{- if .Values.service.metrics.enabled }}
+    # Allow access from monitoring system (Prometheus)
+    - ports:
+        - port: 9216 # adressing port via name (currently) does not work in K8s
+      from:
+        - namespaceSelector:
+            matchLabels:
+              role: monitoring
+{{- end }}

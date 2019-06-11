@@ -1,0 +1,24 @@
+{{- if .Values.service.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: '{{ required "Set service.fullnameOverride" .Values.service.fullnameOverride }}'
+  labels:
+    app: '{{ .Values.service.nameOverride }}'
+    release: '{{ .Release.Name }}'
+    chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
+    heritage: '{{ .Release.Service }}'
+
+spec:
+  selector:
+    matchLabels:
+      app: '{{ .Values.service.nameOverride }}'
+      release: '{{ .Release.Name }}'
+  targetLabels:
+    - app
+    - release
+    - tenantDomain
+    - tenantId
+  endpoints:
+    - port: metrics
+{{- end }}
