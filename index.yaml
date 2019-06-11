@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   etcd-cluster:
   - apiVersion: v1
+    created: "2019-06-11T10:38:40.2560771Z"
+    description: stateful etcd cluster
+    digest: 569e4ef2955b770f1445565c5b2173f9e6ee11cd820c4a13aa0bc666e7964012
+    name: etcd-cluster
+    sources:
+    - https://tfs.inside-axoom.org/tfs/axoom/axoom/_git/Axoom.Platform.Kubernetes.EtcdCluster
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.3.0/etcd-cluster-4.3.0.tgz
+    version: 4.3.0
+  - apiVersion: v1
     created: "2019-05-27T17:19:15.5935417Z"
     description: stateful etcd cluster
     digest: 5717d7d589680a0e16de3c67f1dd5a0d1161003d329319b648955bbe939d0e62
@@ -43,6 +53,15 @@ entries:
     version: 4.0.0
   generic-service:
   - apiVersion: v1
+    created: "2019-06-11T10:38:40.2570772Z"
+    description: runs a service (with monitoring, ingress, etc.)
+    digest: ed5ffecc110856b9ee1a89e6cbba4f184a22c83c620e72b812173c6e89a1a5ed
+    home: https://github.com/AXOOM/charts/tree/master/charts/generic-service
+    name: generic-service
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.3.0/generic-service-4.3.0.tgz
+    version: 4.3.0
+  - apiVersion: v1
     created: "2019-05-27T17:19:15.5935417Z"
     description: runs a service (with monitoring, ingress, etc.)
     digest: de37c33fbaeb0fc217293890925d8287e97dff0ce09abf33c34145bd8e5237dc
@@ -80,6 +99,15 @@ entries:
     version: 4.0.0
   image-pull-secret:
   - apiVersion: v1
+    created: "2019-06-11T10:38:40.2570772Z"
+    description: deploys an Image Pull Secret for a private Docker Registry
+    digest: 7747a5a11d68447a5cc58bc7896d96bb95cb566307e420c90524214f2d506476
+    home: https://github.com/AXOOM/charts/tree/master/charts/image-pull-secret
+    name: image-pull-secret
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.3.0/image-pull-secret-4.3.0.tgz
+    version: 4.3.0
+  - apiVersion: v1
     created: "2019-05-27T17:19:15.5945404Z"
     description: deploys an Image Pull Secret for a private Docker Registry
     digest: bc8d37397acf9339a5f66616e30d3ecf2d0b3c2b5fe6f2d79908de44a2c42941
@@ -88,7 +116,26 @@ entries:
     urls:
     - https://github.com/AXOOM/charts/releases/download/4.2.0/image-pull-secret-4.2.0.tgz
     version: 4.2.0
+  mongodb:
+  - apiVersion: v1
+    created: "2019-06-11T10:38:40.2590772Z"
+    description: MongoDB with Network Policy and automatic backup
+    digest: fdcc915ba1cf63540d8cce006168dd7117825dd2d1e7c74bca8da68c7de900a9
+    home: https://github.com/AXOOM/charts/tree/master/charts/mongodb
+    name: mongodb
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.3.0/mongodb-4.3.0.tgz
+    version: 4.3.0
   pod-restarter:
+  - apiVersion: v1
+    created: "2019-06-11T10:38:40.2590772Z"
+    description: A cronjob deleting pods
+    digest: 13cb1f2823908cd4e0b61b21014f7b7c82f84858c5d41731901ea29bc5461a8a
+    home: https://github.com/AXOOM/charts/tree/master/charts/pod-restarter
+    name: pod-restarter
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/4.3.0/pod-restarter-4.3.0.tgz
+    version: 4.3.0
   - apiVersion: v1
     created: "2019-05-27T17:19:15.5945404Z"
     description: A cronjob deleting pods
@@ -125,4 +172,4 @@ entries:
     urls:
     - https://github.com/AXOOM/charts/releases/download/4.0.0/pod-restarter-4.0.0.tgz
     version: 4.0.0
-generated: "2019-05-27T17:19:15.5925391Z"
+generated: "2019-06-11T10:38:40.2530808Z"
