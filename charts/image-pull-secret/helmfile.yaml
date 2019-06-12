@@ -1,5 +1,5 @@
 releases:
-  - name: '{{ requiredEnv "TENANT_ID" }}-{{ requiredEnv "REGISTRY_DOMAIN" }}-image-pull-secret'
+  - name: '{{ requiredEnv "TENANT_ID" }}-image-pull-secret'
     namespace: '{{ requiredEnv "TENANT_ID" }}'
     chart: ./
     values:
