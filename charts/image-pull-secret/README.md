@@ -16,8 +16,9 @@ Or by using [helmfile](https://github.com/roboll/helmfile):
 
 ## Values
 
-| Helm value | Environment variable | Description                                                                    |
-|------------|----------------------|--------------------------------------------------------------------------------|
-| `domain`   | `REGISTRY_DOMAIN`    | The domain name of the Docker Registry. Also used as the name of the `Secret`. |
-| `username` | `REGISTRY_USERNAME`  | The username to use for authenticating with the Docker Registry.               |
-| `password` | `REGISTRY_PASSWORD`  | The password to use for authenticating with the Docker Registry.               |
+| Helm value  | Environment variable | Description                                                                    |
+|-------------|----------------------|--------------------------------------------------------------------------------|
+| `TENANT_ID` |                      | The Kubernetes namespace to deploy to.                                         |
+| `domain`    | `REGISTRY_DOMAIN`    | The domain name of the Docker Registry. Also used as the name of the `Secret`. |
+| `username`  | `REGISTRY_USERNAME`  | The username to use for authenticating with the Docker Registry.               |
+| `password`  | `REGISTRY_PASSWORD`  | The password to use for authenticating with the Docker Registry.               |
