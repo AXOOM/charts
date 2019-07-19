@@ -31,7 +31,7 @@ spec:
           for: 5m
           labels:
             component: {{ .Values.name }}
-            severity: ticket
+            severity: page
 {{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
           annotations:
             summary: {{ .Values.name }} memory usage is high
