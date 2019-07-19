@@ -12,16 +12,27 @@ spec:
   groups:
     - name: {{ .Values.name }}.rules
       rules:
-        - alert: ReplicasUnavailable
+        - alert: SomeReplicasUnavailable
           expr: kube_deployment_status_replicas_unavailable{deployment="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"} > 0
-          for: 5m
+          for: 10m
           labels:
             component: {{ .Values.name }}
             severity: page
 {{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
           annotations:
-            summary: {{ .Values.name }} pods are unavailable
-            description: Some of the {{ .Values.name }} pods were unavailable for the last 5 minutes
+            summary: Some {{ .Values.name }} pods are unavailable
+            description: Some of the {{ .Values.name }} pods were unavailable for the last 10 minutes
+
+        - alert: AllReplicasUnavailable
+          expr: kube_deployment_status_replicas_available{deployment="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"} = 0
+          for: 1m
+          labels:
+            component: {{ .Values.name }}
+            severity: page
+{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+          annotations:
+            summary: All {{ .Values.name }} pods are unavailable
+            description: All of the {{ .Values.name }} pods were unavailable for the last 1 minute
 
         - alert: HighMemoryUsage
           expr: >
