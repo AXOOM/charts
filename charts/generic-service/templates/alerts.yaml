@@ -24,7 +24,7 @@ spec:
             description: Some of the {{ .Values.name }} pods were unavailable for the last 10 minutes
 
         - alert: AllReplicasUnavailable
-          expr: kube_deployment_status_replicas_available{deployment="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"} = 0
+          expr: kube_deployment_status_replicas_available{deployment="{{ .Values.name }}", namespace="{{ .Release.Namespace }}"} == 0
           for: 1m
           labels:
             component: {{ .Values.name }}
