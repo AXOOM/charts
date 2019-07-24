@@ -6,7 +6,6 @@ metadata:
   name: {{ .Values.name }}
   labels:
 {{ include "axoom.default-labels" . | indent 4 }}
-    monitoring: {{ .Values.monitoring.class }}
 
 spec:
   selector:
