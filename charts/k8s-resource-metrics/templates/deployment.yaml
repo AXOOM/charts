@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.resource }}-metrics
+  labels:
+{{ include "k8s-resource-metrics.default-labels" . | indent 4 }}
+
+spec:
+  selector:
+    matchLabels:
+{{ include "k8s-resource-metrics.selector-labels" . | indent 6 }}
+
+  template:
+    metadata:
+      labels:
+{{ include "k8s-resource-metrics.default-labels" . | indent 8 }}
+    spec:
+      {{- if .Values.rbac }}
+      serviceAccountName: {{ .Values.resource }}-metrics
+      {{- end }}
+      containers:
+        - name: {{ .Values.resource }}-metrics
+          image: axoom/k8s-resource-metrics:0.1.0
+          ports:
+            - name: monitoring
+              containerPort: 80
+          env:
+            - name: RESOURCE_TYPE
+              value: {{ .Values.resource }}
+            - name: STATUS_JSONPATH
+              value: {{ .Values.statusJsonPath }}
+            {{- if not .Values.allNamespaces }}
+            - name: FILTER_ARGS
+              value: '-n {{ .Release.Namespace}}'
+            {{- end }}

@@ -1,0 +1,5 @@
+apiGroup:
+resource: pods
+allNamespaces: true
+statusJsonPath: .status.phase
+rbac: true

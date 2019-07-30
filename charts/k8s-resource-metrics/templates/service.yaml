@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.resource }}-metrics
+  labels:
+{{ include "k8s-resource-metrics.default-labels" . | indent 4 }}
+
+spec:
+  selector:
+{{ include "k8s-resource-metrics.selector-labels" . | indent 4 }}
+  ports:
+    - name: monitoring
+      port: 80
+      targetPort: monitoring

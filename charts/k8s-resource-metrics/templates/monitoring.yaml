@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.resource }}-metrics
+  labels:
+{{ include "k8s-resource-metrics.default-labels" . | indent 4 }}
+
+spec:
+  selector:
+    matchLabels:
+{{ include "k8s-resource-metrics.selector-labels" . | indent 6 }}
+  endpoints:
+    - port: monitoring

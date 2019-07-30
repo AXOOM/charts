@@ -1,0 +1,50 @@
+{{- if .Values.rbac }}
+
+{{- if .Values.allNamespaces }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: '{{ .Values.resource }}-metrics'
+  labels:
+{{ include "k8s-resource-metrics.default-labels" . | indent 4 }}
+---
+kind: ClusterRole
+{{- else -}}
+kind: Role
+{{- end }}
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ .Values.resource }}-metrics
+  labels:
+{{ include "k8s-resource-metrics.default-labels" . | indent 4 }}
+rules:
+  - apiGroups: ['{{ .Values.apiGroup }}']
+    resources: ['{{ .Values.resource }}']
+    verbs: [get, list]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+{{- if .Values.allNamespaces }}
+kind: ClusterRoleBinding
+{{- else -}}
+kind: RoleBinding
+{{- end }}
+metadata:
+  name: {{ .Values.resource }}-metrics
+  labels:
+{{ include "k8s-resource-metrics.default-labels" . | indent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  {{- if .Values.allNamespaces }}
+  kind: ClusterRole
+  {{- else -}}
+  kind: Role
+  {{- end }}
+  name: {{ .Values.resource }}-metrics
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.resource }}-metrics
+    {{- if .Values.allNamespaces }}
+    namespace: {{ .Release.Namespace }}
+    {{- end }}
+
+{{- end }}
