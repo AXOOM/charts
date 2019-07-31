@@ -12,10 +12,10 @@ You can then install it like this:
 
 ## Values
 
-| Value                 | Default            | Description                                                                 |
-|-----------------------|--------------------|-----------------------------------------------------------------------------|
-| `apiGroup`            | *empty* (core API) | The API Group of the Kubernetes resource to monitor (e.g. `apps/v1`).       |
-| `resource`            | `pods`             | The plural name of the Kubernetes resource to monitor (e.g. `deployments`). |
-| `allNamespaces`       | `true`             | Monitor resources in all namespaces rather than just the current one.       |
-| `statusJsonPath`      | `.status.phase`    | The JSON Path expression for retrieving the status of a resource.           |
-| `rbac`                | `true`             | Create service accounts and role bindings.                                  |
+| Value           | Default            | Description                                                                                 |
+|-----------------|--------------------|---------------------------------------------------------------------------------------------|
+| `apiGroup`      | *empty* (core API) | The API Group of the Kubernetes resource to monitor (e.g. `servicecatalog.k8s.io/v1beta1`). |
+| `resource`      | `pods`             | The plural name of the Kubernetes resource to monitor (e.g. `serviceinstances`).            |
+| `statusColumn`  | `4`                | The `kubectl get` column that contains status of the resource (e.g. `5`).                   |
+| `allNamespaces` | `true`             | Monitor resources in all namespaces rather than just the current one.                       |
+| `rbac`          | `true`             | Create service accounts and role bindings.                                                  |
