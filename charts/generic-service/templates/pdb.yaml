@@ -1,0 +1,15 @@
+{{- if gt .Values.replicas 1.0 }} # At least 2 replicas are required to avoid outage during disruptions
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Values.name }}
+  labels:
+{{ include "axoom.default-labels" . | indent 4 }}
+
+spec:
+  minAvailable: 1
+
+  selector:
+    matchLabels:
+{{ include "axoom.selector-labels" . | indent 6 }}
+{{- end }}
