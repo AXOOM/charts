@@ -1,0 +1,14 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Values.name }}
+  labels:
+{{ include "etcd.default-labels" . | indent 4 }}
+
+spec:
+  # An majority of nodes must remain available for etcd to reach quorum
+  minAvailable: '51%'
+
+  selector:
+    matchLabels:
+{{ include "etcd.selector-labels" . | indent 6 }}
