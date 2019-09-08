@@ -3,7 +3,7 @@ name: etcd
 image:
   registry: quay.io
   repository: coreos/etcd
-  tag: v3.3.12
+  tag: v3.4.0
   pullPolicy: IfNotPresent
 
 replicas: 5
