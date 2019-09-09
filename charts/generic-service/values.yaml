@@ -6,17 +6,29 @@ global:
 name: # required (e.g., axoom-myapp)
 
 image:
-  registry: # required
-  authenticated: true
-  repository: # required (e.g., apps/axoom-myapp)
+  registry: # required (e.g. gcr.io)
+  repository: # required (e.g., axoom-image/myteam/myservice)
   tag: # required (e.g., 1.0.0)
   pullPolicy: IfNotPresent
 
+env: {}
+
+resources:
+  requests:
+    memory: 64M
+  limits:
+    memory: 128M
+
 replicas: 1
 
-rbac:
-  roles: []
-  clusterRoles: []
+autoscaling:
+  enabled: false
+  maxReplicas: 3
+  targetCpu: 50
+
+rollingUpdate: true
+
+nodeSelector: {}
 
 persistence:
   enabled: false
@@ -26,20 +38,25 @@ persistence:
 
 secrets: []
 
-providedSecrets: []
-
-hostAliases: []
-
-sidecars: []
-
 ingress:
   enabled: false
-  class: traefik-public
-  domain: # e.g, harald.myaxoom.eu
-  externalDnsTarget: # optional, whatever is configured in external-dns
   port: 80
-  annotations: {} # additional annotations besides ingress class and optional external-dns
-  extendedRules: [] # additional rules besides the one specified by the enabled ingress
+  class: traefik-public
+  domain: # required if enabled, except for class "cluster"
+  additionalDomains: []
+  annotations: {} # additional annotations besides ingress class
+
+# livenessProbe:
+#   initialDelaySeconds: 10 # Allow for long startup
+#   httpGet:
+#     port: ingress
+#     path: /
+
+# readinessProbe:
+#   initialDelaySeconds: 2 # Accept traffic quickly
+#   httpGet:
+#     port: ingress
+#     path: /
 
 monitoring:
   enabled: true
@@ -59,30 +76,8 @@ alerting:
     referenceInterval: 1d
     thresholdFactor: 1.5
 
-# livenessProbe:
-#   initialDelaySeconds: 10 # Allow for long startup
-#   httpGet:
-#     port: ingress
-#     path: /
+sidecars: []
 
-# readinessProbe:
-#   initialDelaySeconds: 2 # Accept traffic quickly
-#   httpGet:
-#     port: ingress
-#     path: /
-
-resources:
-  requests:
-    # cpu: 0
-    memory: 64M
-  limits:
-    # cpu: 1
-    memory: 128M
-
-env: {}
-
-envFromField: {}
-
-dns:
-  policy: ClusterFirst
-  config:
+rbac:
+  roles: []
+  clusterRoles: []

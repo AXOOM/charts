@@ -19,6 +19,5 @@ spec:
     - axoom.com/customer
     - app
     - release
-    - tenantDomain
     - tenantId
 {{- end }}

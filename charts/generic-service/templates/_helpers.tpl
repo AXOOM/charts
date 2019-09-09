@@ -17,8 +17,4 @@ tenantId: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
 axoom.com/customer: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
 {{- end }}
 
-{{- if .Values.global.tenant.domain }}
-tenantDomain: '{{ required "Set global.tenant.domain" .Values.global.tenant.domain }}'
-{{- end }}
-
 {{- end }}

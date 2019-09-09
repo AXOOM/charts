@@ -7,13 +7,10 @@ metadata:
   labels:
 {{ include "axoom.default-labels" . | indent 4 }}
   annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
   {{- range $key, $value := .Values.ingress.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
-  {{- if .Values.ingress.externalDnsTarget }}
-    external-dns.alpha.kubernetes.io/target: {{ .Values.ingress.externalDnsTarget }}
-  {{- end }}
-    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
 
 spec:
   rules:
@@ -23,6 +20,14 @@ spec:
           - backend:
               serviceName: {{ .Values.name }}
               servicePort: ingress
-{{ if .Values.ingress.extendedRules }}{{ toYaml .Values.ingress.extendedRules | indent 4 }}{{ end }}
+    {{- $root := . -}}
+    {{- range .Values.ingress.additionalDomains }}
+    - host: '{{ . }}'
+      http:
+        paths:
+          - backend:
+              serviceName: {{ $root.Values.name }}
+              servicePort: ingress
+    {{- end }}
 
 {{- end }}
