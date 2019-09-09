@@ -11,7 +11,7 @@ Pull it in to your Chart as dependency by adding this to your `requirements.yaml
 ```yaml
 dependencies:
   - name: pod-restarter
-    version: 4.0.0
+    version: 5.0.0
     repository: '@axoom-github'
 ```
 
