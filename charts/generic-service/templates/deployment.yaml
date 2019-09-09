@@ -1,4 +1,3 @@
-{{- if gt .Values.replicas 0.0 }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -13,13 +12,10 @@ spec:
     matchLabels:
 {{ include "axoom.selector-labels" . | indent 6 }}
 
+  {{- if not .Values.rollingUpdate }}
   strategy:
-    {{- if .Values.persistence.enabled }}
-    # Containers with volumes usually cannot perform rolling updates
-    type: {{ .Values.updateStrategy | default "Recreate" }}
-    {{- else}}
-    type: {{ .Values.updateStrategy | default "RollingUpdate" }}
-    {{- end}}
+    type: Recreate
+  {{- end}}
 
   template:
     metadata:
@@ -38,47 +34,42 @@ spec:
           secret:
             secretName: {{ .name }}
         {{- end }}
-        {{- range .Values.providedSecrets }}
-        - name: {{ .name }}
-          secret:
-            secretName: {{ .name }}
-        {{- end }}
 
-      {{- if .Values.image.authenticated }}
       imagePullSecrets:
         - name: '{{ .Values.image.registry }}'
-      {{- end }}
 
       {{- if or .Values.rbac.roles .Values.rbac.clusterRoles }}
       serviceAccountName: {{ .Values.name }}
       {{- end }}
 
-      dnsPolicy: {{ .Values.dns.policy }}
-      {{- if .Values.dns.config }}
-
-      dnsConfig:
-{{ toYaml .Values.dns.config | indent 8 }}
-      {{- end }}
-
-      {{- if .Values.hostAliases }}
-      hostAliases:
-{{ toYaml .Values.hostAliases | indent 8 }}
-      {{- end }}
 
       affinity:
         podAntiAffinity:
-          {{- if .Values.podAntiAffinity }}
-{{ toYaml .Values.podAntiAffinity | indent 10 }}
-          {{- else }}
           requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: 'app.kubernetes.io/instance'
-                    operator: In
-                    values:
-                    - {{ .Release.Name }}
-              topologyKey: 'kubernetes.io/hostname'
-          {{- end }}
+            # Never schedule multiple replicas on the same node
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+{{ include "axoom.selector-labels" . | indent 20 }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+            # Try to avoid scheduling multiple replicas in the same zone
+            - weight: 100
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+{{ include "axoom.selector-labels" . | indent 20 }}
+
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      tolerations:
+        {{- range $key, $val := .Values.nodeSelector }}
+        - key: {{ $key | quote }}
+          operator: Equal
+          value: {{ $val | quote }}
+        {{- end }}
+      {{- end }}
 
       containers:
         - name: {{ .Values.name }}
@@ -93,10 +84,6 @@ spec:
             {{- range .Values.secrets }}
             - name: {{ .name }}
               mountPath: {{ required "Set secrets.mountPath" .mountPath }}
-            {{- end }}
-            {{- range .Values.providedSecrets }}
-            - name: {{ .name }}
-              mountPath: {{ .mountPath }}
               {{- if .subPath }}
               subPath: {{ .subPath }}
               {{- end }}
@@ -130,15 +117,9 @@ spec:
             - name: {{ $key | quote }}
               value: {{ $val | quote }}
             {{- end }}
-            {{- range $key, $val := .Values.envFromField }}
-            - name: {{ $key | quote }}
-              valueFrom:
-                fieldRef:
-                  fieldPath: {{ $val }}
-            {{- end }}
 
-          # Delay shutdown to give ingress controller time to reroute traffic
           {{- if .Values.ingress.enabled }}
+          # Delay shutdown to give ingress controller time to reroute traffic
           lifecycle:
             preStop:
               exec:
@@ -148,4 +129,3 @@ spec:
         {{- if .Values.sidecars }}
 {{ toYaml .Values.sidecars | indent 8 }}
         {{- end }}
-{{- end }}
