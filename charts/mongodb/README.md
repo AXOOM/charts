@@ -11,7 +11,7 @@ Then pull it in to your Chart as a dependency by adding this to your `requiremen
 ```yaml
 dependencies:
   - name: mongodb
-    version: 4.3.0
+    version: 5.0.0
     repository: '@axoom-github'
 ```
 
