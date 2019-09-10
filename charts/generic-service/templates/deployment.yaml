@@ -21,6 +21,10 @@ spec:
     metadata:
       labels:
 {{ include "axoom.default-labels" . | indent 8 }}
+{{- if .Values.secrets -}}
+      annotations:
+        checksum/secrets: {{ .Values.secrets | toJson | sha256sum }}
+{{- end }}
 
     spec:
       volumes:
