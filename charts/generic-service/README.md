@@ -87,3 +87,13 @@ app:
 | `sidecars`                                | `[]`                    | Additional sidecar containers to be added to the Pod                                                      |
 | `rbac.roles`                              | `[]`                    | Namespace-specific Kubernetes RBAC Roles to assign to the service                                         |
 | `rbac.clusterRoles`                       | `[]`                    | Cluster-wide Kubernetes RBAC Roles to assign to the service                                               |
+
+## Environment variables
+
+In addition to the environment variables specified via the `env` value, the following dynamic environment variables are automatically set:
+
+| Value       | Description                                           |
+|-------------|-------------------------------------------------------|
+| `POD_NAME`  | The name of the Kubernetes pod                        |
+| `POD_IP`    | The cluster-internal IP of the Kubernetes pod         |
+| `NODE_NAME` | The name of the Kubernetes node the pod is running on |
