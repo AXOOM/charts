@@ -54,7 +54,7 @@ spec:
             - topologyKey: kubernetes.io/hostname
               labelSelector:
                 matchLabels:
-{{ include "axoom.selector-labels" . | indent 20 }}
+{{ include "axoom.selector-labels" . | indent 18 }}
           preferredDuringSchedulingIgnoredDuringExecution:
             # Try to avoid scheduling multiple replicas in the same zone
             - weight: 100
