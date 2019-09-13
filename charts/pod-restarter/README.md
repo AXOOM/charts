@@ -1,6 +1,6 @@
 # Pod Restarter Helm Chart
 
-This Helm chart deploys a Kubernetes Cronjob that periodically deletes Pods with a specific app label. The Pods should then be recreated/restarted automatically by the Deployment or StatefulSet that created them.
+This Helm chart deploys a Kubernetes Cronjob that periodically restarts Pods controlled by Deployments or StatefulSets. This uses `kubect rollout restart` internally.
 
 To be able to use this Charts you must first run:
 
@@ -11,7 +11,7 @@ Pull it in to your Chart as dependency by adding this to your `requirements.yaml
 ```yaml
 dependencies:
   - name: pod-restarter
-    version: 5.0.0
+    version: 5.1.0
     repository: '@axoom-github'
 ```
 
@@ -19,12 +19,14 @@ You can then add configuration to your `values.yaml` like this:
 
 ```yaml
 pod-restarter:
-  app: myservice
+  target:
+    name: myservice
 ```
 
 ## Values
 
-| Value      | Default      | Description                                                                |
-| ---------- | ------------ | -------------------------------------------------------------------------- |
-| `app`      | __required__ | The value for the `app` label used to find the Pod(s) to be deleted.       |
-| `schedule` | `0 3 * * *`  | The restart schedule in [Cron format](https://en.wikipedia.org/wiki/Cron). |
+| Value         | Default       | Description                                                                                    |
+|---------------|---------------|------------------------------------------------------------------------------------------------|
+| `target.type` | `deployments` | The plural name of the Kubernetes resource to restart (e.g. `deployments` or `statefulesets`). |
+| `target.name` | __required__  | The name of the the Kubernetes resource to restart.                                            |
+| `schedule`    | `0 3 * * *`   | The restart schedule in [Cron format](https://en.wikipedia.org/wiki/Cron).                     |
