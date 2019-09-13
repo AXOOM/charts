@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: '{{ required "Set app" .Values.app }}-restarter'
+  name: '{{ required "Set app" .Values.target.name }}-restarter'
   labels:
-    app: '{{ .Values.app }}'
+    app: '{{ .Values.target.name }}'
     release: '{{ .Release.Name }}'
     chart: '{{ .Chart.Name }}-{{ .Chart.Version }}'
     heritage: '{{ .Release.Service }}'
@@ -15,18 +15,20 @@ spec:
     spec:
       template:
         metadata:
-          name: '{{ .Values.app }}-restarter'
+          name: '{{ .Values.target.name }}-restarter'
           labels:
-            app: '{{ .Values.app }}-restarter'
+            app: '{{ .Values.target.name }}-restarter'
             release: '{{ .Release.Name }}'
 
         spec:
           restartPolicy: Never
-          serviceAccountName: '{{ .Values.app }}-restarter'
+          serviceAccountName: '{{ .Values.target.name }}-restarter'
           containers:
-            - name: '{{ .Values.app }}-restarter'
-              image: lachlanevenson/k8s-kubectl:v1.10.7
+            - name: '{{ .Values.target.name }}-restarter'
+              image: bitnami/kubectl:1.15.3
               command:
-                - /bin/sh
-                - -c
-                - 'kubectl delete -n {{ .Release.Namespace | quote }} $(kubectl get pod -o name -n {{ .Release.Namespace | quote }} -l app={{ .Values.app | quote }})'
+                - rollout
+                - restart
+                - -n
+                - '{{ .Release.Namespace }}'
+                - '{{ .Values.target.type }}/{{ .Values.target.type }}'
