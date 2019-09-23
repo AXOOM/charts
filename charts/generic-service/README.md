@@ -11,7 +11,7 @@ You can usually delete your entire `templates` directory when using this chart. 
 ```yaml
 dependencies:
   - name: generic-service
-    version: 5.1.3
+    version: 5.1.4
     repository: '@axoom-github'
     alias: app
 ```
@@ -51,7 +51,7 @@ app:
 | `env`                                     | `{}`                    | The environment variables passed to the service                                                           |
 | `resources.requests`                      | `{memory: 64M}`         | The minimum resources requested/reserved for the service                                                  |
 | `resources.limits`                        | `{memory: 128M}`        | The maximum resources the service can use                                                                 |
-| `replicas`                                | `1`                     | The number of instances of the service to run (set at least `2` for Pod Distruption Budget)               |
+| `replicas`                                | `1`                     | The number of instances of the service to run (set at least `2` for Pod Disruption Budget)                |
 | `autoscaling.enabled`                     | `false`                 | Enables automatic starting of additional instances based on CPU load                                      |
 | `autoscaling.maxReplicas`                 | `3`                     | The maximum number of instances to run (must be larger than `replicas`)                                   |
 | `autoscaling.targetCpu`                   | `50`                    | The desired average CPU load in percent                                                                   |
