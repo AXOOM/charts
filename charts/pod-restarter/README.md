@@ -25,8 +25,9 @@ pod-restarter:
 
 ## Values
 
-| Value         | Default       | Description                                                                                    |
-|---------------|---------------|------------------------------------------------------------------------------------------------|
-| `target.type` | `deployments` | The plural name of the Kubernetes resource to restart (e.g. `deployments` or `statefulesets`). |
-| `target.name` | __required__  | The name of the the Kubernetes resource to restart.                                            |
-| `schedule`    | `0 3 * * *`   | The restart schedule in [Cron format](https://en.wikipedia.org/wiki/Cron).                     |
+| Value             | Default       | Description                                                                                    |
+|-------------------|---------------|------------------------------------------------------------------------------------------------|
+| `target.apiGroup` | `apps/v1`     | The Kubernetes API Group of the  resource to restart.                                          |
+| `target.type`     | `deployments` | The plural name of the Kubernetes resource to restart (e.g. `deployments` or `statefulesets`). |
+| `target.name`     | __required__  | The name of the the Kubernetes resource to restart.                                            |
+| `schedule`        | `0 3 * * *`   | The restart schedule in [Cron format](https://en.wikipedia.org/wiki/Cron).                     |

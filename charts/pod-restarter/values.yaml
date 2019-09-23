@@ -1,4 +1,5 @@
 target:
+  apiGroup: apps/v1
   type: deployments
   name: # required
 schedule: 0 3 * * * # every day at 03:00
