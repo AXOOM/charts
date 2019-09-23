@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: '{{ required "Set app" .Values.target.name }}-restarter'
+  name: '{{ .Values.target.name }}-restarter'
   labels:
     app: '{{ .Values.target.name }}-restarter'
     release: '{{ .Release.Name }}'
@@ -19,7 +19,7 @@ metadata:
     heritage: '{{ .Release.Service }}'
 rules:
   - apiGroups: [""] # "" indicates the core API group
-    resources: ["{{ .target.type }}"]
+    resources: ["{{ .Values.target.type }}"]
     verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1

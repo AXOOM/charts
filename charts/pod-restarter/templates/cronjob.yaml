@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: '{{ required "Set app" .Values.target.name }}-restarter'
+  name: '{{ required "Set target.name" .Values.target.name }}-restarter'
   labels:
     app: '{{ .Values.target.name }}'
     release: '{{ .Release.Name }}'
@@ -31,4 +31,4 @@ spec:
                 - restart
                 - -n
                 - '{{ .Release.Namespace }}'
-                - '{{ .Values.target.type }}/{{ .Values.target.type }}'
+                - '{{ .Values.target.type }}/{{ .Values.target.name }}'
