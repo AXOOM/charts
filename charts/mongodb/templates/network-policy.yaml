@@ -1,3 +1,5 @@
+{{- if .Values.networkPolicy.enabled }}
+
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -15,35 +17,34 @@ spec:
       app: '{{ .Values.service.nameOverride }}'
   ingress:
     - from:
-        {{- $root := . -}}
         {{- range .Values.network.ingressFromApps }}
         - podSelector:
             matchLabels:
-              release: '{{ $root.Release.Name }}'
               app: {{ . | quote }}
+         - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ . | quote }}
         {{- end }}
-        # Allow replica instances and sidecars to communicate amongst each other
+
+        # Allow nodes to communicate amongst each other
         - podSelector:
             matchLabels:
               release: '{{ .Release.Name }}'
               app: '{{ .Values.service.nameOverride }}'
 
-        # Allow access from backup job
+        # Allow backup job to connect to nodes
         - podSelector:
             matchLabels:
               release: '{{ .Release.Name }}'
               app: '{{ .Values.service.nameOverride }}-backup'
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: '{{ .Release.Name }}'
-              app.kubernetes.io/name: '{{ .Values.service.nameOverride }}-backup'
 
 {{- if .Values.service.metrics.enabled }}
-    # Allow access from monitoring system (Prometheus)
+    # Allow access from monitoring system
     - ports:
-        - port: 9216 # adressing port via name (currently) does not work in K8s
+        - port: 9216 # addressing port via name (currently) does not work in K8s
       from:
         - namespaceSelector:
-            matchLabels:
-              role: monitoring
+{{ toYaml .Values.service.metrics.namespaceSelector | indent 12 }}
+{{- end }}
+
 {{- end }}

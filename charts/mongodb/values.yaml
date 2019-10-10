@@ -15,9 +15,14 @@ service:
       memory: 512M
   metrics:
     enabled: true
+    namespaceSelector:
+      matchLabels:
+        role: monitoring
 
+networkPolicy:
+  enabled: true
 network:
-  ingressFromApps: [] # required
+  ingressFromApps: []
 
 backup:
   enabled: false

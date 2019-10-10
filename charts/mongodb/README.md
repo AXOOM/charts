@@ -1,6 +1,6 @@
 # MongoDB Helm Chart
 
-This Helm chart deploys a MongoDB database with a Network Policy for access restriction and an optional Cronjob for automatic backups.
+This Helm chart deploys a MongoDB database with a Network Policy for access control and an optional Cronjob for automatic backups.
 
 To be able to use this Charts you must first run:
 
@@ -29,13 +29,9 @@ mongodb:
     image: example.com/my-mongo-backup
 ```
 
-## Network policy
+## Access
 
-This Helm chart deploys a [Network Policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/) that restricts which Pods can connect to the MongoDB instance:
-
-- The pod must be deployed as part of the same Helm release. Determined by `release` or `app.kubernetes.io/instance` label.
-- The pod must belong to an app specified in the `network.ingressFromApps` value (see [Values](#values)). Determined by `app` or `app.kubernetes.io/name` label.
-- If monitoring is enabled, pods in namespaces labeled with `role: monitoring` are granted access to the MongoDB metrics port.
+This MongoDB setup uses no authentication. All network access to the MongoDB instances is blocked by default via a [Network Policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/). You will need to set the `network.ingressFromApps` value (see [Values](#values)) or create your own Network Policy to allow other Pods in the Kubernetes Cluster to connect to the MongoDB instances.
 
 ## Backups
 
@@ -49,19 +45,21 @@ The job is started with these environment variables:
 
 ## Values
 
-| Value                              | Default                 | Description                                                               |
-|------------------------------------|-------------------------|---------------------------------------------------------------------------|
-| `service.fullnameOverride`         | __required__            | The name of the database service itself.                                  |
-| `service.persistentVolume.enabled` | `true`                  | Controls whether the database gets a persistent volume.                   |
-| `service.persistentVolume.size`    | `1G`                    | Size of the volume used to store the database.                            |
-| `service.resources`                | RAM >64M, <512M         | Resource requests and limits for the database.                            |
-| `service.metrics.enabled`          | `true`                  | Enabled monitoring with Prometheus.                                       |
-| `network.ingressFromApps`          | __required__            | Array of names of the services accessing the database.                    |
-| `backup.enabled`                   | `false`                 | Controls whether automatic period backups are performed.                  |
-| `backup.schedule`                  | `0 0 * * *`             | The backup schedule in [Cron format](https://en.wikipedia.org/wiki/Cron). |
-| `backup.env`                       | `{}`                    | Additional environment variables to pass to the backup job.               |
-| `backup.image`                     | __required if enabled__ | The image to use for backup job.                                          |
-| `backup.imagePullPolicy`           | `IfNotPresent`          | The pull policy to use for the backup image.                              |
-| `backup.imagePullSecret`           |                         | The pull secret to use for the backup image.                              |
+| Value                               | Default                             | Description                                                                                                  |
+|-------------------------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `service.fullnameOverride`          | __required__                        | The name of the database service itself.                                                                     |
+| `service.persistentVolume.enabled`  | `true`                              | Controls whether the database gets a persistent volume.                                                      |
+| `service.persistentVolume.size`     | `1G`                                | Size of the volume used to store the database.                                                               |
+| `service.resources`                 | RAM >64M, <512M                     | Resource requests and limits for the database.                                                               |
+| `service.metrics.enabled`           | `true`                              | Controls whether resources for [Prometheus Operator](https://coreos.com/operators/prometheus) are created.   |
+| `service.metrics.namespaceSelector` | `{matchLabels: {role: monitoring}}` | Selects the namespace in which Prometheus is running. Used for network policy.                               |
+| `networkPolicy.enabled`             | `true`                              | Creates a Kubernetes Network Policy restricting access to MongoDB.                                           |
+| `network.ingressFromApps`           | `[]`                                | Array of values for `app` or `app.kubernetes.io/name` label of the services that should have access to etcd. |
+| `backup.enabled`                    | `false`                             | Controls whether automatic period backups are performed.                                                     |
+| `backup.schedule`                   | `0 0 * * *`                         | The backup schedule in [Cron format](https://en.wikipedia.org/wiki/Cron).                                    |
+| `backup.env`                        | `{}`                                | Additional environment variables to pass to the backup job.                                                  |
+| `backup.image`                      | __required if enabled__             | The image to use for backup job.                                                                             |
+| `backup.imagePullPolicy`            | `IfNotPresent`                      | The pull policy to use for the backup image.                                                                 |
+| `backup.imagePullSecret`            |                                     | The pull secret to use for the backup image.                                                                 |
 
 All values starting with `service.` are passed through to the [official MongoDB chart](https://hub.kubeapps.com/charts/stable/mongodb-replicaset).
