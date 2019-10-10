@@ -20,11 +20,13 @@ resources:
     # cpu: 1
     memory: 256Mi
 
-networkPolicy:
-  enabled: true
-
-prometheus:
+metrics:
   enabled: true
   namespaceSelector:
     matchLabels:
       role: monitoring
+
+networkPolicy:
+  enabled: true
+network:
+  ingressFromApps: []

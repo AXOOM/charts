@@ -1,4 +1,5 @@
 {{- if .Values.networkPolicy.enabled }}
+
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -13,14 +14,24 @@ spec:
 
   ingress:
     - from:
-        # Allow etcd nodes to communicate amongst each other
+        {{- range .Values.network.ingressFromApps }}
+        - podSelector:
+            matchLabels:
+              app: {{ . | quote }}
+         - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ . | quote }}
+        {{- end }}
+
+        # Allow nodes to communicate amongst each other
         - podSelector:
             matchLabels:
 {{ include "etcd.selector-labels" . | indent 14 }}
-{{- if or .Values.prometheus.enabled }}
-    # Allow access from Prometheus for monitoring
-    - from:
+
+{{- if or .Values.metrics.enabled }}
+        # Allow access from monitoring system
         - namespaceSelector:
-{{ toYaml .Values.prometheus.namespaceSelector | indent 14 }}
+{{ toYaml .Values.metrics.namespaceSelector | indent 12 }}
 {{- end }}
+
 {{- end }}

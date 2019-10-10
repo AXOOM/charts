@@ -1,4 +1,5 @@
-{{- if or .Values.prometheus.enabled }}
+{{- if or .Values.metrics.enabled }}
+
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -12,4 +13,5 @@ spec:
 {{ include "etcd.selector-labels" . | indent 6 }}
   endpoints:
     - port: client
+
 {{- end }}
