@@ -1,6 +1,8 @@
 # Generic Service Helm Chart
 
-This Helm chart serves as a template for running a service. It handles monitoring, ingress, etc..
+This Helm chart simplifies deploying a typical "80% case" service on Kubernetes. It takes care of creating [Resources](#resources) such as `Deployment`, `Service` and `Ingress`, configured via a few required and many optional [Values](#values).
+
+## Getting started
 
 To be able to use this Charts you must first run:
 
@@ -97,3 +99,45 @@ In addition to the environment variables specified via the `env` value, the foll
 | `POD_NAME`  | The name of the Kubernetes pod                        |
 | `POD_IP`    | The cluster-internal IP of the Kubernetes pod         |
 | `NODE_NAME` | The name of the Kubernetes node the pod is running on |
+
+## Resources
+
+This Helm chart generates a number of Resources based on the specified [Values](#values). These resources reference each other:
+
+![Resources](docs/resources.svg)
+
+Legend:  
+![Legend](docs/legend.svg)
+
+**Deployment**  
+Instructs Kubernetes to create a certain number of `Pod`s (`replicas`) running a specific `image`.
+
+**Service**  
+Created if `ingress.enabled` or `monitoring.enabled`.
+
+**Ingress**  
+Created if `ingress.enabled` and `ingress.class` is not `cluster`.
+
+**ServiceMonitor**  
+Created if `monitoring.enabled`.
+
+**PrometheusRule**  
+Created if `alerting.enabled`.
+
+**PersistentVolumeClaim**  
+Created if `persistence.enabled`.
+
+**ServiceAccount**  
+Created if `rbac.roles` and/or `rbac.clusterRoles` is not empty.
+
+**RoleBinding**  
+Created once for every entry in `rbac.roles`.
+
+**ClusterRoleBinding**  
+Created once for every entry in `rbac.clusterRoles`.
+
+**PodDisruptionBudget**  
+Created if `replicas` is greater than `1`.
+
+**HorizontalPodAutoscaler**  
+Created if `autoscaling.enabled`.
