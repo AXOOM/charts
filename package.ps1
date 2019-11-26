@@ -11,11 +11,11 @@ if (!(Get-Command 0install -ErrorAction SilentlyContinue)) {
 }
 
 if (!(Test-Path ~\.helm)) {
-    0install run --batch http://repo.roscidus.com/kubernetes/helm init --client-only
+    0install run --batch --version 2..!3 http://repo.roscidus.com/kubernetes/helm init --client-only
 }
 
 foreach ($file in $(Get-ChildItem charts -Directory).FullName) {
-    0install run --batch http://repo.roscidus.com/kubernetes/helm package "$file" --version $Version --dependency-update
+    0install run --batch --version 2..!3 http://repo.roscidus.com/kubernetes/helm package "$file" --version $Version --dependency-update
     if ($LASTEXITCODE -ne 0) {throw "Failed with exit code $LASTEXITCODE"}
 }
 
