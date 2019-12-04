@@ -45,6 +45,7 @@ ingress:
   domain: # required if enabled, except for class "cluster"
   additionalDomains: []
   annotations: {} # additional annotations besides ingress class
+  tls: [] # ingress tls configuration
 
 # livenessProbe:
 #   initialDelaySeconds: 10 # Allow for long startup
