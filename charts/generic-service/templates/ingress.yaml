@@ -13,6 +13,10 @@ metadata:
   {{- end }}
 
 spec:
+{{- if .Values.ingress.tls }}
+  tls:
+{{ toYaml .Values.ingress.tls | indent 4 }}
+{{- end }}
   rules:
     - host: '{{ required "Set ingress.domain" .Values.ingress.domain }}'
       http:

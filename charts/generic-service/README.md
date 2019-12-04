@@ -73,6 +73,7 @@ app:
 | `ingress.domain`                          | __required if enabled__ | The domain name under which the service is exposed (not for `cluster`)                                    |
 | `ingress.additionalDomains`               | `[]`                    | Additional domain names under which the service is exposed (not for `cluster`)                            |
 | `ingress.annotations`                     | `{}`                    | Additional annotations besides the ingress class to be added to the ingress  (not for `cluster`)          |
+| `ingress.tls`                             | `{}`                    | Specifies the TLS configuration for the ingress (not for `cluster`)                                       |
 | `livenessProbe`                           |                         | Probe that causes the service to be restarted when failing                                                |
 | `readinessProbe`                          |                         | Probe that prevents the service from receiving traffic when failing                                       |
 | `monitoring.enabled`                      | `true`                  | Enables Prometheus monitoring                                                                             |
