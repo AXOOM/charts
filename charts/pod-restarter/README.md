@@ -1,6 +1,6 @@
 # Pod Restarter Helm Chart
 
-This Helm chart deploys a Kubernetes Cronjob that periodically restarts Pods controlled by Deployments or StatefulSets. This uses `kubect rollout restart` internally.
+This Helm chart deploys a Kubernetes Cronjob that periodically restarts Pods controlled by Deployments or StatefulSets. This uses `kubectl rollout restart` internally.
 
 To be able to use this Charts you must first run:
 
