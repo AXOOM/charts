@@ -1,4 +1,4 @@
-{{- if and .Values.ingress.enabled (not (eq .Values.ingress.class "cluster")) }}
+{{- if and (and .Values.ingress.enabled (not .Values.ingress.istio.enabled)) (not (eq .Values.ingress.class "cluster")) }}
 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -23,7 +23,7 @@ spec:
         paths:
           - backend:
               serviceName: {{ .Values.name }}
-              servicePort: ingress
+              servicePort: http-ingress
     {{- $root := . -}}
     {{- range .Values.ingress.additionalDomains }}
     - host: '{{ . }}'
@@ -31,7 +31,7 @@ spec:
         paths:
           - backend:
               serviceName: {{ $root.Values.name }}
-              servicePort: ingress
+              servicePort: http-ingress
     {{- end }}
 
 {{- end }}

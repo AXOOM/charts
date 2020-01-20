@@ -74,6 +74,10 @@ app:
 | `ingress.additionalDomains`               | `[]`                    | Additional domain names under which the service is exposed (not for `cluster`)                            |
 | `ingress.annotations`                     | `{}`                    | Additional annotations besides the ingress class to be added to the ingress  (not for `cluster`)          |
 | `ingress.tls`                             | `{}`                    | Specifies the TLS configuration for the ingress (not for `cluster`)                                       |
+| `ingress.istio.enabled`                   | `false`                 | Use Istio `VirtualService` instead of Kubernetes `Ingress` resource                                       |
+| `ingress.istio.gateway`                   | `istio-system/public`   | The name of the Istio `Gateway` to use                                                                    |
+| `ingress.istio.timeout`                   |                         | [Istio timeout](https://istio.io/docs/tasks/traffic-management/request-timeouts/)                         |
+| `ingress.istio.retries`                   | `{}`                    | [Istio retry policy](https://istio.io/docs/reference/config/networking/virtual-service/#HTTPRetry)        |
 | `livenessProbe`                           |                         | Probe that causes the service to be restarted when failing                                                |
 | `readinessProbe`                          |                         | Probe that prevents the service from receiving traffic when failing                                       |
 | `monitoring.enabled`                      | `true`                  | Enables Prometheus monitoring                                                                             |
@@ -114,19 +118,22 @@ Legend:
 Instructs Kubernetes to create a certain number of `Pod`s (`replicas`) running a specific `image`.
 
 **Service**  
-Created if `ingress.enabled` or `monitoring.enabled`.
+Created if `ingress.enabled` or `monitoring.enabled` is `true`.
 
 **Ingress**  
-Created if `ingress.enabled` and `ingress.class` is not `cluster`.
+Created if `ingress.enabled` is `true`, `ingress.istio.enabled` is `false` and `ingress.class` is not `cluster`.
+
+**Istio**  
+Created if `ingress.enabled` and `ingress.istio.enabled` are both `true`.
 
 **ServiceMonitor**  
-Created if `monitoring.enabled`.
+Created if `monitoring.enabled` is `true`.
 
 **PrometheusRule**  
-Created if `alerting.enabled`.
+Created if `alerting.enabled` is `true`.
 
 **PersistentVolumeClaim**  
-Created if `persistence.enabled`.
+Created if `persistence.enabled` is `true`.
 
 **ServiceAccount**  
 Created if `rbac.roles` and/or `rbac.clusterRoles` is not empty.
@@ -141,4 +148,4 @@ Created once for every entry in `rbac.clusterRoles`.
 Created if `replicas` is greater than `1`.
 
 **HorizontalPodAutoscaler**  
-Created if `autoscaling.enabled`.
+Created if `autoscaling.enabled` is `true`.

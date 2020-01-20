@@ -40,6 +40,11 @@ secrets: []
 
 ingress:
   enabled: false
+  istio:
+    enabled: false
+    gateway: istio-system/public
+    timeout:
+    retries: {}
   port: 80
   class: traefik-public
   domain: # required if enabled, except for class "cluster"
@@ -50,13 +55,13 @@ ingress:
 # livenessProbe:
 #   initialDelaySeconds: 10 # Allow for long startup
 #   httpGet:
-#     port: ingress
+#     port: http-ingress
 #     path: /
 
 # readinessProbe:
 #   initialDelaySeconds: 2 # Accept traffic quickly
 #   httpGet:
-#     port: ingress
+#     port: http-ingress
 #     path: /
 
 monitoring:

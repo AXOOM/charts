@@ -1,0 +1,36 @@
+{{- if and .Values.ingress.enabled .Values.ingress.istio.enabled }}
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Values.name }}
+  labels:
+{{ include "axoom.default-labels" . | indent 4 }}
+
+spec:
+  gateways:
+    - mesh
+{{- if not (eq .Values.ingress.class "cluster") }}
+    - '{{ .Values.ingress.istio.gateway }}'
+{{- end }}
+
+  hosts:
+    - '{{ .Values.name }}'
+{{- if not (eq .Values.ingress.class "cluster") }}
+    - '{{ required "Set ingress.domain" .Values.ingress.domain }}'
+{{- end }}
+{{- if .Values.ingress.additionalDomains }}
+{{ .Values.ingress.additionalDomains | toYaml | indent 4 }}
+{{- end }}
+
+  http:
+    - route:
+        - destination:
+            host: '{{ .Values.name }}'
+            port:
+              number: 80
+          timeout: {{ .Values.ingress.istio.timeout }}
+          retries:
+{{ .Values.ingress.istio.retries | toYaml | indent 14 }}
+
+{{- end }}

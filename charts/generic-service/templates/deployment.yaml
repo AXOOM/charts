@@ -21,8 +21,11 @@ spec:
     metadata:
       labels:
 {{ include "axoom.default-labels" . | indent 8 }}
-{{- if .Values.secrets }}
       annotations:
+{{- if .Values.monitoring.enabled }}
+        traffic.sidecar.istio.io/excludeInboundPorts: '{{ .Values.monitoring.port }}'
+{{- end }}
+{{- if .Values.secrets }}
         checksum/secrets: {{ .Values.secrets | toJson | sha256sum }}
 {{- end }}
 
@@ -95,7 +98,7 @@ spec:
 
           ports:
             {{- if .Values.ingress.enabled }}
-            - name: ingress
+            - name: http-ingress
               containerPort: {{ .Values.ingress.port }}
             {{- end }}
             {{- if .Values.monitoring.enabled }}
