@@ -32,7 +32,7 @@ nodeSelector: {}
 
 persistence:
   enabled: false
-  storageClass: standard
+  storageClass:
   size: 1G
   mountPath: # required if enabled
 

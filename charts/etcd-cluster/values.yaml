@@ -9,7 +9,7 @@ image:
 replicas: 5
 
 persistence:
-  storageClass: ssd
+  storageClass:
   size: 2G
 
 resources:

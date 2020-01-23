@@ -60,7 +60,7 @@ app:
 | `rollingUpdate`                           | `true`                  | Controls whether to wait for new versions to be up and running before shutting down old version           |
 | `nodeSelector`                            | `{}`                    | Node labels required for scheduling this service, also used as tolerations                                |
 | `persistence.enabled`                     | `false`                 | Enables persistent storage for the service                                                                |
-| `persistence.storageClass`                | `standard`              | The type of disk to use for storage (e.g., `standard` or `ssd`)                                           |
+| `persistence.storageClass`                |                         | The type of disk to use for storage instead of the cluster default                                        |
 | `persistence.size`                        | `1G`                    | The size of the persistent volume to create for the service                                               |
 | `persistence.mountPath`                   | __required if enabled__ | The mount path for the storage inside the container                                                       |
 | `secrets[].name`                          | __required if used__    | The name of the Kubernetes Secret                                                                         |

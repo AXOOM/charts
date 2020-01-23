@@ -7,7 +7,9 @@ metadata:
 {{ include "axoom.default-labels" . | indent 4 }}
 
 spec:
+{{- if .Values.persistence.storageClass }}
   storageClassName: '{{ .Values.persistence.storageClass }}'
+{{- end }}
   accessModes:
     - ReadWriteOnce
   resources:
