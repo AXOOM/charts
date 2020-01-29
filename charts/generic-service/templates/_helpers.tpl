@@ -17,4 +17,8 @@ tenantId: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
 axoom.com/customer: '{{ required "Set global.tenant.id" .Values.global.tenant.id }}'
 {{- end }}
 
+{{- if .Values.labels }}
+{{ .Values.labels | toYaml }}
+{{- end }}
+
 {{- end }}

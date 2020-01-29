@@ -51,6 +51,7 @@ app:
 | `image.tag`                               | __required__            | The tag of the Docker Image to run                                                                        |
 | `image.pullPolicy`                        | `IfNotPresent`          | Set to `Always` to try to pull new versions of the Docker Image                                           |
 | `env`                                     | `{}`                    | The environment variables passed to the service                                                           |
+| `labels`                                  | `{}`                    | Additional labels to set on all generated resources                                                       |
 | `resources.requests`                      | `{memory: 64M}`         | The minimum resources requested/reserved for the service                                                  |
 | `resources.limits`                        | `{memory: 128M}`        | The maximum resources the service can use                                                                 |
 | `replicas`                                | `1`                     | The number of instances of the service to run (set at least `2` for Pod Disruption Budget)                |

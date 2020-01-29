@@ -13,6 +13,8 @@ image:
 
 env: {}
 
+labels: {}
+
 resources:
   requests:
     memory: 64M
