@@ -44,7 +44,7 @@ ingress:
   enabled: false
   istio:
     enabled: false
-    gateway: istio-system/public
+    gateway: istio-system/public-gateway
     timeout:
     retries: {}
   port: 80

@@ -42,59 +42,59 @@ app:
 
 ## Values
 
-| Value                                     | Default                 | Description                                                                                               |
-|-------------------------------------------|-------------------------|-----------------------------------------------------------------------------------------------------------|
-| `global.tenant.id`                        |                         | The tenant's id (used for labeling)                                                                       |
-| `name`                                    | __required__            | The name of the service                                                                                   |
-| `image.registry`                          | __required__            | The Registry containing the Docker Image to run (also used as the name of an optional Image Pull Secret)  |
-| `image.repository`                        | __required__            | The name of the Docker Image image to run (without the Registry)                                          |
-| `image.tag`                               | __required__            | The tag of the Docker Image to run                                                                        |
-| `image.pullPolicy`                        | `IfNotPresent`          | Set to `Always` to try to pull new versions of the Docker Image                                           |
-| `env`                                     | `{}`                    | The environment variables passed to the service                                                           |
-| `labels`                                  | `{}`                    | Additional labels to set on all generated resources                                                       |
-| `resources.requests`                      | `{memory: 64M}`         | The minimum resources requested/reserved for the service                                                  |
-| `resources.limits`                        | `{memory: 128M}`        | The maximum resources the service can use                                                                 |
-| `replicas`                                | `1`                     | The number of instances of the service to run (set at least `2` for Pod Disruption Budget)                |
-| `autoscaling.enabled`                     | `false`                 | Enables automatic starting of additional instances based on CPU load                                      |
-| `autoscaling.maxReplicas`                 | `3`                     | The maximum number of instances to run (must be larger than `replicas`)                                   |
-| `autoscaling.targetCpu`                   | `50`                    | The desired average CPU load in percent                                                                   |
-| `rollingUpdate`                           | `true`                  | Controls whether to wait for new versions to be up and running before shutting down old version           |
-| `nodeSelector`                            | `{}`                    | Node labels required for scheduling this service, also used as tolerations                                |
-| `persistence.enabled`                     | `false`                 | Enables persistent storage for the service                                                                |
-| `persistence.storageClass`                |                         | The type of disk to use for storage instead of the cluster default                                        |
-| `persistence.size`                        | `1G`                    | The size of the persistent volume to create for the service                                               |
-| `persistence.mountPath`                   | __required if enabled__ | The mount path for the storage inside the container                                                       |
-| `secrets[].name`                          | __required if used__    | The name of the Kubernetes Secret                                                                         |
-| `secrets[].mountPath`                     | __required if used__    | The mount path for the Secret inside the container                                                        |
-| `secrets[].subPath`                       |                         | The path of a single file in the secret relative to the given `mountPath`                                 |
-| `secrets[].files`                         |                         | Secret content as map of file names to base64-encoded content; leave empty to reference existing secret   |
-| `ingress.enabled`                         | `false`                 | Enables HTTP ingress into the service                                                                     |
-| `ingress.port`                            | `80`                    | The container port ingress traffic is routed to                                                           |
-| `ingress.class`                           | `traefik-public`        | Specifies the ingress controller to use; `cluster` for cluster-internal access with no ingress controller |
-| `ingress.domain`                          | __required if enabled__ | The domain name under which the service is exposed (not for `cluster`)                                    |
-| `ingress.additionalDomains`               | `[]`                    | Additional domain names under which the service is exposed (not for `cluster`)                            |
-| `ingress.annotations`                     | `{}`                    | Additional annotations besides the ingress class to be added to the ingress  (not for `cluster`)          |
-| `ingress.tls`                             | `{}`                    | Specifies the TLS configuration for the ingress (not for `cluster`)                                       |
-| `ingress.istio.enabled`                   | `false`                 | Use Istio `VirtualService` instead of Kubernetes `Ingress` resource                                       |
-| `ingress.istio.gateway`                   | `istio-system/public`   | The name of the Istio `Gateway` to use                                                                    |
-| `ingress.istio.timeout`                   |                         | [Istio timeout](https://istio.io/docs/tasks/traffic-management/request-timeouts/)                         |
-| `ingress.istio.retries`                   | `{}`                    | [Istio retry policy](https://istio.io/docs/reference/config/networking/virtual-service/#HTTPRetry)        |
-| `livenessProbe`                           |                         | Probe that causes the service to be restarted when failing                                                |
-| `readinessProbe`                          |                         | Probe that prevents the service from receiving traffic when failing                                       |
-| `monitoring.enabled`                      | `true`                  | Enables Prometheus monitoring                                                                             |
-| `monitoring.port`                         | `5000`                  | The port which is scraped for monitoring data                                                             |
-| `alerting.enabled`                        | `false`                 | Enables generic alert rules (unavailable pods, high memory usage, HTTP 4xx/5xx responses, slow responses) |
-| `alerting.labels`                         | `{}`                    | Labels to apply to generic alert rules in addition to `component` and `severity`                          |
-| `alerting.memoryUsage.thresholdFactor`    | `0.9`                   | The maximum factor (between `0` and `1`) of memory usage allowed                                          |
-| `alerting.http4xxRatio.sampleInterval`    | `5m`                    | The time interval in which to measure ratio of HTTP 4xx responses for the current state                   |
-| `alerting.http4xxRatio.referenceInterval` | `1d`                    | The time interval in which to measure ratio of HTTP 4xx responses as a reference for the normal state     |
-| `alerting.http4xxRatio.thresholdFactor`   | `1.5`                   | The maximum factor between the current state and the normal state of HTTP 4xx response ratio allowed      |
-| `alerting.responseTime.sampleInterval`    | `1h`                    | The time interval in which to measure average HTTP response times for the current state                   |
-| `alerting.responseTime.referenceInterval` | `1d`                    | The time interval in which to measure average HTTP response times for the normal state                    |
-| `alerting.responseTime.thresholdFactor`   | `1.5`                   | The maximum factor between the current state and the normal state of HTTP response times allowed          |
-| `sidecars`                                | `[]`                    | Additional sidecar containers to be added to the Pod                                                      |
-| `rbac.roles`                              | `[]`                    | Namespace-specific Kubernetes RBAC Roles to assign to the service                                         |
-| `rbac.clusterRoles`                       | `[]`                    | Cluster-wide Kubernetes RBAC Roles to assign to the service                                               |
+| Value                                     | Default                       | Description                                                                                               |
+|-------------------------------------------|-------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `global.tenant.id`                        |                               | The tenant's id (used for labeling)                                                                       |
+| `name`                                    | __required__                  | The name of the service                                                                                   |
+| `image.registry`                          | __required__                  | The Registry containing the Docker Image to run (also used as the name of an optional Image Pull Secret)  |
+| `image.repository`                        | __required__                  | The name of the Docker Image image to run (without the Registry)                                          |
+| `image.tag`                               | __required__                  | The tag of the Docker Image to run                                                                        |
+| `image.pullPolicy`                        | `IfNotPresent`                | Set to `Always` to try to pull new versions of the Docker Image                                           |
+| `env`                                     | `{}`                          | The environment variables passed to the service                                                           |
+| `labels`                                  | `{}`                          | Additional labels to set on all generated resources                                                       |
+| `resources.requests`                      | `{memory: 64M}`               | The minimum resources requested/reserved for the service                                                  |
+| `resources.limits`                        | `{memory: 128M}`              | The maximum resources the service can use                                                                 |
+| `replicas`                                | `1`                           | The number of instances of the service to run (set at least `2` for Pod Disruption Budget)                |
+| `autoscaling.enabled`                     | `false`                       | Enables automatic starting of additional instances based on CPU load                                      |
+| `autoscaling.maxReplicas`                 | `3`                           | The maximum number of instances to run (must be larger than `replicas`)                                   |
+| `autoscaling.targetCpu`                   | `50`                          | The desired average CPU load in percent                                                                   |
+| `rollingUpdate`                           | `true`                        | Controls whether to wait for new versions to be up and running before shutting down old version           |
+| `nodeSelector`                            | `{}`                          | Node labels required for scheduling this service, also used as tolerations                                |
+| `persistence.enabled`                     | `false`                       | Enables persistent storage for the service                                                                |
+| `persistence.storageClass`                |                               | The type of disk to use for storage instead of the cluster default                                        |
+| `persistence.size`                        | `1G`                          | The size of the persistent volume to create for the service                                               |
+| `persistence.mountPath`                   | __required if enabled__       | The mount path for the storage inside the container                                                       |
+| `secrets[].name`                          | __required if used__          | The name of the Kubernetes Secret                                                                         |
+| `secrets[].mountPath`                     | __required if used__          | The mount path for the Secret inside the container                                                        |
+| `secrets[].subPath`                       |                               | The path of a single file in the secret relative to the given `mountPath`                                 |
+| `secrets[].files`                         |                               | Secret content as map of file names to base64-encoded content; leave empty to reference existing secret   |
+| `ingress.enabled`                         | `false`                       | Enables HTTP ingress into the service                                                                     |
+| `ingress.port`                            | `80`                          | The container port ingress traffic is routed to                                                           |
+| `ingress.class`                           | `traefik-public`              | Specifies the ingress controller to use; `cluster` for cluster-internal access with no ingress controller |
+| `ingress.domain`                          | __required if enabled__       | The domain name under which the service is exposed (not for `cluster`)                                    |
+| `ingress.additionalDomains`               | `[]`                          | Additional domain names under which the service is exposed (not for `cluster`)                            |
+| `ingress.annotations`                     | `{}`                          | Additional annotations besides the ingress class to be added to the ingress  (not for `cluster`)          |
+| `ingress.tls`                             | `{}`                          | Specifies the TLS configuration for the ingress (not for `cluster`)                                       |
+| `ingress.istio.enabled`                   | `false`                       | Use Istio `VirtualService` instead of Kubernetes `Ingress` resource                                       |
+| `ingress.istio.gateway`                   | `istio-system/public-gateway` | The name of the Istio `Gateway` to use                                                                    |
+| `ingress.istio.timeout`                   |                               | [Istio timeout](https://istio.io/docs/tasks/traffic-management/request-timeouts/)                         |
+| `ingress.istio.retries`                   | `{}`                          | [Istio retry policy](https://istio.io/docs/reference/config/networking/virtual-service/#HTTPRetry)        |
+| `livenessProbe`                           |                               | Probe that causes the service to be restarted when failing                                                |
+| `readinessProbe`                          |                               | Probe that prevents the service from receiving traffic when failing                                       |
+| `monitoring.enabled`                      | `true`                        | Enables Prometheus monitoring                                                                             |
+| `monitoring.port`                         | `5000`                        | The port which is scraped for monitoring data                                                             |
+| `alerting.enabled`                        | `false`                       | Enables generic alert rules (unavailable pods, high memory usage, HTTP 4xx/5xx responses, slow responses) |
+| `alerting.labels`                         | `{}`                          | Labels to apply to generic alert rules in addition to `component` and `severity`                          |
+| `alerting.memoryUsage.thresholdFactor`    | `0.9`                         | The maximum factor (between `0` and `1`) of memory usage allowed                                          |
+| `alerting.http4xxRatio.sampleInterval`    | `5m`                          | The time interval in which to measure ratio of HTTP 4xx responses for the current state                   |
+| `alerting.http4xxRatio.referenceInterval` | `1d`                          | The time interval in which to measure ratio of HTTP 4xx responses as a reference for the normal state     |
+| `alerting.http4xxRatio.thresholdFactor`   | `1.5`                         | The maximum factor between the current state and the normal state of HTTP 4xx response ratio allowed      |
+| `alerting.responseTime.sampleInterval`    | `1h`                          | The time interval in which to measure average HTTP response times for the current state                   |
+| `alerting.responseTime.referenceInterval` | `1d`                          | The time interval in which to measure average HTTP response times for the normal state                    |
+| `alerting.responseTime.thresholdFactor`   | `1.5`                         | The maximum factor between the current state and the normal state of HTTP response times allowed          |
+| `sidecars`                                | `[]`                          | Additional sidecar containers to be added to the Pod                                                      |
+| `rbac.roles`                              | `[]`                          | Namespace-specific Kubernetes RBAC Roles to assign to the service                                         |
+| `rbac.clusterRoles`                       | `[]`                          | Cluster-wide Kubernetes RBAC Roles to assign to the service                                               |
 
 ## Environment variables
 
