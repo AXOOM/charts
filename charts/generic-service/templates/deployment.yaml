@@ -100,7 +100,14 @@ spec:
             {{- if .Values.ingress.enabled }}
             - name: http-ingress
               containerPort: {{ .Values.ingress.port }}
+
+            {{- if .Values.ingress.grpcPort }}
+            - name: grpc-ingress
+              containerPort: {{ .Values.ingress.grpcPort }}
             {{- end }}
+
+            {{- end }}
+
             {{- if .Values.monitoring.enabled }}
             - name: monitoring
               containerPort: {{ .Values.monitoring.port }}

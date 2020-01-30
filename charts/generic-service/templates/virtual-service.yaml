@@ -24,6 +24,21 @@ spec:
 {{- end }}
 
   http:
+    {{- if .Values.ingress.grpcPort }}
+    - match:
+        - headers:
+            content-type:
+              prefix: application/grpc
+      route:
+        - destination:
+            host: '{{ .Values.name }}'
+            port:
+              number: 1337
+          timeout: {{ .Values.ingress.istio.timeout }}
+          retries:
+{{ .Values.ingress.istio.retries | toYaml | indent 14 }}
+      {{- end }}
+
     - route:
         - destination:
             host: '{{ .Values.name }}'

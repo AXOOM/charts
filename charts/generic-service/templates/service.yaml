@@ -16,6 +16,13 @@ spec:
     - name: http-ingress
       port: 80
       targetPort: http-ingress
+
+    {{- if .Values.ingress.grpcPort }}
+    - name: grpc-ingress
+      port: 1337
+      targetPort: grpc-ingress
+    {{- end }}
+
     {{- end }}
 
     {{- if .Values.monitoring.enabled }}

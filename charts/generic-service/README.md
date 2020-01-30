@@ -70,6 +70,7 @@ app:
 | `secrets[].files`                         |                               | Secret content as map of file names to base64-encoded content; leave empty to reference existing secret   |
 | `ingress.enabled`                         | `false`                       | Enables HTTP ingress into the service                                                                     |
 | `ingress.port`                            | `80`                          | The container port ingress traffic is routed to                                                           |
+| `ingress.grpcPort`                        |                               | Optional container port gRPC ingress traffic is routed to                                                 |
 | `ingress.class`                           | `traefik-public`              | Specifies the ingress controller to use; `cluster` for cluster-internal access with no ingress controller |
 | `ingress.domain`                          | __required if enabled__       | The domain name under which the service is exposed (not for `cluster`)                                    |
 | `ingress.additionalDomains`               | `[]`                          | Additional domain names under which the service is exposed (not for `cluster`)                            |
