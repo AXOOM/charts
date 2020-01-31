@@ -19,6 +19,7 @@ spec:
       labels:
 {{ include "etcd.selector-labels" . | indent 8 }}
       annotations:
+        traffic.sidecar.istio.io/excludeInboundPorts: '2380' # Exclude peer-to-peer traffic from Service Mesh
 {{- if .Values.annotations }}
 {{ .Values.annotations | toYaml | indent 8 }}
 {{- end }}
