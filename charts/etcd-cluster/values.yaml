@@ -6,6 +6,8 @@ image:
   tag: v3.4.2
   pullPolicy: IfNotPresent
 
+labels: {}
+
 replicas: 5
 
 persistence:

@@ -24,6 +24,7 @@ This etcd setup uses no authentication. All network access to the etcd instances
 | `image.tag`                 | `v3.3.12`                           |                                                                                                              |
 | `image.pullPolicy`          | `IfNotPresent`                      |                                                                                                              |
 | `replicas`                  | `5`                                 | The number of replicas. Do not change this after first deployment!                                           |
+| `labels`                    | `{}`                                | Additional labels to set on all generated resources                                                          |
 | `persistence.storageClass`  |                                     | The type of disk to use for storage instead of the cluster default                                           |
 | `persistence.size`          | `2G`                                | The disk size per node.                                                                                      |
 | `resources`                 | 256Mi mem                           | The resource requests and limits for the nodes.                                                              |
