@@ -18,6 +18,10 @@ spec:
     metadata:
       labels:
 {{ include "etcd.selector-labels" . | indent 8 }}
+      annotations:
+{{- if .Values.annotations }}
+{{ .Values.annotations | toYaml | indent 8 }}
+{{- end }}
 
     spec:
       containers:

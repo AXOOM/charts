@@ -28,6 +28,9 @@ spec:
 {{- if .Values.secrets }}
         checksum/secrets: {{ .Values.secrets | toJson | sha256sum }}
 {{- end }}
+{{- if .Values.annotations }}
+{{ .Values.annotations | toYaml | indent 8 }}
+{{- end }}
 
     spec:
       volumes:

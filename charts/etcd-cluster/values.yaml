@@ -8,6 +8,8 @@ image:
 
 labels: {}
 
+annotations: {}
+
 replicas: 5
 
 persistence:
