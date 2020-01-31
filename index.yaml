@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   etcd-cluster:
   - apiVersion: v1
+    created: "2020-01-31T15:45:43.9013156Z"
+    description: stateful etcd cluster
+    digest: faf26aa053d0d85ae6ff3a287581ff9a4abbdf94d12f758a278917d9fe9488ee
+    home: https://github.com/AXOOM/charts/tree/master/charts/etcd-cluster
+    name: etcd-cluster
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/5.4.1/etcd-cluster-5.4.1.tgz
+    version: 5.4.1
+  - apiVersion: v1
     created: "2020-01-30T14:40:35.1413455Z"
     description: stateful etcd cluster
     digest: d2f25638c4eda062aa84588bf1acbba21e35b11e788803711730b57297627ab1
@@ -240,6 +249,15 @@ entries:
     version: 4.0.0
   generic-service:
   - apiVersion: v1
+    created: "2020-01-31T15:45:43.9033155Z"
+    description: runs a service (with monitoring, ingress, etc.)
+    digest: 5efa3d1cd3df8f26dbd2f1475bb60c2bcb97180c36e99aeb1071c3226707dcbc
+    home: https://github.com/AXOOM/charts/tree/master/charts/generic-service
+    name: generic-service
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/5.4.1/generic-service-5.4.1.tgz
+    version: 5.4.1
+  - apiVersion: v1
     created: "2020-01-30T14:40:35.1433453Z"
     description: runs a service (with monitoring, ingress, etc.)
     digest: 4bd1a3d24eab4de9e76202fee67daaa77fe04eb6abf5f86dc65f79c2b0644a75
@@ -466,6 +484,15 @@ entries:
     version: 4.0.0
   image-pull-secret:
   - apiVersion: v1
+    created: "2020-01-31T15:45:43.9043157Z"
+    description: deploys an Image Pull Secret for a private Docker Registry
+    digest: d824a79efa14675cb182cec1c2724398c15ac5a673a6b16ddba77b4104d0cf5e
+    home: https://github.com/AXOOM/charts/tree/master/charts/image-pull-secret
+    name: image-pull-secret
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/5.4.1/image-pull-secret-5.4.1.tgz
+    version: 5.4.1
+  - apiVersion: v1
     created: "2020-01-30T14:40:35.1443449Z"
     description: deploys an Image Pull Secret for a private Docker Registry
     digest: dfe01cba6dfecdf01f082b3ca491e46915706469396f089fcc36a4d7bed68d66
@@ -665,6 +692,15 @@ entries:
     version: 4.2.0
   k8s-resource-metrics:
   - apiVersion: v1
+    created: "2020-01-31T15:45:43.9043157Z"
+    description: Exposes status field of a Kubernetes Resource as Prometheus metric
+    digest: a1321dd86bec1baa39857f92f1e8f4a9bdf32bcd93f9c55c500a5dd9c6cbf26b
+    home: https://github.com/AXOOM/charts/tree/master/charts/k8s-resource-metrics
+    name: k8s-resource-metrics
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/5.4.1/k8s-resource-metrics-5.4.1.tgz
+    version: 5.4.1
+  - apiVersion: v1
     created: "2020-01-30T14:40:35.1443449Z"
     description: Exposes status field of a Kubernetes Resource as Prometheus metric
     digest: 503bc92447527b8ed98de4dd1d9b0da4d440302e20343488c78f56b821e29434
@@ -800,6 +836,15 @@ entries:
     - https://github.com/AXOOM/charts/releases/download/4.5.0/k8s-resource-metrics-4.5.0.tgz
     version: 4.5.0
   mongodb:
+  - apiVersion: v1
+    created: "2020-01-31T15:45:43.9073155Z"
+    description: MongoDB with Network Policy and automatic backup
+    digest: b030fde721550d053fe427c14e180b16ba7d8402e81f7d9dcfc44123bacf774b
+    home: https://github.com/AXOOM/charts/tree/master/charts/mongodb
+    name: mongodb
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/5.4.1/mongodb-5.4.1.tgz
+    version: 5.4.1
   - apiVersion: v1
     created: "2020-01-30T14:40:35.1473437Z"
     description: MongoDB with Network Policy and automatic backup
@@ -990,6 +1035,15 @@ entries:
     - https://github.com/AXOOM/charts/releases/download/4.3.0/mongodb-4.3.0.tgz
     version: 4.3.0
   pod-restarter:
+  - apiVersion: v1
+    created: "2020-01-31T15:45:43.9083156Z"
+    description: A cronjob deleting pods
+    digest: d979533bdeac9e081b499cc66fab44d8b7a97df4614f189e7ab1c517279e40bd
+    home: https://github.com/AXOOM/charts/tree/master/charts/pod-restarter
+    name: pod-restarter
+    urls:
+    - https://github.com/AXOOM/charts/releases/download/5.4.1/pod-restarter-5.4.1.tgz
+    version: 5.4.1
   - apiVersion: v1
     created: "2020-01-30T14:40:35.1483449Z"
     description: A cronjob deleting pods
@@ -1215,4 +1269,4 @@ entries:
     urls:
     - https://github.com/AXOOM/charts/releases/download/4.0.0/pod-restarter-4.0.0.tgz
     version: 4.0.0
-generated: "2020-01-30T14:40:35.1403456Z"
+generated: "2020-01-31T15:45:43.8993195Z"
