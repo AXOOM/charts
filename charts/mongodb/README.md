@@ -31,7 +31,7 @@ mongodb:
 
 ## Access
 
-This MongoDB setup uses no authentication. All network access to the MongoDB instances is blocked by default via a [Network Policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/). You will need to set the `network.ingressFromApps` value (see [Values](#values)) or create your own Network Policy to allow other Pods in the Kubernetes Cluster to connect to the MongoDB instances.
+This MongoDB setup uses no authentication. All network access to the MongoDB instances is blocked by default via a [Network Policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/). You will need to set the `networkPolicy.ingressFromApps` value (see [Values](#values)) or create your own Network Policy to allow other Pods in the Kubernetes Cluster to connect to the MongoDB instances.
 
 ## Backups
 
@@ -54,7 +54,7 @@ The job is started with these environment variables:
 | `service.metrics.enabled`           | `true`                              | Controls whether resources for [Prometheus Operator](https://coreos.com/operators/prometheus) are created.   |
 | `service.metrics.namespaceSelector` | `{matchLabels: {role: monitoring}}` | Selects the namespace in which Prometheus is running. Used for network policy.                               |
 | `networkPolicy.enabled`             | `true`                              | Creates a Kubernetes Network Policy restricting access to MongoDB.                                           |
-| `network.ingressFromApps`           | `[]`                                | Array of values for `app` or `app.kubernetes.io/name` label of the services that should have access to etcd. |
+| `networkPolicy.ingressFromApps`     | `[]`                                | Array of values for `app` or `app.kubernetes.io/name` label of the services that should have access to etcd. |
 | `backup.enabled`                    | `false`                             | Controls whether automatic period backups are performed.                                                     |
 | `backup.schedule`                   | `0 0 * * *`                         | The backup schedule in [Cron format](https://en.wikipedia.org/wiki/Cron).                                    |
 | `backup.env`                        | `{}`                                | Additional environment variables to pass to the backup job.                                                  |

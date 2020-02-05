@@ -14,11 +14,11 @@ spec:
 
   ingress:
     - from:
-        {{- range .Values.network.ingressFromApps }}
+        {{- range .Values.networkPolicy.ingressFromApps }}
         - podSelector:
             matchLabels:
               app: {{ . | quote }}
-         - podSelector:
+        - podSelector:
             matchLabels:
               app.kubernetes.io/name: {{ . | quote }}
         {{- end }}
