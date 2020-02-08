@@ -52,7 +52,7 @@ ingress:
     retries: {}
   port: 80
   class: traefik-public
-  domain: # required if enabled, except for class "cluster"
+  domain:
   additionalDomains: []
   annotations: {} # additional annotations besides ingress class
   tls: [] # ingress tls configuration

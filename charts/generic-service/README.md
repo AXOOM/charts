@@ -72,11 +72,11 @@ app:
 | `ingress.enabled`                         | `false`                       | Enables HTTP ingress into the service                                                                     |
 | `ingress.port`                            | `80`                          | The container port ingress traffic is routed to                                                           |
 | `ingress.grpcPort`                        |                               | Optional container port gRPC ingress traffic is routed to                                                 |
-| `ingress.class`                           | `traefik-public`              | Specifies the ingress controller to use; `cluster` for cluster-internal access with no ingress controller |
-| `ingress.domain`                          | __required if enabled__       | The domain name under which the service is exposed (not for `cluster`)                                    |
-| `ingress.additionalDomains`               | `[]`                          | Additional domain names under which the service is exposed (not for `cluster`)                            |
-| `ingress.annotations`                     | `{}`                          | Additional annotations besides the ingress class to be added to the ingress  (not for `cluster`)          |
-| `ingress.tls`                             | `{}`                          | Specifies the TLS configuration for the ingress (not for `cluster`)                                       |
+| `ingress.class`                           | `traefik-public`              | Specifies the ingress controller to use                                                                   |
+| `ingress.domain`                          |                               | The domain name under which the service is exposed (leave empty for cluster-internal only)                |
+| `ingress.additionalDomains`               | `[]`                          | Additional domain names under which the service is exposed (if `ingress.domain` is set)                   |
+| `ingress.annotations`                     | `{}`                          | Additional annotations besides the ingress class to be added to the ingress (if `ingress.domain` is set)  |
+| `ingress.tls`                             | `{}`                          | Specifies the TLS configuration for the ingress (if `ingress.domain` is set)                              |
 | `ingress.istio.enabled`                   | `false`                       | Use Istio `VirtualService` instead of Kubernetes `Ingress` resource                                       |
 | `ingress.istio.gateway`                   | `istio-system/public-gateway` | The name of the Istio `Gateway` to use                                                                    |
 | `ingress.istio.timeout`                   |                               | [Istio timeout](https://istio.io/docs/tasks/traffic-management/request-timeouts/)                         |
@@ -124,7 +124,7 @@ Instructs Kubernetes to create a certain number of `Pod`s (`replicas`) running a
 Created if `ingress.enabled` or `monitoring.enabled` is `true`.
 
 **Ingress**  
-Created if `ingress.enabled` is `true`, `ingress.istio.enabled` is `false` and `ingress.class` is not `cluster`.
+Created if `ingress.enabled` is `true`, `ingress.domain` is not empty and `ingress.istio.enabled` is `false`.
 
 **Istio**  
 Created if `ingress.enabled` and `ingress.istio.enabled` are both `true`.

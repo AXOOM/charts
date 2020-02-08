@@ -10,14 +10,14 @@ metadata:
 spec:
   gateways:
     - mesh
-{{- if not (eq .Values.ingress.class "cluster") }}
+{{- if .Values.ingress.domain }}
     - '{{ .Values.ingress.istio.gateway }}'
 {{- end }}
 
   hosts:
     - '{{ .Values.name }}'
-{{- if not (eq .Values.ingress.class "cluster") }}
-    - '{{ required "Set ingress.domain" .Values.ingress.domain }}'
+{{- if .Values.ingress.domain }}
+    - '{{ .Values.ingress.domain }}'
 {{- end }}
 {{- if .Values.ingress.additionalDomains }}
 {{ .Values.ingress.additionalDomains | toYaml | indent 4 }}

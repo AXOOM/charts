@@ -1,4 +1,4 @@
-{{- if and (and .Values.ingress.enabled (not .Values.ingress.istio.enabled)) (not (eq .Values.ingress.class "cluster")) }}
+{{- if and (and .Values.ingress.enabled .Values.ingress.domain) (not .Values.ingress.istio.enabled) }}
 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -18,7 +18,7 @@ spec:
 {{ toYaml .Values.ingress.tls | indent 4 }}
 {{- end }}
   rules:
-    - host: '{{ required "Set ingress.domain" .Values.ingress.domain }}'
+    - host: {{ .Values.ingress.domain }}
       http:
         paths:
           - backend:

@@ -48,7 +48,7 @@ spec:
             summary: {{ .Values.name }} memory usage is high
             description: {{ .Values.name }} is using more than {{ .Values.alerting.memoryUsage.thresholdFactor }} of its available memory
 
-{{- if and .Values.ingress.enabled (not (eq .Values.ingress.class "cluster")) }}
+{{- if and .Values.ingress.enabled .Values.ingress.domain }}
         - alert: Http5xxOccurred
           expr: sum(increase(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"5.."}[1m])) > 0
           labels:
