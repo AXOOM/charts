@@ -22,3 +22,12 @@ axoom.com/customer: '{{ required "Set global.tenant.id" .Values.global.tenant.id
 {{- end }}
 
 {{- end }}
+
+
+{{ define "requests-total" }}{{ if .Values.ingress.istio.enabled }}istio_requests_total{{ else }}traefik_backend_requests_total{{ end }}{{ end }}
+
+{{ define "request-duration" }}{{ if .Values.ingress.istio.enabled }}istio_request_duration_seconds_sum{{ else }}traefik_backend_request_duration_seconds_sum{{ end }}{{ end }}
+
+{{ define "response-code" }}{{ if .Values.ingress.istio.enabled }}response_code{{ else }}code{{ end }}{{ end }}
+
+{{ define "requests-filter" }}{{ if .Values.ingress.istio.enabled }}destination_service_namespace="{{ .Release.Namespace }}", destination_service_name="{{ .Values.name }}"{{ else }}backend="{{ .Values.ingress.domain }}"{{ end }}{{ end }}

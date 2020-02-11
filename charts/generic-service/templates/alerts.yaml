@@ -18,7 +18,9 @@ spec:
           labels:
             component: {{ .Values.name }}
             severity: page
-{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+{{- if .Values.alerting.labels }}
+{{ toYaml .Values.alerting.labels | indent 12 }}
+{{- end }}
           annotations:
             summary: Some {{ .Values.name }} pods are unavailable
             description: Some of the {{ .Values.name }} pods were unavailable for the last 10 minutes
@@ -29,7 +31,9 @@ spec:
           labels:
             component: {{ .Values.name }}
             severity: page
-{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+{{- if .Values.alerting.labels }}
+{{ toYaml .Values.alerting.labels | indent 12 }}
+{{- end }}
           annotations:
             summary: All {{ .Values.name }} pods are unavailable
             description: All of the {{ .Values.name }} pods were unavailable for the last 1 minute
@@ -43,44 +47,55 @@ spec:
           labels:
             component: {{ .Values.name }}
             severity: page
-{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+{{- if .Values.alerting.labels }}
+{{ toYaml .Values.alerting.labels | indent 12 }}
+{{- end }}
           annotations:
             summary: {{ .Values.name }} memory usage is high
             description: {{ .Values.name }} is using more than {{ .Values.alerting.memoryUsage.thresholdFactor }} of its available memory
 
-{{- if and .Values.ingress.enabled .Values.ingress.domain }}
+{{ if and .Values.ingress.enabled (or .Values.ingress.domain .Values.ingress.istio.enabled) }}
         - alert: Http5xxOccurred
-          expr: sum(increase(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"5.."}[1m])) > 0
+          expr: >
+            sum(increase({{ include "requests-total" . }}{ {{ include "requests-filter" . }}, {{ include "response-code" . }}=~"5.." }[1m])) > 0
           labels:
             component: {{ .Values.name }}
             severity: page
-{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+{{- if .Values.alerting.labels }}
+{{ toYaml .Values.alerting.labels | indent 12 }}
+{{- end }}
           annotations:
             summary: {{ .Values.name }} HTTP 5xx responses occurred
             description: {{ .Values.name }} HTTP 5xx responses occurred in the last minute
 
         - alert: HighHttp4xxRatio
           expr: >
-            (sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRatio.sampleInterval }}])) / sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.http4xxRatio.sampleInterval }}]))) /
-            (sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}",code=~"4.."}[{{ .Values.alerting.http4xxRatio.referenceInterval }}])) / sum(rate(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.http4xxRatio.referenceInterval }}]))) >
+            sum(rate({{ include "requests-total" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.http4xxRatio.sampleInterval }}])) > 0 and
+            (sum(rate({{ include "requests-total" . }}{ {{ include "requests-filter" . }}, {{ include "response-code" . }}=~"4.." }[{{ .Values.alerting.http4xxRatio.sampleInterval }}])) / sum(rate({{ include "requests-total" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.http4xxRatio.sampleInterval }}]))) /
+            (sum(rate({{ include "requests-total" . }}{ {{ include "requests-filter" . }}, {{ include "response-code" . }}=~"4.." }[{{ .Values.alerting.http4xxRatio.referenceInterval }}])) / sum(rate({{ include "requests-total" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.http4xxRatio.referenceInterval }}]))) >
             {{ .Values.alerting.http4xxRatio.thresholdFactor }}
           labels:
             component: {{ .Values.name }}
             severity: ticket
-{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+{{- if .Values.alerting.labels }}
+{{ toYaml .Values.alerting.labels | indent 12 }}
+{{- end }}
           annotations:
             summary: Ratio of {{ .Values.name }} HTTP 4xx responses is high
             description: Ratio of {{ .Values.name }} HTTP responses with 4xx status codes in the last {{ .Values.alerting.http4xxRatio.sampleInterval }} is higher than in the last {{ .Values.alerting.http4xxRatio.referenceInterval }}
 
         - alert: SlowResponseTime
           expr: >
-            (sum(increase(traefik_backend_request_duration_seconds_sum{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.sampleInterval }}])) / sum(increase(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.sampleInterval }}]))) /
-            (sum(increase(traefik_backend_request_duration_seconds_sum{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.referenceInterval }}])) / sum(increase(traefik_backend_requests_total{backend="{{ .Values.ingress.domain }}"}[{{ .Values.alerting.responseTime.referenceInterval }}]))) >
+            sum(increase({{ include "requests-total" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.responseTime.sampleInterval }}])) > 0 and
+            (sum(increase({{ include "request-duration" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.responseTime.sampleInterval }}])) / sum(increase({{ include "requests-total" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.responseTime.sampleInterval }}]))) /
+            (sum(increase({{ include "request-duration" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.responseTime.referenceInterval }}])) / sum(increase({{ include "requests-total" . }}{ {{ include "requests-filter" . }} }[{{ .Values.alerting.responseTime.referenceInterval }}]))) >
             {{ .Values.alerting.responseTime.thresholdFactor }}
           labels:
             component: {{ .Values.name }}
             severity: ticket
-{{ if .Values.alerting.labels }}{{ toYaml .Values.alerting.labels | indent 12 }}{{ end }}
+{{- if .Values.alerting.labels }}
+{{ toYaml .Values.alerting.labels | indent 12 }}
+{{- end }}
           annotations:
             summary: Slow {{ .Values.name }} HTTP repsonses
             description: {{ .Values.name }} HTTP responses in the last {{ .Values.alerting.responseTime.sampleInterval }} were slower than in the last {{ .Values.alerting.responseTime.referenceInterval }}
