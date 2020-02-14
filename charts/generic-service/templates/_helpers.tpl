@@ -1,11 +1,11 @@
-{{ define "axoom.selector-labels" -}}
+{{ define "generic-service.selector-labels" -}}
 app: '{{ required "Set name" .Values.name }}'
 release: '{{ .Release.Name }}'
 {{- end }}
 
 
-{{ define "axoom.default-labels" -}}
-{{ include "axoom.selector-labels" . }}
+{{ define "generic-service.default-labels" -}}
+{{ include "generic-service.selector-labels" . }}
 app.kubernetes.io/name: '{{ required "Set name" .Values.name }}'
 app.kubernetes.io/version: '{{ required "Set image.tag" .Values.image.tag }}'
 app.kubernetes.io/instance: '{{ .Release.Name }}'

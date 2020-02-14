@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: {{ .Values.name }}
   labels:
-{{ include "axoom.default-labels" . | indent 4 }}
+{{ include "generic-service.default-labels" . | indent 4 }}
 
 spec:
   replicas: {{ .Values.replicas }}
 
   selector:
     matchLabels:
-{{ include "axoom.selector-labels" . | indent 6 }}
+{{ include "generic-service.selector-labels" . | indent 6 }}
 
   {{- if not .Values.rollingUpdate }}
   strategy:
@@ -20,7 +20,7 @@ spec:
   template:
     metadata:
       labels:
-{{ include "axoom.default-labels" . | indent 8 }}
+{{ include "generic-service.default-labels" . | indent 8 }}
       annotations:
 {{- if .Values.monitoring.enabled }}
         traffic.sidecar.istio.io/excludeInboundPorts: '{{ .Values.monitoring.port }}'
@@ -60,7 +60,7 @@ spec:
             - topologyKey: kubernetes.io/hostname
               labelSelector:
                 matchLabels:
-{{ include "axoom.selector-labels" . | indent 18 }}
+{{ include "generic-service.selector-labels" . | indent 18 }}
           preferredDuringSchedulingIgnoredDuringExecution:
             # Try to avoid scheduling multiple replicas in the same zone
             - weight: 100
@@ -68,7 +68,7 @@ spec:
                 topologyKey: failure-domain.beta.kubernetes.io/zone
                 labelSelector:
                   matchLabels:
-{{ include "axoom.selector-labels" . | indent 20 }}
+{{ include "generic-service.selector-labels" . | indent 20 }}
 
       {{- if .Values.nodeSelector }}
       nodeSelector:

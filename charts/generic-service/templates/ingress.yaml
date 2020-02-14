@@ -5,7 +5,7 @@ kind: Ingress
 metadata:
   name: {{ .Values.name }}
   labels:
-{{ include "axoom.default-labels" . | indent 4 }}
+{{ include "generic-service.default-labels" . | indent 4 }}
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
   {{- range $key, $value := .Values.ingress.annotations }}

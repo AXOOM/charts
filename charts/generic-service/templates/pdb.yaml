@@ -5,13 +5,13 @@ kind: PodDisruptionBudget
 metadata:
   name: {{ .Values.name }}
   labels:
-{{ include "axoom.default-labels" . | indent 4 }}
+{{ include "generic-service.default-labels" . | indent 4 }}
 
 spec:
   minAvailable: 1
 
   selector:
     matchLabels:
-{{ include "axoom.selector-labels" . | indent 6 }}
+{{ include "generic-service.selector-labels" . | indent 6 }}
 
 {{- end }}

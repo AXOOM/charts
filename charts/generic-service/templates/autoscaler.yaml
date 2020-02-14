@@ -5,7 +5,7 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Values.name }}
   labels:
-{{ include "axoom.default-labels" . | indent 4 }}
+{{ include "generic-service.default-labels" . | indent 4 }}
 
 spec:
   scaleTargetRef:
